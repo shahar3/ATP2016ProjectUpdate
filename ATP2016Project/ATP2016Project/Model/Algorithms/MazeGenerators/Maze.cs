@@ -3,5 +3,9 @@
     abstract class Maze : IMaze
     {
         public abstract void print();
+
+
+
+
     }
 }
