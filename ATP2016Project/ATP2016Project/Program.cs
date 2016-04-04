@@ -1,15 +1,24 @@
-﻿namespace ATP2016Project
+﻿using System;
+using ATP2016Project.Model.Algorithms.MazeGenerators;
+
+namespace ATP2016Project
 {
     class Program
     {
         static void Main(string[] args)
         {
-            //shahar
-            System.Console.WriteLine("Hello its me");
-            System.Console.WriteLine("yakir changes");
-            System.Console.WriteLine("Hello again");
-            System.Console.WriteLine("yakir changes2");
-            System.Console.WriteLine("yakir 3");
+            testMaze2dGenerator(new SimpleMaze2dGenerator());
+        }
+
+        private static void testMaze2dGenerator(IMazeGenerator mg)
+        {
+            Console.WriteLine(mg.measureAlgeorithemTime());
+            Maze maze = mg.generate();
+            Position start = maze.getStartPosition();
+            start.print();
+            maze.getGoalPosition().print();
+            maze.print();
+            throw new NotImplementedException();
         }
     }
 }
