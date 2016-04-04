@@ -5,6 +5,7 @@
         static void Main(string[] args)
         {
             //shahar
+            System.Console.WriteLine("Hello its me");
         }
     }
 }
