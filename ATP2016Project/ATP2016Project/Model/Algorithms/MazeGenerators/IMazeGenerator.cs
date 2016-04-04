@@ -2,7 +2,7 @@
 {
     interface IMazeGenerator
     {
-        Maze generate();
+        Maze generate(IMaze maze);
         string measureAlgeorithemTime();
     }
 }

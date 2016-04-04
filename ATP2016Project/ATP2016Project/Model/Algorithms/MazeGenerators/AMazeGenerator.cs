@@ -4,9 +4,9 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
 {
     abstract class AMazeGenerator : IMazeGenerator
     {
-        abstract public Maze generate();
+        abstract public Maze generate(IMaze maze);
 
-        public string measureAlgeorithemTime()
+        public string measureAlgeorithemTime(IMaze maze)
         {
             DateTime startingTime = DateTime.Now;
             //generate();
