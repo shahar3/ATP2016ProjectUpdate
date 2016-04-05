@@ -41,6 +41,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 {
                     //up
                     case 0:
+                        curPoint.Y -= 1;
                         if (checkIfPossible(maze, curPoint))
                         {
 
@@ -48,12 +49,24 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                         break;
                     //right
                     case 1:
+                        if (checkIfPossible(maze, curPoint))
+                        {
+
+                        }
                         break;
                     //down
                     case 2:
+                        if (checkIfPossible(maze, curPoint))
+                        {
+
+                        }
                         break;
                     //left
                     case 3:
+                        if (checkIfPossible(maze, curPoint))
+                        {
+
+                        }
                         break;
                 }
             }
