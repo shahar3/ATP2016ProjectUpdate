@@ -17,14 +17,22 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             initMazeToBeFullWithWalls(maze2d);
             //set the starting point and goal point to be free (0)
             setStartPointAndGoalPoint(maze2d);
-            //build the maze randomly
-            buildMazeRandomly(maze2d);
+            //build the goal path
+            buildGoalPath(maze2d);
             return null;
         }
 
-        private void buildMazeRandomly(Maze2d maze)
+        private void buildGoalPath(Maze2d maze)
         {
+            buildPathRec(maze, maze.StartPoint);
+        }
 
+        private void buildPathRec(Maze2d maze, Position curPoint)
+        {
+            if (curPoint.Equals(maze.GoalPoint))
+            {
+
+            }
         }
 
         private void setStartPointAndGoalPoint(Maze2d maze)
