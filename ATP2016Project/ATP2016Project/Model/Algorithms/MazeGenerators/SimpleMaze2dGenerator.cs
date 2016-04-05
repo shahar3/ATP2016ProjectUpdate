@@ -19,6 +19,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             setStartPointAndGoalPoint(maze2d);
             //build the goal path
             buildGoalPath(maze2d);
+            //surround with walls randomly
             return null;
         }
 
@@ -44,31 +45,35 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                         curPoint.Y -= 1;
                         if (checkIfPossible(maze, curPoint))
                         {
-
+                            maze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
                         }
                         break;
                     //right
                     case 1:
+                        curPoint.X += 1;
                         if (checkIfPossible(maze, curPoint))
                         {
-
+                            maze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
                         }
                         break;
                     //down
                     case 2:
+                        curPoint.Y += 1;
                         if (checkIfPossible(maze, curPoint))
                         {
-
+                            maze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
                         }
                         break;
-                    //left
+                        //left
+                        curPoint.X -= 1;
                     case 3:
                         if (checkIfPossible(maze, curPoint))
                         {
-
+                            maze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
                         }
                         break;
                 }
+                buildPathRec(maze, curPoint);
             }
         }
 
