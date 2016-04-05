@@ -31,8 +31,43 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         {
             if (curPoint.Equals(maze.GoalPoint))
             {
-
+                return;
             }
+            else
+            {
+                Random rand = new Random();
+                int direction = rand.Next(0, 3);
+                switch (direction)
+                {
+                    //up
+                    case 0:
+                        if (checkIfPossible(maze, curPoint))
+                        {
+
+                        }
+                        break;
+                    //right
+                    case 1:
+                        break;
+                    //down
+                    case 2:
+                        break;
+                    //left
+                    case 3:
+                        break;
+                }
+            }
+        }
+
+        private bool checkIfPossible(Maze2d maze, Position curPoint)
+        {
+            int maxX = maze.XLength;
+            int maxY = maze.YLength;
+            if (curPoint.X >= 0 && curPoint.X < maxX && curPoint.Y >= 0 && curPoint.Y < maxY)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void setStartPointAndGoalPoint(Maze2d maze)
