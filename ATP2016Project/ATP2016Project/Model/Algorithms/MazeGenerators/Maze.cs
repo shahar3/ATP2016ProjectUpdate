@@ -1,4 +1,6 @@
-﻿namespace ATP2016Project.Model.Algorithms.MazeGenerators
+﻿using System;
+
+namespace ATP2016Project.Model.Algorithms.MazeGenerators
 {
     /// <summary>
     /// in this class we implement the general maze structure
@@ -119,8 +121,22 @@
             set { m_zLength = value; }
         }
 
+        /// <summary>
+        /// Print the maze array (2d and 3d)
+        /// </summary>
+        public void print()
+        {
+            for (int j = 0; j < YLength; j++)
+            {
+                for (int k = 0; k < XLength; k++)
+                {
+                    Console.Write("{0} ", m_mazeArray[k, j, 0]);
+                }
+                Console.WriteLine("");
+            }
+            Console.WriteLine("");
+            Console.WriteLine("");
 
-        public abstract void print();
-
+        }
     }
 }

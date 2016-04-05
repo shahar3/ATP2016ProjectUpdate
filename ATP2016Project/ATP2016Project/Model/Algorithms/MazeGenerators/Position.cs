@@ -40,7 +40,7 @@
         {
             m_x = x;
             m_y = y;
-            m_z = -1;
+            m_z = 0;
         }
         /// <summary>
         /// the getters and setters

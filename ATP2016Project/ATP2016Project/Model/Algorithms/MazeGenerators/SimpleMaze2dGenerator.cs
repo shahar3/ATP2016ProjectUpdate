@@ -1,104 +1,144 @@
 ﻿using System;
+using System.Threading;
 
 namespace ATP2016Project.Model.Algorithms.MazeGenerators
 {
     class SimpleMaze2dGenerator : AMazeGenerator
     {
+        private Maze2d myMaze;
         public override Maze generate(IMaze maze)
         {
             //cast the maze to maze2d
-            Maze2d maze2d = maze as Maze2d;
-            if (maze2d == null)
+            myMaze = maze as Maze2d;
+            if (myMaze == null)
             {
                 Console.WriteLine("the maze is not a 2d maze");
                 return null;
             }
             //init the maze with walls (1)
-            initMazeToBeFullWithWalls(maze2d);
+            initMazeToBeFullWithWalls();
             //set the starting point and goal point to be free (0)
-            setStartPointAndGoalPoint(maze2d);
+            setStartPointAndGoalPoint();
             //build the goal path
-            buildGoalPath(maze2d);
+            buildGoalPath();
             //surround with walls randomly
-            return null;
+            surroundMaze(20);
+            myMaze.print();
+            return myMaze;
         }
 
-        private void buildGoalPath(Maze2d maze)
+        private void surroundMaze(int percent)
         {
-            buildPathRec(maze, maze.StartPoint);
+            for (int i = 0; i < myMaze.XLength; i++)
+            {
+                for (int j = 0; j < myMaze.YLength; j++)
+                {
+                    if (myMaze.MazeArray[i, j, 0] == 1)
+                    {
+                        Thread.Sleep(5);
+                        Random rand = new Random();
+                        int randomNumber = rand.Next(100);
+                        Console.WriteLine(randomNumber);
+                        if (randomNumber < percent)
+                        {
+                            myMaze.MazeArray[i, j, 0] = 0;
+                        }
+                    }
+                }
+            }
         }
 
-        private void buildPathRec(Maze2d maze, Position curPoint)
+        private void buildGoalPath()
         {
-            if (curPoint.Equals(maze.GoalPoint))
+            buildPathRec(myMaze.StartPoint);
+        }
+
+        private void buildPathRec(Position curPoint)
+        {
+            if (isNeighbour(curPoint))
             {
                 return;
             }
             else
             {
+                Console.WriteLine();
                 Random rand = new Random();
-                int direction = rand.Next(0, 3);
+                Thread.Sleep(6);
+                int direction = rand.Next(3);
+                int goalX = myMaze.GoalPoint.X;
+                int goalY = myMaze.GoalPoint.Y;
                 switch (direction)
                 {
                     //up
                     case 0:
-                        curPoint.Y -= 1;
-                        if (checkIfPossible(maze, curPoint))
+                        if (curPoint.Y < goalY)
                         {
-                            maze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
+                            break;
+                        }
+                        if (checkIfPossible(curPoint.X, curPoint.Y - 1))
+                        {
+                            curPoint.Y -= 1;
+                            myMaze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
                         }
                         break;
                     //right
                     case 1:
-                        curPoint.X += 1;
-                        if (checkIfPossible(maze, curPoint))
+                        if (checkIfPossible(curPoint.X + 1, curPoint.Y))
                         {
-                            maze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
+                            curPoint.X += 1;
+                            myMaze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
                         }
                         break;
                     //down
                     case 2:
-                        curPoint.Y += 1;
-                        if (checkIfPossible(maze, curPoint))
+                        if (curPoint.Y > goalY)
                         {
-                            maze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
+                            break;
                         }
-                        break;
-                        //left
-                        curPoint.X -= 1;
-                    case 3:
-                        if (checkIfPossible(maze, curPoint))
+                        if (checkIfPossible(curPoint.X, curPoint.Y + 1))
                         {
-                            maze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
+                            curPoint.Y += 1;
+                            myMaze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
                         }
                         break;
                 }
-                buildPathRec(maze, curPoint);
+                buildPathRec(curPoint);
             }
         }
 
-        private bool checkIfPossible(Maze2d maze, Position curPoint)
+        private bool isNeighbour(Position curPoint)
         {
-            int maxX = maze.XLength;
-            int maxY = maze.YLength;
-            if (curPoint.X >= 0 && curPoint.X < maxX && curPoint.Y >= 0 && curPoint.Y < maxY)
+            int x = curPoint.X, y = curPoint.Y;
+            int goalX = myMaze.GoalPoint.X, goalY = myMaze.GoalPoint.Y;
+            if (x + 1 == goalX && y == goalY || x - 1 == goalX && y == goalY || y - 1 == goalY && x == goalX || y + 1 == goalY && x == goalX)
             {
                 return true;
             }
             return false;
         }
 
-        private void setStartPointAndGoalPoint(Maze2d maze)
+        private bool checkIfPossible(int x, int y)
+        {
+            int maxX = myMaze.XLength;
+            int maxY = myMaze.YLength;
+            if (x >= 0 && x < maxX && y >= 0 && y < maxY)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void setStartPointAndGoalPoint()
         {
             try
             {
-                chooseStartAndGoalPoints(maze);
-                int xStart = maze.StartPoint.X;
-                int yStart = maze.StartPoint.Y;
-                int xGoal = maze.GoalPoint.X;
-                int yGoal = maze.GoalPoint.Y;
-                maze.MazeArray[xStart, yStart, 0] = 0;
-                maze.MazeArray[xGoal, yGoal, 0] = 0;
+                chooseStartAndGoalPoints();
+                int xStart = myMaze.StartPoint.X;
+                int yStart = myMaze.StartPoint.Y;
+                int xGoal = myMaze.GoalPoint.X;
+                int yGoal = myMaze.GoalPoint.Y;
+                myMaze.MazeArray[xStart, yStart, 0] = 0;
+                myMaze.MazeArray[xGoal, yGoal, 0] = 0;
             }
             catch (Exception e)
             {
@@ -106,26 +146,28 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             }
         }
 
-        private void chooseStartAndGoalPoints(Maze2d maze)
+        private void chooseStartAndGoalPoints()
         {
             Random rnd = new Random();
             //set start point
-            maze.StartPoint.X = rnd.Next(0, maze.XLength - 1);
-            maze.StartPoint.Y = rnd.Next(0, maze.YLength - 1);
+            myMaze.StartPoint = new Position();
+            myMaze.StartPoint.X = 0;
+            myMaze.StartPoint.Y = rnd.Next(0, myMaze.YLength);
             //set goal point
-            maze.GoalPoint.X = rnd.Next(0, maze.XLength - 1);
-            maze.GoalPoint.Y = rnd.Next(0, maze.YLength - 1);
+            myMaze.GoalPoint = new Position();
+            myMaze.GoalPoint.X = myMaze.XLength - 1;
+            myMaze.GoalPoint.Y = rnd.Next(0, myMaze.YLength);
         }
 
-        private void initMazeToBeFullWithWalls(Maze2d maze)
+        private void initMazeToBeFullWithWalls()
         {
             try
             {
-                for (int i = 0; i < maze.XLength; i++)
+                for (int i = 0; i < myMaze.XLength; i++)
                 {
-                    for (int j = 0; j < maze.YLength; j++)
+                    for (int j = 0; j < myMaze.YLength; j++)
                     {
-                        maze.MazeArray[i, j, 0] = 1;
+                        myMaze.MazeArray[i, j, 0] = 1;
                     }
                 }
             }

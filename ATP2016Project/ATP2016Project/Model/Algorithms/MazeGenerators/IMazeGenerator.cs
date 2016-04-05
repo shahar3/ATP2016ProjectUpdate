@@ -3,6 +3,6 @@
     interface IMazeGenerator
     {
         Maze generate(IMaze maze);
-        string measureAlgeorithemTime();
+        string measureAlgorithmTime(IMaze maze);
     }
 }

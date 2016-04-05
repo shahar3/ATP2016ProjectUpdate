@@ -6,7 +6,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
     {
         abstract public Maze generate(IMaze maze);
 
-        public string measureAlgeorithemTime(IMaze maze)
+        public string measureAlgorithmTime(IMaze maze)
         {
             DateTime startingTime = DateTime.Now;
             //generate();
