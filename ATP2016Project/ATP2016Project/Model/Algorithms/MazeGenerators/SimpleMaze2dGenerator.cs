@@ -7,7 +7,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
     {
         private Maze2d myMaze;
         private const int PercentOfWalls = 25;
-        public override Maze generate(IMaze maze)
+        public override Maze generate(IMaze maze, PrimAlgorithm algo)
         {
             //cast the maze to maze2d
             myMaze = maze as Maze2d;

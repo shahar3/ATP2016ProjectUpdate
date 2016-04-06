@@ -1,9 +1,11 @@
-﻿namespace ATP2016Project.Model.Algorithms.MazeGenerators
+﻿using System;
+
+namespace ATP2016Project.Model.Algorithms.MazeGenerators
 {
 
     ///this class create a position in maze
 
-    class Position
+    class Position : IComparable
     {
         private int m_x;
         private int m_y;
@@ -63,7 +65,18 @@
             set { m_z = value; }
         }
 
+        public int CompareTo(object obj)
+        {
+            Position other = obj as Position;
+            if (other.X == m_x && other.Y == m_y && other.Z == m_z)
+            {
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
 
-
+        }
     }
 }

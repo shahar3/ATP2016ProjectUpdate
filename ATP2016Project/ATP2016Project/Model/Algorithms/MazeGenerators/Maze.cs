@@ -132,11 +132,11 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             {
                 for (int k = 0; k < XLength; k++)
                 {
-                    if (m_mazeArray[k, j, 0] == 2)
+                    if (new Position(k, j, 0).CompareTo(m_startPoint) == 0)
                     {
                         Console.Write("S");
                     }
-                    else if (m_mazeArray[k, j, 0] == 3)
+                    else if (new Position(k, j, 0).CompareTo(m_goalPoint) == 0)
                     {
                         Console.Write("E");
                     }

@@ -1,12 +1,14 @@
-﻿using System;
-
-namespace ATP2016Project.Model.Algorithms.MazeGenerators
+﻿namespace ATP2016Project.Model.Algorithms.MazeGenerators
 {
     class MyMaze3dGenerator : AMazeGenerator
     {
-        public override Maze generate(IMaze maze)
+        private PrimAlgorithm m_alg;
+        public override Maze generate(IMaze maze, PrimAlgorithm alg)
         {
-            throw new NotImplementedException();
+            m_alg = alg;
+            return null;
         }
+
+
     }
 }

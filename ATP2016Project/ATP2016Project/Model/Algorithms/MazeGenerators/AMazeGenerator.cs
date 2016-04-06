@@ -4,7 +4,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
 {
     abstract class AMazeGenerator : IMazeGenerator
     {
-        abstract public Maze generate(IMaze maze);
+        abstract public Maze generate(IMaze maze, PrimAlgorithm algo);
 
         public string measureAlgorithmTime(IMaze maze)
         {
