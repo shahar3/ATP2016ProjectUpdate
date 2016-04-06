@@ -126,17 +126,25 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         /// </summary>
         public void print()
         {
+            string empty = " ";
+            string wall = "█";
             for (int j = 0; j < YLength; j++)
             {
                 for (int k = 0; k < XLength; k++)
                 {
-                    Console.Write("{0} ", m_mazeArray[k, j, 0]);
+                    if (m_mazeArray[k, j, 0] == 0)
+                    {
+                        Console.Write(empty);
+                    }
+                    else
+                    {
+                        Console.Write(wall);
+                    }
                 }
                 Console.WriteLine("");
             }
             Console.WriteLine("");
             Console.WriteLine("");
-
         }
     }
 }

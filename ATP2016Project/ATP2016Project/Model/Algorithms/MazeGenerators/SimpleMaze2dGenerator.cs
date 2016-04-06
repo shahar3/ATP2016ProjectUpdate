@@ -6,6 +6,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
     class SimpleMaze2dGenerator : AMazeGenerator
     {
         private Maze2d myMaze;
+        private const int PercentOfWalls = 25;
         public override Maze generate(IMaze maze)
         {
             //cast the maze to maze2d
@@ -21,13 +22,13 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             setStartPointAndGoalPoint();
             //build the goal path
             buildGoalPath();
-            //surround with walls randomly
-            surroundMaze(20);
+            //surround the maze with walls randomly
+            createWallsRandomlyMaze(PercentOfWalls);
             myMaze.print();
             return myMaze;
         }
 
-        private void surroundMaze(int percent)
+        private void createWallsRandomlyMaze(int percent)
         {
             for (int i = 0; i < myMaze.XLength; i++)
             {
@@ -73,19 +74,11 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                         {
                             break;
                         }
-                        if (checkIfPossible(curPoint.X, curPoint.Y - 1))
-                        {
-                            curPoint.Y -= 1;
-                            myMaze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
-                        }
+                        breakWall(curPoint.X, curPoint.Y - 1, out curPoint);
                         break;
                     //right
                     case 1:
-                        if (checkIfPossible(curPoint.X + 1, curPoint.Y))
-                        {
-                            curPoint.X += 1;
-                            myMaze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
-                        }
+                        breakWall(curPoint.X + 1, curPoint.Y, out curPoint);
                         break;
                     //down
                     case 2:
@@ -93,14 +86,20 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                         {
                             break;
                         }
-                        if (checkIfPossible(curPoint.X, curPoint.Y + 1))
-                        {
-                            curPoint.Y += 1;
-                            myMaze.MazeArray[curPoint.X, curPoint.Y, curPoint.Z] = 0;
-                        }
+                        breakWall(curPoint.X, curPoint.Y + 1, out curPoint);
                         break;
                 }
                 buildPathRec(curPoint);
+            }
+        }
+
+        private void breakWall(int x, int y, out Position mazePoint)
+        {
+            mazePoint = new Position(x, y);
+            if (checkIfPossible(x, y))
+            {
+                //mazePoint.Y += 1;
+                myMaze.MazeArray[mazePoint.X, mazePoint.Y, mazePoint.Z] = 0;
             }
         }
 
