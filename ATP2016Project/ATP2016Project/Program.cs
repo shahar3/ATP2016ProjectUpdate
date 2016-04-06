@@ -9,7 +9,7 @@ namespace ATP2016Project
         {
             //testMaze2dGenerator(new SimpleMaze2dGenerator());
             IMazeGenerator mg = new SimpleMaze2dGenerator();
-            mg.generate(new Maze2d(30, 30));
+            mg.generate(new Maze2d(12, 12));
             Console.ReadKey();
         }
 

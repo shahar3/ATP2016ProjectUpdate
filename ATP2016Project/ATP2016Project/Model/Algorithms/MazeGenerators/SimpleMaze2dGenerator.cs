@@ -98,7 +98,6 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             mazePoint = new Position(x, y);
             if (checkIfPossible(x, y))
             {
-                //mazePoint.Y += 1;
                 myMaze.MazeArray[mazePoint.X, mazePoint.Y, mazePoint.Z] = 0;
             }
         }
@@ -134,8 +133,8 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 int yStart = myMaze.StartPoint.Y;
                 int xGoal = myMaze.GoalPoint.X;
                 int yGoal = myMaze.GoalPoint.Y;
-                myMaze.MazeArray[xStart, yStart, 0] = 0;
-                myMaze.MazeArray[xGoal, yGoal, 0] = 0;
+                myMaze.MazeArray[xStart, yStart, 0] = 2;
+                myMaze.MazeArray[xGoal, yGoal, 0] = 3;
             }
             catch (Exception e)
             {
