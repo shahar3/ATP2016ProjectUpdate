@@ -38,7 +38,6 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                         Thread.Sleep(5);
                         Random rand = new Random();
                         int randomNumber = rand.Next(100);
-                        Console.WriteLine(randomNumber);
                         if (randomNumber < percent)
                         {
                             myMaze.MazeArray[i, j, 0] = 0;
@@ -61,7 +60,6 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             }
             else
             {
-                Console.WriteLine();
                 Random rand = new Random();
                 Thread.Sleep(6);
                 int direction = rand.Next(3);
