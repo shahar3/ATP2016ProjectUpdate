@@ -1,4 +1,6 @@
-﻿namespace ATP2016Project.Model.Algorithms.MazeGenerators
+﻿using System;
+
+namespace ATP2016Project.Model.Algorithms.MazeGenerators
 {
     class Maze2d : Maze
     {
@@ -17,6 +19,42 @@
         public Maze2d() : base()
         {
 
+        }
+
+        /// <summary>
+        /// the naive algorithm printing method
+        /// </summary>
+        public override void print()
+        {
+            {
+                string empty = " ";
+                string wall = "█";
+                for (int j = 0; j < YLength; j++)
+                {
+                    for (int k = 0; k < XLength; k++)
+                    {
+                        if (new Position(k, j, 0).CompareTo(this.StartPoint) == 0)
+                        {
+                            Console.Write("S");
+                        }
+                        else if (new Position(k, j, 0).CompareTo(this.GoalPoint) == 0)
+                        {
+                            Console.Write("E");
+                        }
+                        else if (this.MazeArray[k, j] == 0)
+                        {
+                            Console.Write(empty);
+                        }
+                        else
+                        {
+                            Console.Write(wall);
+                        }
+                    }
+                    Console.WriteLine("");
+                }
+                Console.WriteLine("");
+                Console.WriteLine("");
+            }
         }
     }
 }

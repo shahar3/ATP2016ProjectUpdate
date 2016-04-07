@@ -53,6 +53,15 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             set { m_x = value; }
         }
 
+        internal bool isNeighbour(Position pos)
+        {
+            if ((m_x == pos.m_x && m_y == pos.Y + 1) || (m_x == pos.m_x && m_y == pos.Y - 1) || (m_x == pos.X + 1 && m_y == pos.Y) || (m_x == pos.X - 1 && m_y == pos.Y))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public int Y
         {
             get { return m_y; }
@@ -77,6 +86,21 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 return -1;
             }
 
+        }
+
+        public override bool Equals(Object otherObj)
+        {
+            Position other = otherObj as Position;
+            if (other.X == m_x && other.Y == m_y && other.Z == m_z)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

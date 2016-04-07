@@ -34,14 +34,14 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             {
                 for (int j = 0; j < myMaze.YLength; j++)
                 {
-                    if (myMaze.MazeArray[i, j, 0] == 1)
+                    if (myMaze.MazeArray[i, j] == 1)
                     {
                         Thread.Sleep(5);
                         Random rand = new Random();
                         int randomNumber = rand.Next(100);
                         if (randomNumber < percent)
                         {
-                            myMaze.MazeArray[i, j, 0] = 0;
+                            myMaze.MazeArray[i, j] = 0;
                         }
                     }
                 }
@@ -98,7 +98,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             mazePoint = new Position(x, y);
             if (checkIfPossible(x, y))
             {
-                myMaze.MazeArray[mazePoint.X, mazePoint.Y, mazePoint.Z] = 0;
+                myMaze.MazeArray[mazePoint.X, mazePoint.Y] = 0;
             }
         }
 
@@ -133,8 +133,8 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 int yStart = myMaze.StartPoint.Y;
                 int xGoal = myMaze.GoalPoint.X;
                 int yGoal = myMaze.GoalPoint.Y;
-                myMaze.MazeArray[xStart, yStart, 0] = 2;
-                myMaze.MazeArray[xGoal, yGoal, 0] = 3;
+                myMaze.MazeArray[xStart, yStart] = 2;
+                myMaze.MazeArray[xGoal, yGoal] = 3;
             }
             catch (Exception e)
             {
@@ -163,7 +163,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 {
                     for (int j = 0; j < myMaze.YLength; j++)
                     {
-                        myMaze.MazeArray[i, j, 0] = 1;
+                        myMaze.MazeArray[i, j] = 1;
                     }
                 }
             }

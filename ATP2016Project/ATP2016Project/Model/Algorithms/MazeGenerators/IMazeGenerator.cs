@@ -2,7 +2,7 @@
 {
     interface IMazeGenerator
     {
-        Maze generate(IMaze maze);
-        string measureAlgorithmTime(IMaze maze);
+        Maze generate(IMaze maze, PrimAlgorithm algo);
+        string measureAlgorithmTime(IMaze maze, PrimAlgorithm algo);
     }
 }

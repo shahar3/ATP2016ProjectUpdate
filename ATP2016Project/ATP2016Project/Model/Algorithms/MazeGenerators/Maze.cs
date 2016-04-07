@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 
 namespace ATP2016Project.Model.Algorithms.MazeGenerators
 {
@@ -10,14 +10,18 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
     {
         private Position m_startPoint;
         private Position m_goalPoint;
+        private ArrayList m_maze2DLayers;
         private int m_xLength;
         private int m_yLength;
         private int m_zLength;
-        private int[,,] m_mazeArray;
+        private int[,] m_mazeArray;
+        private int[,] m_grid; //usefull for printing prim's algorithm
+
+
         //default values
         private const int MINIMAL_X_LENGTH = 4;
         private const int MINIMAL_Y_LENGTH = 4;
-        private const int MINIMAL_Z_LENGTH = 1;
+        private const int MINIMAL_Z_LENGTH = 1; //the number of layers
 
         /// <summary>
         /// the default constructor initialized with default values
@@ -28,7 +32,9 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             m_goalPoint = new Position(MINIMAL_X_LENGTH - 1, MINIMAL_Y_LENGTH - 1);
             m_xLength = MINIMAL_X_LENGTH;
             m_yLength = MINIMAL_Y_LENGTH;
-            m_mazeArray = new int[MINIMAL_X_LENGTH, MINIMAL_Y_LENGTH, MINIMAL_Z_LENGTH];
+            m_mazeArray = new int[MINIMAL_X_LENGTH, MINIMAL_Y_LENGTH];
+            m_maze2DLayers = new ArrayList();
+            m_maze2DLayers.Add(m_mazeArray);
         }
         /// <summary>
         /// the 2d maze constructor without start point and goal point
@@ -41,7 +47,9 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             m_goalPoint = null;
             m_xLength = xLength;
             m_yLength = yLength;
-            m_mazeArray = new int[m_xLength, m_yLength, MINIMAL_Z_LENGTH];
+            m_mazeArray = new int[m_xLength, m_yLength];
+            m_maze2DLayers = new ArrayList();
+            m_maze2DLayers.Add(m_mazeArray);
         }
         /// <summary>
         /// the 3d maze constructor
@@ -58,7 +66,12 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             m_xLength = xLength;
             m_yLength = yLength;
             m_zLength = zLength;
-            m_mazeArray = new int[m_xLength, m_yLength, m_yLength];
+            m_maze2DLayers = new ArrayList();
+            for (int i = 0; i < zLength; i++)
+            {
+                m_mazeArray = new int[m_xLength, m_yLength];
+                m_maze2DLayers.Add(m_mazeArray);
+            }
         }
         /// <summary>
         /// the 3d maze constructor without start point and goal point
@@ -73,11 +86,16 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             m_zLength = zLength;
             m_startPoint = null;
             m_goalPoint = null;
-            m_mazeArray = new int[m_xLength, m_yLength, m_yLength];
+            m_maze2DLayers = new ArrayList();
+            for (int i = 0; i < zLength; i++)
+            {
+                m_mazeArray = new int[m_xLength, m_yLength];
+                m_maze2DLayers.Add(m_mazeArray);
+            }
         }
 
 
-        public int[,,] MazeArray
+        public int[,] MazeArray
         {
             get { return m_mazeArray; }
             set { m_mazeArray = value; }
@@ -121,38 +139,22 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             set { m_zLength = value; }
         }
 
+
+        public ArrayList Maze2DLayers
+        {
+            get { return m_maze2DLayers; }
+            set { m_maze2DLayers = value; }
+        }
+
+        public int[,] Grid
+        {
+            get { return m_grid; }
+            set { m_grid = value; }
+        }
+
         /// <summary>
         /// Print the maze array (2d and 3d)
         /// </summary>
-        public void print()
-        {
-            string empty = " ";
-            string wall = "█";
-            for (int j = 0; j < YLength; j++)
-            {
-                for (int k = 0; k < XLength; k++)
-                {
-                    if (new Position(k, j, 0).CompareTo(m_startPoint) == 0)
-                    {
-                        Console.Write("S");
-                    }
-                    else if (new Position(k, j, 0).CompareTo(m_goalPoint) == 0)
-                    {
-                        Console.Write("E");
-                    }
-                    else if (m_mazeArray[k, j, 0] == 0)
-                    {
-                        Console.Write(empty);
-                    }
-                    else
-                    {
-                        Console.Write(wall);
-                    }
-                }
-                Console.WriteLine("");
-            }
-            Console.WriteLine("");
-            Console.WriteLine("");
-        }
+        public abstract void print();
     }
 }
