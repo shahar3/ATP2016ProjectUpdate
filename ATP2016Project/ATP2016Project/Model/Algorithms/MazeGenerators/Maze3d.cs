@@ -21,8 +21,8 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         /// </summary>
         public override void print()
         {
-            string wall = "█";
-            string space = " ";
+            string wall = "██";
+            string space = "  ";
             int rowLength = Grid.GetLength(0);
             int colLength = Grid.GetLength(1);
             for (int i = 0; i < colLength + 2; i++)
@@ -39,7 +39,15 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                     {
                         Console.Write(wall);
                     }
-                    if (Grid[i, j] == 1) //put space
+                    if (i == GoalPoint.X * 2 && j == GoalPoint.Y * 2)
+                    {
+                        Console.Write("E ");
+                    }
+                    else if (i == StartPoint.X * 2 && j == StartPoint.Y * 2)
+                    {
+                        Console.Write("S ");
+                    }
+                    else if (Grid[i, j] == 1) //put space
                     {
                         Console.Write(space);
                     }
