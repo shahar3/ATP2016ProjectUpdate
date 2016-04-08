@@ -4,6 +4,13 @@ using System.Threading;
 
 namespace ATP2016Project.Model.Algorithms.MazeGenerators
 {
+    /// <summary>
+    /// Implementation of prim algorithm (modified version)
+    /// we followed the steps:
+    /// 1-choose a random point in the maze
+    /// 2-add the point to close list
+    /// 3-while the close list doess
+    /// </summary>
     class PrimAlgorithm
     {
         private Maze myMaze;
