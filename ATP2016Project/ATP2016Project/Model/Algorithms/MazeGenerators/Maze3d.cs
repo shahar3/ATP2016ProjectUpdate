@@ -18,6 +18,8 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
 
         /// <summary>
         /// the "smart" algorithm printing method
+        /// printing s at start point and e at goal point
+        /// wrapping the maze with a frame
         /// </summary>
         public override void print()
         {
@@ -25,6 +27,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             string space = "  ";
             int rowLength = Grid.GetLength(0);
             int colLength = Grid.GetLength(1);
+            //the upper side of the frame
             for (int i = 0; i < colLength + 2; i++)
             {
                 Console.Write(wall);
@@ -35,33 +38,34 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 for (int j = 0; j < colLength; j++)
                 {
 
-                    if (j == 0)
+                    if (j == 0) //part of the frame
                     {
                         Console.Write(wall);
                     }
                     if (i == GoalPoint.X * 2 && j == GoalPoint.Y * 2)
                     {
-                        Console.Write("E ");
+                        Console.Write("E "); //goal point
                     }
                     else if (i == StartPoint.X * 2 && j == StartPoint.Y * 2)
                     {
-                        Console.Write("S ");
+                        Console.Write("S "); //start point
                     }
                     else if (Grid[i, j] == 1) //put space
                     {
                         Console.Write(space);
                     }
-                    else
+                    else //there is a wall
                     {
                         Console.Write(wall);
                     }
-                    if (j == colLength - 1)
+                    if (j == colLength - 1) //part of the frame
                     {
                         Console.Write(wall);
                     }
                 }
                 Console.WriteLine();
             }
+            //the lower side of the frame
             for (int i = 0; i < colLength + 2; i++)
             {
                 Console.Write(wall);

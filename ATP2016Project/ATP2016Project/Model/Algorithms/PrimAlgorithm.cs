@@ -73,7 +73,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 //break
                 grid[curPos.X * 2, placeToBreak] = 1;
             }
-            //they are in the same coloumn
+            //they are in the same column
             else
             {
                 int placeToBreak = Math.Min(curPos.X, adjacent.X) * 2 + 1;

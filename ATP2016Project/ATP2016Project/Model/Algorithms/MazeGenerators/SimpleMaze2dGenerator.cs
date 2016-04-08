@@ -6,7 +6,15 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
     class SimpleMaze2dGenerator : AMazeGenerator
     {
         private Maze2d myMaze;
-        private const int PercentOfWalls = 25;
+        private const int PercentOfWalls = 25; //set the chance to break a wall
+
+        /// <summary>
+        /// This is the main method in this class
+        /// from this method we call all the other helping methods to implement our algorithm
+        /// </summary>
+        /// <param name="maze"></param>
+        /// <param name="algo"></param>
+        /// <returns></returns>
         public override Maze generate(IMaze maze, PrimAlgorithm algo)
         {
             //cast the maze to maze2d
@@ -23,12 +31,15 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             //build the goal path
             buildGoalPath();
             //surround the maze with walls randomly
-            createWallsRandomlyMaze(PercentOfWalls);
-            myMaze.print();
+            breakWallsRandomlyMaze(PercentOfWalls);
             return myMaze;
         }
 
-        private void createWallsRandomlyMaze(int percent)
+        /// <summary>
+        /// We iterate through all the walls and break randomly with a given chance rate the walls
+        /// </summary>
+        /// <param name="percent"></param>
+        private void breakWallsRandomlyMaze(int percent)
         {
             for (int i = 0; i < myMaze.XLength; i++)
             {
@@ -39,7 +50,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                         Thread.Sleep(5);
                         Random rand = new Random();
                         int randomNumber = rand.Next(100);
-                        if (randomNumber < percent)
+                        if (randomNumber < percent) //25% to break a wall
                         {
                             myMaze.MazeArray[i, j] = 0;
                         }
@@ -48,13 +59,22 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             }
         }
 
+        /// <summary>
+        /// The wrapper method that calls the recursive method to build a path
+        /// </summary>
         private void buildGoalPath()
         {
             buildPathRec(myMaze.StartPoint);
         }
 
+        /// <summary>
+        /// given a starting point, this function builds a simple path to
+        /// the goal point of the maze
+        /// </summary>
+        /// <param name="curPoint"></param>
         private void buildPathRec(Position curPoint)
         {
+            //the break statement. if the current position is a neighbour of the goal position we finish to build the path
             if (isNeighbour(curPoint))
             {
                 return;
@@ -62,7 +82,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             else
             {
                 Random rand = new Random();
-                Thread.Sleep(6);
+                Thread.Sleep(6); //to make it completely random
                 int direction = rand.Next(3);
                 int goalX = myMaze.GoalPoint.X;
                 int goalY = myMaze.GoalPoint.Y;
@@ -93,6 +113,12 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             }
         }
 
+        /// <summary>
+        /// checks a certain position, and if it possible we break the wall (putting 0)
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="mazePoint"></param>
         private void breakWall(int x, int y, out Position mazePoint)
         {
             mazePoint = new Position(x, y);

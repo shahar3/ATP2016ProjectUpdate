@@ -15,7 +15,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         private int m_yLength;
         private int m_zLength;
         private int[,] m_mazeArray;
-        private int[,] m_grid; //usefull for printing prim's algorithm
+        private int[,] m_grid; //useful for printing prim's algorithm
 
 
         //default values
@@ -139,13 +139,19 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             set { m_zLength = value; }
         }
 
-
+        /// <summary>
+        /// determine how many layers (the z axis) we will have in the maze
+        /// *2d maze has 1 layer
+        /// </summary>
         public ArrayList Maze2DLayers
         {
             get { return m_maze2DLayers; }
             set { m_maze2DLayers = value; }
         }
 
+        /// <summary>
+        /// we use it in the 3d maze to represent the maze with the walls
+        /// </summary>
         public int[,] Grid
         {
             get { return m_grid; }
@@ -154,6 +160,8 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
 
         /// <summary>
         /// Print the maze array (2d and 3d)
+        /// we did it abstract because the 2d and 3d algorithms are different
+        /// and uses a different method. (3d using a grid layout to print)
         /// </summary>
         public abstract void print();
     }
