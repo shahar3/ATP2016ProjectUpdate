@@ -23,10 +23,19 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 m_alg = new PrimAlgorithm(maze2DLayer);
                 m_alg.startGenerating(); //activate the algorithm of prim to generate a random maze
                 maze2DLayer.Grid = m_alg.Grid;
-                myMaze.Maze2DLayers[i]=maze2DLayer;
+                myMaze.Maze2DLayers[i] = maze2DLayer;
             }
             generateRandomGoalPoint(); //choose a random goal point
+            generateRandomStartPoint(); //choose a random start point
             return myMaze;
+        }
+
+        private void generateRandomStartPoint()
+        {
+            Random r = new Random();
+            int randomNumber = r.Next(myMaze.YLength);
+            //3d start point
+            myMaze.StartPoint = new Position(0, randomNumber, 0);
         }
 
         /// <summary>
@@ -35,10 +44,11 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         private void generateRandomGoalPoint()
         {
             int lastRow = myMaze.XLength - 1;
+            int lastLvl = myMaze.ZLength - 1;
             Random r = new Random();
             int randomNumber = r.Next(myMaze.YLength);
-            //2d goal point
-            myMaze.GoalPoint = new Position(lastRow, randomNumber);
+            //3d goal point
+            myMaze.GoalPoint = new Position(lastRow, randomNumber, lastLvl);
         }
     }
 }

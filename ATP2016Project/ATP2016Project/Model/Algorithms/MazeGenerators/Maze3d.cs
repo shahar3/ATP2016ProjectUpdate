@@ -45,15 +45,15 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                         {
                             Console.Write(wall);
                         }
-                        //if (maze.GoalPoint!=null&i == GoalPoint.X * 2 && j == GoalPoint.Y * 2)
-                        //{
-                        //    Console.Write("E "); //goal point
-                        //}
-                        //else if (maze.StartPoint!=null&i == StartPoint.X * 2 && j == StartPoint.Y * 2)
-                        //{
-                        //    Console.Write("S "); //start point
-                        //}
-                        if (maze.Grid[i, j] == 1) //put space
+                        if (level == 0 && i == StartPoint.X*2 && j == StartPoint.Y*2)
+                        {
+                            Console.Write("S ");
+                        }
+                        else if(level == ZLength - 1 && i == GoalPoint.X*2 && j == GoalPoint.Y*2)
+                        {
+                            Console.Write("E ");
+                        }
+                        else if (maze.Grid[i, j] == 1) //put space
                         {
                             Console.Write(space);
                         }
