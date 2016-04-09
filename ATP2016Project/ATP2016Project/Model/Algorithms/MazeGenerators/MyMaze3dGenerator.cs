@@ -13,12 +13,13 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         /// <param name="maze"></param>
         /// <param name="alg"></param>
         /// <returns></returns>
-        public override Maze generate(IMaze maze, PrimAlgorithm alg)
+        public override Maze generate(int x, int y, int z)
         {
-            m_alg = alg;
+            IMaze maze = new Maze3d(x, y, z);
             myMaze = maze as Maze3d; //cast the maze to 3dMaze
-            alg.startGenerating(); //activate the algorithm of prim to generate a random maze
-            myMaze.Grid = alg.Grid; //this is what we print to represent the maze
+            m_alg = new PrimAlgorithm(myMaze);
+            m_alg.startGenerating(); //activate the algorithm of prim to generate a random maze
+            myMaze.Grid = m_alg.Grid; //this is what we print to represent the maze
             generateRandomGoalPoint(); //choose a random goal point
             return myMaze;
         }

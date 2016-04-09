@@ -15,15 +15,11 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         /// <param name="maze"></param>
         /// <param name="algo"></param>
         /// <returns></returns>
-        public override Maze generate(IMaze maze, PrimAlgorithm algo)
+        public override Maze generate(int x, int y, int z)
         {
-            //cast the maze to maze2d
+            //create 2d maze ignoring the z value
+            IMaze maze = new Maze2d(x, y);
             myMaze = maze as Maze2d;
-            if (myMaze == null)
-            {
-                Console.WriteLine("the maze is not a 2d maze");
-                return null;
-            }
             //init the maze with walls (1)
             initMazeToBeFullWithWalls();
             //set the starting point and goal point to be free (0)

@@ -4,12 +4,12 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
 {
     abstract class AMazeGenerator : IMazeGenerator
     {
-        abstract public Maze generate(IMaze maze, PrimAlgorithm algo);
+        abstract public Maze generate(int x, int y, int z);
 
-        public string measureAlgorithmTime(IMaze maze, PrimAlgorithm algo)
+        public string measureAlgorithmTime(int x, int y, int z)
         {
             DateTime startingTime = DateTime.Now;
-            generate(maze, algo);
+            generate(x, y, z);
             DateTime endTime = DateTime.Now;
             TimeSpan difference = endTime - startingTime;
             string result = difference.TotalSeconds.ToString();

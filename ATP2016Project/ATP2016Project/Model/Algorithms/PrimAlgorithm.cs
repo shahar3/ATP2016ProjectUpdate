@@ -10,7 +10,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
     /// 1-choose a random point in the maze
     /// 2-add the point to close list
     /// 3-while the close list doesn't have all the points of the maze do:
-    /// 3.1-find all the neighbours of the points in the close list
+    /// 3.1-find all the neighbors of the points in the close list
     /// 3.2-choose one randomly and "break the wall" between him and the most adjacent point in the close list
     /// 3.3-in the case there are more than one adjacent point, choose one randomly
     /// 3.4-add the neighbour you chose to the close list
@@ -21,8 +21,6 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         private Maze myMaze;
         private ArrayList m_closePositions, m_neighbours;
         private int[,] grid;
-
-
 
         public PrimAlgorithm(IMaze maze)
         {

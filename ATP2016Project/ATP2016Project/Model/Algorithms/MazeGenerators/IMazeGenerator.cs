@@ -2,7 +2,9 @@
 {
     interface IMazeGenerator
     {
-        Maze generate(IMaze maze, PrimAlgorithm algo);
-        string measureAlgorithmTime(IMaze maze, PrimAlgorithm algo);
+        //generate a maze given the dimensions
+        Maze generate(int x, int y, int z);
+        //measure time for generating the maze
+        string measureAlgorithmTime(int x, int y, int z);
     }
 }
