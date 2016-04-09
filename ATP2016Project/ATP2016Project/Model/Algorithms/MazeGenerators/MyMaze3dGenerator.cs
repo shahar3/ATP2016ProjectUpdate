@@ -17,9 +17,14 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         {
             IMaze maze = new Maze3d(x, y, z);
             myMaze = maze as Maze3d; //cast the maze to 3dMaze
-            m_alg = new PrimAlgorithm(myMaze);
-            m_alg.startGenerating(); //activate the algorithm of prim to generate a random maze
-            myMaze.Grid = m_alg.Grid; //this is what we print to represent the maze
+            for (int i = 0; i < z; i++)
+            {
+                Maze2d maze2DLayer = new Maze2d(x, y);
+                m_alg = new PrimAlgorithm(maze2DLayer);
+                m_alg.startGenerating(); //activate the algorithm of prim to generate a random maze
+                maze2DLayer.Grid = m_alg.Grid;
+                myMaze.Maze2DLayers[i]=maze2DLayer;
+            }
             generateRandomGoalPoint(); //choose a random goal point
             return myMaze;
         }

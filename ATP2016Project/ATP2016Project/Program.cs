@@ -12,9 +12,11 @@ namespace ATP2016Project
             //mg.generate(new Maze2d(30, 30), null);
             IMazeGenerator mg = new MyMaze3dGenerator();
             //maze = mg.generate(maze, new PrimAlgorithm(maze));
-            Console.WriteLine(mg.measureAlgorithmTime(20, 20, 4));
+            //Console.WriteLine(mg.measureAlgorithmTime(20, 20, 4));
+            Maze maze = mg.generate(15, 15, 4);
+            maze.print();
             IMazeGenerator mg2 = new SimpleMaze2dGenerator();
-            Console.WriteLine(mg2.measureAlgorithmTime(15, 15, 0));
+            //Console.WriteLine(mg2.measureAlgorithmTime(15, 15, 0));
             Console.ReadKey();
         }
 

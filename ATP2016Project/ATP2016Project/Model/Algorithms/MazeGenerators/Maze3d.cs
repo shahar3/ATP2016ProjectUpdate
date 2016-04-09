@@ -25,52 +25,57 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         {
             string wall = "██";
             string space = "  ";
-            int rowLength = Grid.GetLength(0);
-            int colLength = Grid.GetLength(1);
-            //the upper side of the frame
-            for (int i = 0; i < colLength + 2; i++)
+            for (int level = 0; level < ZLength; level++)
             {
-                Console.Write(wall);
-            }
-            Console.WriteLine();
-            for (int i = 0; i < rowLength; i++)
-            {
-                for (int j = 0; j < colLength; j++)
+                Maze2d maze = Maze2DLayers[level] as Maze2d;
+                int rowLength = maze.Grid.GetLength(0);
+                int colLength = maze.Grid.GetLength(1);
+                //the upper side of the frame
+                for (int i = 0; i < colLength + 2; i++)
                 {
-
-                    if (j == 0) //part of the frame
-                    {
-                        Console.Write(wall);
-                    }
-                    if (i == GoalPoint.X * 2 && j == GoalPoint.Y * 2)
-                    {
-                        Console.Write("E "); //goal point
-                    }
-                    else if (i == StartPoint.X * 2 && j == StartPoint.Y * 2)
-                    {
-                        Console.Write("S "); //start point
-                    }
-                    else if (Grid[i, j] == 1) //put space
-                    {
-                        Console.Write(space);
-                    }
-                    else //there is a wall
-                    {
-                        Console.Write(wall);
-                    }
-                    if (j == colLength - 1) //part of the frame
-                    {
-                        Console.Write(wall);
-                    }
+                    Console.Write(wall);
                 }
                 Console.WriteLine();
+                for (int i = 0; i < rowLength; i++)
+                {
+                    for (int j = 0; j < colLength; j++)
+                    {
+
+                        if (j == 0) //part of the frame
+                        {
+                            Console.Write(wall);
+                        }
+                        //if (maze.GoalPoint!=null&i == GoalPoint.X * 2 && j == GoalPoint.Y * 2)
+                        //{
+                        //    Console.Write("E "); //goal point
+                        //}
+                        //else if (maze.StartPoint!=null&i == StartPoint.X * 2 && j == StartPoint.Y * 2)
+                        //{
+                        //    Console.Write("S "); //start point
+                        //}
+                        if (maze.Grid[i, j] == 1) //put space
+                        {
+                            Console.Write(space);
+                        }
+                        else //there is a wall
+                        {
+                            Console.Write(wall);
+                        }
+                        if (j == colLength - 1) //part of the frame
+                        {
+                            Console.Write(wall);
+                        }
+                    }
+                    Console.WriteLine();
+                }
+                //the lower side of the frame
+                for (int i = 0; i < colLength + 2; i++)
+                {
+                    Console.Write(wall);
+                }
+                Console.WriteLine();
+                Console.WriteLine();
             }
-            //the lower side of the frame
-            for (int i = 0; i < colLength + 2; i++)
-            {
-                Console.Write(wall);
-            }
-            Console.WriteLine();
         }
     }
 }
