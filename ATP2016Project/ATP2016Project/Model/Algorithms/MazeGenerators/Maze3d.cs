@@ -31,10 +31,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 int rowLength = maze.Grid.GetLength(0);
                 int colLength = maze.Grid.GetLength(1);
                 //the upper side of the frame
-                for (int i = 0; i < colLength + 2; i++)
-                {
-                    Console.Write(wall);
-                }
+                printFrameRow(colLength + 2, wall);
                 Console.WriteLine();
                 for (int i = 0; i < rowLength; i++)
                 {
@@ -45,13 +42,17 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                         {
                             Console.Write(wall);
                         }
-                        if (level == 0 && i == StartPoint.X*2 && j == StartPoint.Y*2)
+                        if (level == 0 && i == StartPoint.X * 2 && j == StartPoint.Y * 2)
                         {
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.Write("S ");
+                            Console.ResetColor();
                         }
-                        else if(level == ZLength - 1 && i == GoalPoint.X*2 && j == GoalPoint.Y*2)
+                        else if (level == ZLength - 1 && i == GoalPoint.X * 2 && j == GoalPoint.Y * 2)
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.Write("E ");
+                            Console.ResetColor();
                         }
                         else if (maze.Grid[i, j] == 1) //put space
                         {
@@ -69,12 +70,17 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                     Console.WriteLine();
                 }
                 //the lower side of the frame
-                for (int i = 0; i < colLength + 2; i++)
-                {
-                    Console.Write(wall);
-                }
+                printFrameRow(colLength + 2, wall);
                 Console.WriteLine();
                 Console.WriteLine();
+            }
+        }
+
+        private void printFrameRow(int length, string toPrint)
+        {
+            for (int i = 0; i < length; i++)
+            {
+                Console.Write(toPrint);
             }
         }
     }

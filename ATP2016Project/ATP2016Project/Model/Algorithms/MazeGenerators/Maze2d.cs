@@ -33,11 +33,13 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 {
                     for (int k = 0; k < XLength; k++)
                     {
-                        if (new Position(k, j, 0).CompareTo(this.StartPoint) == 0)
+                        if (new Position(k, j, 0).Equals(this.StartPoint))
                         {
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.Write("S");
+                            Console.ResetColor();
                         }
-                        else if (new Position(k, j, 0).CompareTo(this.GoalPoint) == 0)
+                        else if (new Position(k, j, 0).Equals(this.GoalPoint))
                         {
                             Console.Write("E");
                         }

@@ -5,7 +5,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
 
     ///this class create a position in maze
 
-    class Position : IComparable
+    class Position
     {
         private int m_x;
         private int m_y;
@@ -21,7 +21,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             m_z = 0;
         }
         /// <summary>
-        /// the constructur for 3d points 
+        /// the constructor for 3d points 
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -33,7 +33,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             m_z = z;
         }
         /// <summary>
-        /// the consructor for 2d points
+        /// the constructor for 2d points
         /// the z is initialized with -1
         /// </summary>
         /// <param name="x"></param>
@@ -74,20 +74,12 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             set { m_z = value; }
         }
 
-        public int CompareTo(object obj)
-        {
-            Position other = obj as Position;
-            if (other.X == m_x && other.Y == m_y && other.Z == m_z)
-            {
-                return 0;
-            }
-            else
-            {
-                return -1;
-            }
-
-        }
-
+        /// <summary>
+        /// we override the object method equals. in that way we can compare 2 different positions
+        /// the program use it later in the function contain of the ArrayList
+        /// </summary>
+        /// <param name="otherObj"></param>
+        /// <returns></returns>
         public override bool Equals(Object otherObj)
         {
             Position other = otherObj as Position;
@@ -98,6 +90,10 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             return false;
         }
 
+        /// <summary>
+        /// The program use it for the function contain in the ArrayList
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return base.GetHashCode();
