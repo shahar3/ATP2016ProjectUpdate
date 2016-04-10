@@ -76,6 +76,11 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             }
         }
 
+        /// <summary>
+        /// helper method to print the maze frame
+        /// </summary>
+        /// <param name="length"></param>
+        /// <param name="toPrint"></param>
         private void printFrameRow(int length, string toPrint)
         {
             for (int i = 0; i < length; i++)

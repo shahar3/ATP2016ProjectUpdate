@@ -54,6 +54,7 @@
     <Compile Include="Model\Algorithms\MazeGenerators\Position.cs" />
     <Compile Include="Model\Algorithms\PrimAlgorithm.cs" />
     <Compile Include="Model\Algorithms\MazeGenerators\SimpleMaze2dGenerator.cs" />
+    <Compile Include="Model\Algorithms\Search\ASearcingAlgorithm.cs" />
     <Compile Include="Model\Algorithms\Search\AState.cs" />
     <Compile Include="Model\Algorithms\Search\BreadthFirstSearch.cs" />
     <Compile Include="Model\Algorithms\Search\DepthFirstSearch.cs" />

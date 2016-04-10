@@ -8,5 +8,6 @@ namespace ATP2016Project.Model.Algorithms.Search
 {
     interface ISearchingAlgorithm
     {
+        Solution search(ISearchable searchable);
     }
 }

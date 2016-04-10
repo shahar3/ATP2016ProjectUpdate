@@ -98,5 +98,15 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         {
             return base.GetHashCode();
         }
+
+        /// <summary>
+        /// overrides the toString function of object
+        /// now we can print the position easily and convert it to string with ease
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "(" + m_x + "," + m_y + "," + m_z + ")";
+        }
     }
 }
