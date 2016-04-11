@@ -2,7 +2,7 @@
 
 namespace ATP2016Project.Model.Algorithms.Search
 {
-    class AState
+    abstract class AState
     {
         private string m_state;
         private double m_cost;
@@ -67,5 +67,7 @@ namespace ATP2016Project.Model.Algorithms.Search
         {
             return m_state.Equals((obj as AState).m_state);
         }
+
+        public abstract void printState();
     }
 }
