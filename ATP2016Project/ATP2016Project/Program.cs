@@ -14,13 +14,14 @@ namespace ATP2016Project
             IMazeGenerator mg = new MyMaze3dGenerator();
             //maze = mg.generate(maze, new PrimAlgorithm(maze));
             //Console.WriteLine(mg.measureAlgorithmTime(20, 20, 4));
-            Maze maze = mg.generate(15, 15, 4);
-            maze.print();
+            Maze maze = mg.generate(19, 19, 2);
+            //maze.print();
             IMazeGenerator mg2 = new SimpleMaze2dGenerator();
             //Console.WriteLine(mg2.measureAlgorithmTime(15, 15, 0));
             ISearchable searchable = new SearchableMaze3d(maze);
             ISearchingAlgorithm bfs = new BreadthFirstSearch();
             bfs.search(searchable);
+            maze.print();
             Console.ReadKey();
         }
 

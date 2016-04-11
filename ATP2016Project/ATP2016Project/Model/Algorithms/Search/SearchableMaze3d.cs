@@ -17,33 +17,42 @@ namespace ATP2016Project.Model.Algorithms.Search
             m_maze = maze as Maze;
         }
 
+        public Maze MyMaze
+        {
+            get { return m_maze; }
+            set { m_maze = value; }
+        }
+
         public List<AState> getAllPossibleStates(AState state)
         {
             Position currentPosition = (state as MazeState).Position;
             m_successors = new List<AState>();
-            Position newPosition = new Position(currentPosition.X - 1, currentPosition.Y, currentPosition.Z);
-            if (checkIfValid(newPosition) && !checkIfThereIsWall(newPosition))
+            //up position
+            Position upPosition = new Position(currentPosition.X - 1, currentPosition.Y, currentPosition.Z);
+            if (checkIfValid(upPosition) && !checkIfThereIsWall(upPosition))
             {
-                AState stateToAdd = new MazeState(newPosition, state);
+                AState stateToAdd = new MazeState(upPosition, state);
                 m_successors.Add(stateToAdd);
             }
-            newPosition.X += 2;
-            if (checkIfValid(newPosition) && !checkIfThereIsWall(newPosition))
+            //down position
+            Position downPosition = new Position(currentPosition.X + 1, currentPosition.Y, currentPosition.Z);
+            if (checkIfValid(downPosition) && !checkIfThereIsWall(downPosition))
             {
-                AState stateToAdd = new MazeState(newPosition, state);
+                AState stateToAdd = new MazeState(downPosition, state);
                 m_successors.Add(stateToAdd);
             }
-            newPosition.X -= 1;
-            newPosition.Y -= 1;
-            if (checkIfValid(newPosition) && !checkIfThereIsWall(newPosition))
+            //left position
+            Position leftPosition = new Position(currentPosition.X, currentPosition.Y - 1, currentPosition.Z);
+            if (checkIfValid(leftPosition) && !checkIfThereIsWall(leftPosition))
             {
-                AState stateToAdd = new MazeState(newPosition, state);
+                AState stateToAdd = new MazeState(leftPosition, state);
                 m_successors.Add(stateToAdd);
             }
-            newPosition.Y += 2;
-            if (checkIfValid(newPosition) && !checkIfThereIsWall(newPosition))
+            //right position
+            Position rightPosition = new Position(currentPosition.X, currentPosition.Y + 1, currentPosition.Z);
+            if (checkIfValid(rightPosition) && !checkIfThereIsWall(rightPosition))
             {
-                AState stateToAdd = new MazeState(newPosition, state);
+                AState stateToAdd = new MazeState(rightPosition, state);
                 m_successors.Add(stateToAdd);
             }
             return m_successors;
@@ -53,13 +62,12 @@ namespace ATP2016Project.Model.Algorithms.Search
         private bool checkIfThereIsWall(Position newPosition)
         {
             int level = newPosition.Z;
-            Console.WriteLine("Check if position {0} has wall... the grid[{1},{2}]={3}", newPosition, newPosition.X, newPosition.Y, (m_maze.Maze2DLayers[level] as Maze).Grid[newPosition.X, newPosition.Y]);
             return (m_maze.Maze2DLayers[level] as Maze).Grid[newPosition.X, newPosition.Y] == 1;
         }
 
         private bool checkIfValid(Position posToCheck)
         {
-            return posToCheck.X > 0 && posToCheck.X < m_maze.XLength && posToCheck.Y > 0 && posToCheck.Y < m_maze.YLength;
+            return posToCheck.X > 0 && posToCheck.X < m_maze.XLength * 2 + 1 && posToCheck.Y > 0 && posToCheck.Y < m_maze.YLength * 2 + 1;
         }
 
         public AState getGoalState()

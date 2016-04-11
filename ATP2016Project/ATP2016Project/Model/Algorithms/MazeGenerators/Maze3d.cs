@@ -50,9 +50,15 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                         {
                             Console.Write(wall);
                         }
-                        else //there is a space
+                        else if (maze.Grid[i, j] == 0) //there is a space
                         {
                             Console.Write(space);
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = ConsoleColor.Red;
+                            Console.Write(space);
+                            Console.ResetColor();
                         }
                     }
                     Console.WriteLine();

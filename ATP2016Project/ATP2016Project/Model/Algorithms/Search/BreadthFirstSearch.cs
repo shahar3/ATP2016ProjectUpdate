@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ATP2016Project.Model.Algorithms.MazeGenerators;
 
 namespace ATP2016Project.Model.Algorithms.Search
 {
@@ -46,7 +47,6 @@ namespace ATP2016Project.Model.Algorithms.Search
                         OpenList.Enqueue(successor);
                     }
                 }
-
             }
             //if there is no solution
             return null;
@@ -57,10 +57,17 @@ namespace ATP2016Project.Model.Algorithms.Search
             //iterate untill we get to the start point
             while (currentState.Previous != null)
             {
+                markInGrid();
                 //add the state to the solution
                 this.Solution.addState(currentState);
                 currentState = currentState.Previous;
             }
+        }
+
+        private void markInGrid()
+        {
+            Position position = (currentState as MazeState).Position;
+            ((this.Searchable as SearchableMaze3d).MyMaze.Maze2DLayers[position.Z] as Maze).Grid[position.X, position.Y] = 2;
         }
 
         private void addInitialState()
