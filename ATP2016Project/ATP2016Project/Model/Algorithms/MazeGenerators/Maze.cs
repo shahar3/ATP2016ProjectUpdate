@@ -164,5 +164,15 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         /// and uses a different method. (3d using a grid layout to print)
         /// </summary>
         public abstract void print();
+
+        public Position getGoalPosition()
+        {
+            return this.GoalPoint;
+        }
+
+        public Position getStartPosition()
+        {
+            return this.StartPoint;
+        }
     }
 }

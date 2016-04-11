@@ -108,5 +108,10 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         {
             return "(" + m_x + "," + m_y + "," + m_z + ")";
         }
+
+        public void print()
+        {
+            Console.WriteLine(this);
+        }
     }
 }

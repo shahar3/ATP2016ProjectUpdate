@@ -68,6 +68,9 @@ namespace ATP2016Project.Model.Algorithms.Search
             return m_state.Equals((obj as AState).m_state);
         }
 
-        public abstract void printState();
+        public void printState()
+        {
+            Console.WriteLine(m_state);
+        }
     }
 }

@@ -16,7 +16,8 @@ namespace ATP2016Project.Model.Algorithms.Search
 
         public override Solution search(ISearchable searchable)
         {
-            this.Searchable = Searchable;
+            Console.WriteLine("start from {0} and need to get to {1}", searchable.getInitialState().State, searchable.getGoalState().State);
+            this.Searchable = searchable;
             //add the first state to the open list
             addInitialState();
             //run the algorithm until we dont have anything in the open list
@@ -35,6 +36,8 @@ namespace ATP2016Project.Model.Algorithms.Search
                 }
                 //find all the successors states
                 this.Successors = this.Searchable.getAllPossibleStates(currentState);
+                //add the current state to the close list
+                CloseList.Enqueue(currentState);
                 foreach (AState successor in this.Successors)
                 {
                     if (!this.OpenList.Contains(successor) && !this.CloseList.Contains(successor))

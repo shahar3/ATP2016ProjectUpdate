@@ -35,5 +35,6 @@ namespace ATP2016Project.Model.Algorithms.Search
             string mazePositionString = curPos.ToString();
             return mazePositionString;
         }
+
     }
 }

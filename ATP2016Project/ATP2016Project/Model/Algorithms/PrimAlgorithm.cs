@@ -25,7 +25,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         public PrimAlgorithm(IMaze maze)
         {
             myMaze = maze as Maze;
-            grid = new int[myMaze.XLength * 2 - 1, myMaze.YLength * 2 - 1];
+            grid = new int[myMaze.XLength * 2 + 1, myMaze.YLength * 2 + 1];
             m_closePositions = new ArrayList();
             m_neighbours = new ArrayList();
             initTheMazeGridToBeEmpty(); //mark the cells with 1's
@@ -33,13 +33,20 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
 
         private void initTheMazeGridToBeEmpty()
         {
-            int rows = myMaze.MazeArray.GetLength(0);
-            int cols = myMaze.MazeArray.GetLength(1);
+            int rows = grid.GetLength(0);
+            int cols = grid.GetLength(1);
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    grid[i * 2, j * 2] = 1;
+                    if (i % 2 == 0)
+                    {
+                        grid[i, j] = 1;
+                    }
+                    if (i % 2 == 1 && j % 2 == 0)
+                    {
+                        grid[i, j] = 1;
+                    }
                 }
             }
         }
@@ -79,16 +86,16 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             if (curPos.X == adjacent.X)
             {
                 //we use the formula minY*2+1 = the place to break
-                int placeToBreak = Math.Min(curPos.Y, adjacent.Y) * 2 + 1;
+                int placeToBreak = Math.Min(curPos.Y, adjacent.Y) * 2 + 2;
                 //break
-                grid[curPos.X * 2, placeToBreak] = 1;
+                grid[curPos.X * 2 + 1, placeToBreak] = 0;
             }
             //they are in the same column
             else
             {
-                int placeToBreak = Math.Min(curPos.X, adjacent.X) * 2 + 1;
+                int placeToBreak = Math.Min(curPos.X, adjacent.X) * 2 + 2;
                 //break
-                grid[placeToBreak, curPos.Y * 2] = 1;
+                grid[placeToBreak, curPos.Y * 2 + 1] = 0;
             }
         }
 

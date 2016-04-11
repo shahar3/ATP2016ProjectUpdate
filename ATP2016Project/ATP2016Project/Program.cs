@@ -1,4 +1,5 @@
 ﻿using ATP2016Project.Model.Algorithms.MazeGenerators;
+using ATP2016Project.Model.Algorithms.Search;
 using System;
 
 namespace ATP2016Project
@@ -17,6 +18,9 @@ namespace ATP2016Project
             maze.print();
             IMazeGenerator mg2 = new SimpleMaze2dGenerator();
             //Console.WriteLine(mg2.measureAlgorithmTime(15, 15, 0));
+            ISearchable searchable = new SearchableMaze3d(maze);
+            ISearchingAlgorithm bfs = new BreadthFirstSearch();
+            bfs.search(searchable);
             Console.ReadKey();
         }
 
