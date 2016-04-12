@@ -7,7 +7,7 @@ using ATP2016Project.Model.Algorithms.MazeGenerators;
 
 namespace ATP2016Project.Model.Algorithms.Search
 {
-    class BreadthFirstSearch : ASearcingAlgorithm
+    class BreadthFirstSearch : ASearchingAlgorithm
     {
         private AState currentState;
 
