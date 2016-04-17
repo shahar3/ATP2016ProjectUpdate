@@ -10,5 +10,6 @@ namespace ATP2016Project.Model.Algorithms.Search
     {
         Solution search(ISearchable searchable);
         int statesDeveloped();
+        String timeToSolve(ISearchable searchable);
     }
 }

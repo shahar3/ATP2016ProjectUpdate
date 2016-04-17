@@ -77,7 +77,18 @@ namespace ATP2016Project.Model.Algorithms.Search
 
         public int statesDeveloped()
         {
-            return numOfStates;
+            return CloseList.Count;
+        }
+
+        public string timeToSolve(ISearchable searchable)
+        {
+
+            DateTime startingTime = DateTime.Now;
+            search(searchable);
+            DateTime endTime = DateTime.Now;
+            TimeSpan difference = endTime - startingTime;
+            string result = difference.TotalSeconds.ToString();
+            return "It took " + result + "seconds to solve";
         }
     }
 }

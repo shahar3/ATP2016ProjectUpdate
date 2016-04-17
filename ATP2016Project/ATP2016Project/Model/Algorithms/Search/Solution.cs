@@ -39,5 +39,13 @@ namespace ATP2016Project.Model.Algorithms.Search
         {
             m_pathOfSolution.Reverse();
         }
+
+        public void printSolution()
+        {
+            foreach (AState state in m_pathOfSolution)
+            {
+                Console.WriteLine(state.State);
+            }
+        }
     }
 }

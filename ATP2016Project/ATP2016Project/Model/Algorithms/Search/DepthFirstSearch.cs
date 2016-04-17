@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Model.Algorithms.Search
 {
-    class DepthFirstSearch
+    class DepthFirstSearch : ASearchingAlgorithm
     {
+        public override Solution search(ISearchable searchable)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

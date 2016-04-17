@@ -27,7 +27,7 @@ namespace ATP2016Project.Model.Algorithms.Search
                 //get the next state from the open list
                 currentState = this.OpenList.Dequeue();
                 //check if the current state is the goal state
-                //if it is we finish the algorithm otherwise we continue
+                //if it is, we finish the algorithm otherwise we continue
                 if (currentState.Equals(this.Searchable.getGoalState()))
                 {
                     //we finished and now we backtrace the solution
