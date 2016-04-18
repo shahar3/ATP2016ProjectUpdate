@@ -9,8 +9,6 @@ namespace ATP2016Project.Model.Algorithms.Search
 {
     class BreadthFirstSearch : ASearchingAlgorithm
     {
-        private AState currentState;
-
         public BreadthFirstSearch() : base()
         {
         }
@@ -43,7 +41,7 @@ namespace ATP2016Project.Model.Algorithms.Search
                 {
                     if (!this.OpenList.Contains(successor) && !this.CloseList.Contains(successor))
                     {
-                        successor.Previous = currentState;
+                        //successor.Previous = currentState;
                         OpenList.Enqueue(successor);
                     }
                 }
@@ -70,6 +68,9 @@ namespace ATP2016Project.Model.Algorithms.Search
             ((this.Searchable as SearchableMaze3d).MyMaze.Maze2DLayers[position.Z] as Maze).Grid[position.X, position.Y] = 2;
         }
 
+        /// <summary>
+        /// Add the initial state to be the first in the open list
+        /// </summary>
         private void addInitialState()
         {
             this.OpenList.Enqueue(this.Searchable.getInitialState());

@@ -16,13 +16,12 @@ namespace ATP2016Project.Model.Algorithms.Search
         private ISearchable m_searchable;
         private List<AState> m_successors;
         private Solution m_solution;
-        private int numOfStates;
+        protected AState currentState;
 
         public ASearchingAlgorithm()
         {
             //first we initialize the lists and the solution
             initLists();
-            numOfStates = 0;
         }
 
         /// <summary>
@@ -89,6 +88,18 @@ namespace ATP2016Project.Model.Algorithms.Search
             TimeSpan difference = endTime - startingTime;
             string result = difference.TotalSeconds.ToString();
             return "It took " + result + "seconds to solve";
+        }
+
+        private void backtraceSolution()
+        {
+            //iterate untill we get to the start point
+            while (currentState.Previous != null)
+            {
+                //markInGrid();
+                //add the state to the solution
+                this.Solution.addState(currentState);
+                currentState = currentState.Previous;
+            }
         }
     }
 }
