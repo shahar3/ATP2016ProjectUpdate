@@ -174,7 +174,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             //set goal point
             myMaze.GoalPoint = new Position();
             myMaze.GoalPoint.X = myMaze.XLength - 1;
-            myMaze.GoalPoint.Y = rnd.Next(0, myMaze.YLength);
+            myMaze.GoalPoint.Y = rnd.Next(1, myMaze.YLength - 1);
         }
 
         private void initMazeToBeFullWithWalls()
