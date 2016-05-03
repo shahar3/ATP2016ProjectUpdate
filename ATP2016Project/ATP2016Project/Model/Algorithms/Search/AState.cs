@@ -2,6 +2,12 @@
 
 namespace ATP2016Project.Model.Algorithms.Search
 {
+    /// <summary>
+    /// this class represents the general form of each move in our problem
+    /// it has the varibales of state (string represention), 
+    /// cost - how much each move cost us
+    /// and previous - the previous state to our current state
+    /// </summary>
     abstract class AState
     {
         private string m_state;

@@ -21,7 +21,13 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         private Maze myMaze;
         private ArrayList m_closePositions, m_neighbours;
         private int[,] grid;
+        private Random r = new Random();
 
+        /// <summary>
+        /// Our prim constructor
+        /// call the initialize function that translate the maze to fit our algorithm
+        /// </summary>
+        /// <param name="maze"></param>
         public PrimAlgorithm(IMaze maze)
         {
             myMaze = maze as Maze;
@@ -31,6 +37,9 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             initTheMazeGridToBeEmpty(); //mark the cells with 1's
         }
 
+        /// <summary>
+        /// initialize the maze to fit our algorithm
+        /// </summary>
         private void initTheMazeGridToBeEmpty()
         {
             int rows = grid.GetLength(0);
@@ -51,22 +60,28 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             }
         }
 
+        /// <summary>
+        /// generate the maze randomly
+        /// </summary>
         public void startGenerating()
         {
             int numberOfPositions = myMaze.XLength * myMaze.YLength;
-            chooseRandomStartPosition();
-            addPointToTheMaze(myMaze.StartPoint);
+            chooseRandomStartPosition(); //choose a random start point
+            addPointToTheMaze(myMaze.StartPoint); //add the start point to the maze
             Position nextPos = new Position();
             while (m_closePositions.Count < numberOfPositions)
             {
-                findNeighbours();
+                findNeighbours(); //find all the neighbours of this cell
                 nextPos = chooseOneNeighbourRandomly();
                 addPointToTheMaze(nextPos);
                 breakWallBetweenCells(nextPos);
             }
         }
 
-
+        /// <summary>
+        /// add a given point to the maze by marking it with 1
+        /// </summary>
+        /// <param name="posToAdd"></param>
         private void addPointToTheMaze(Position posToAdd)
         {
             //grid[posToAdd.X, posToAdd.Y] = 1;
@@ -116,7 +131,6 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         private Position chooseNeighbourToBreakWallWithRandomly(ArrayList neighboursInCloseList)
         {
             int numOfNeighboursToChooseFrom = neighboursInCloseList.Count;
-            Random r = new Random();
             int randomNumber = r.Next(numOfNeighboursToChooseFrom);
             return neighboursInCloseList[randomNumber] as Position;
         }
@@ -162,8 +176,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         private Position chooseOneNeighbourRandomly()
         {
             int numOfNeighbours = m_neighbours.Count;
-            Random r = new Random();
-            Thread.Sleep(1);
+            //Thread.Sleep(1);
             int randomNeigbourNum = r.Next(numOfNeighbours);
             Position neighbour = m_neighbours[randomNeigbourNum] as Position;
             m_neighbours.Remove(neighbour);
