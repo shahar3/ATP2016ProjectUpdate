@@ -9,6 +9,15 @@ namespace ATP2016Project.Model.Algorithms.Search
 {
     class DepthFirstSearch : ASearchingAlgorithm
     {
+        /// <summary>
+        /// this is our implemntion for DFS algorithm
+        /// we follow the psuedo algorithm:
+        /// 1-add the initial state to the open list
+        /// 2-while the open list is no empty do:
+        /// 2.1-if the current state is the goal state we finish
+        /// 2.2- get all the sucsessors have on current state
+        /// 3.2- choose random sucsessor and insert to open list 
+        /// </summary>
         private Dictionary<AState, List<AState>> statesByPosition;
 
         public DepthFirstSearch() : base()
@@ -16,6 +25,13 @@ namespace ATP2016Project.Model.Algorithms.Search
             statesByPosition = new Dictionary<AState, List<AState>>();
         }
 
+        /// <summary>
+        ///  the main function
+        /// from here we implement our algorithm. get as parameter an object
+        /// that inherit from the interface ISearchable
+        /// </summary>
+        /// <param name="searchable"></param>
+        /// <returns></returns>
         public override Solution search(ISearchable searchable)
         {
             Console.WriteLine("start from {0} and need to get to {1}", searchable.getInitialState().State, searchable.getGoalState().State);
@@ -79,7 +95,10 @@ namespace ATP2016Project.Model.Algorithms.Search
                 statesByPosition[currentState].Remove(state);
             }
         }
-
+        /// <summary>
+        /// this is function that find random sucsessor
+        /// </summary>
+        /// <returns></returns>
         private AState randomSuccsessor()
         {
             Random rnd = new Random();
@@ -89,23 +108,21 @@ namespace ATP2016Project.Model.Algorithms.Search
             statesByPosition[currentState].Remove(randomState);
             return randomState;
         }
-
+        /// <summary>
+        /// in this function we build the solution 
+        /// we start from the current state(here this the goal state) and add
+        /// the state to the solution and go to the previous state until we arrive to start state
+        /// after this function we reverse this solution and get the real solution
+        /// </summary>
         private void backtraceSolution()
         {
             //iterate untill we get to the start point
             while (currentState.Previous != null)
             {
-                markInGrid();
                 //add the state to the solution
                 this.Solution.addState(currentState);
                 currentState = currentState.Previous;
             }
-        }
-
-        private void markInGrid()
-        {
-            Position position = (currentState as MazeState).Position;
-            ((this.Searchable as SearchableMaze3d).MyMaze.Maze2DLayers[position.Z] as Maze).Grid[position.X, position.Y] = 2;
         }
 
         /// <summary>

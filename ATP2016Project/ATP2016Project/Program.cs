@@ -10,7 +10,7 @@ namespace ATP2016Project
         {
             testMaze2dGenerator(new SimpleMaze2dGenerator());
             testMaze3dGenerator(new MyMaze3dGenerator());
-            //testSearchAlgorithms();
+            testSearchAlgorithms();
             Console.ReadKey();
         }
 
@@ -22,7 +22,7 @@ namespace ATP2016Project
             Maze maze = mg.generate(19, 19, 2);
             ISearchable searchable = new SearchableMaze3d(maze);
             maze.print();
-            dfs.search(searchable);
+            Solution solution = dfs.search(searchable);
             maze.print();
         }
 

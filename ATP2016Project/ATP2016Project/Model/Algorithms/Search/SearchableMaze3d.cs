@@ -82,5 +82,11 @@ namespace ATP2016Project.Model.Algorithms.Search
             return initialState;
         }
 
+        public void markInGrid(MazeState currentState)
+        {
+            Position position = (currentState as MazeState).Position;
+            (this.MyMaze.Maze2DLayers[position.Z] as Maze).Grid[position.X, position.Y] = 2;
+        }
+
     }
 }

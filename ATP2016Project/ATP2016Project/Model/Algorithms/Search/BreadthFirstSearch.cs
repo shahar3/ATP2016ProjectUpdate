@@ -77,21 +77,10 @@ namespace ATP2016Project.Model.Algorithms.Search
             //iterate untill we get to the start point
             while (currentState.Previous != null)
             {
-                //markInGrid();
                 //add the state to the solution
                 this.Solution.addState(currentState);
                 currentState = currentState.Previous;
             }
-        }
-
-        /// <summary>
-        /// a method to help us mark the solution in the maze grid
-        /// specific for the maze problem
-        /// </summary>
-        private void markInGrid()
-        {
-            Position position = (currentState as MazeState).Position;
-            ((this.Searchable as SearchableMaze3d).MyMaze.Maze2DLayers[position.Z] as Maze).Grid[position.X, position.Y] = 2;
         }
 
         /// <summary>
