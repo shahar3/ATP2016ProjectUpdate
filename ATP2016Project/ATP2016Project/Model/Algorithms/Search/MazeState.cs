@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Model.Algorithms.Search
 {
+    /// <summary>
+    /// this class is used as the object adapter for the abstract class state
+    /// we translate the functions of state to our maze problem
+    /// </summary>
     class MazeState : AState
     {
         private Position m_position;
