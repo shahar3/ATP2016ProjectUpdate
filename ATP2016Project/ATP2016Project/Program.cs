@@ -23,6 +23,7 @@ namespace ATP2016Project
             ISearchable searchable = new SearchableMaze3d(maze);
             maze.print();
             Solution solution = dfs.search(searchable);
+            (searchable as SearchableMaze3d).markSolutionInGrid(solution);
             maze.print();
         }
 

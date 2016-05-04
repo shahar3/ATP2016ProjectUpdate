@@ -18,6 +18,8 @@ namespace ATP2016Project.Model.Algorithms.Search
         private Maze m_maze; //we keep our maze in this variable
         private List<AState> m_successors; //list of all the neighbours of the state
 
+
+
         /// <summary>
         /// the default constructor
         /// cast the maze to the abstract class Maze and store it in our member variable
@@ -124,11 +126,18 @@ namespace ATP2016Project.Model.Algorithms.Search
             return initialState;
         }
 
-        public void markInGrid(MazeState currentState)
+        private void markInGrid(MazeState currentState)
         {
             Position position = (currentState as MazeState).Position;
             (this.MyMaze.Maze2DLayers[position.Z] as Maze).Grid[position.X, position.Y] = 2;
         }
 
+        public void markSolutionInGrid(Solution solution)
+        {
+            foreach (MazeState state in solution.getSolutionPath())
+            {
+                markInGrid(state);
+            }
+        }
     }
 }
