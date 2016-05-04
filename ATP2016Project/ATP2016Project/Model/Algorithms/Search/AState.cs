@@ -74,6 +74,10 @@ namespace ATP2016Project.Model.Algorithms.Search
             return m_state.Equals((obj as AState).m_state);
         }
 
+        /// <summary>
+        /// printing the current state
+        /// for debugging porpuse
+        /// </summary>
         public void printState()
         {
             Console.WriteLine(m_state);
