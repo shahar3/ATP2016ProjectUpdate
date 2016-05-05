@@ -30,6 +30,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 Maze2d maze = Maze2DLayers[level] as Maze2d;
                 int rowLength = maze.Grid.GetLength(0);
                 int colLength = maze.Grid.GetLength(1);
+                Console.WriteLine("****LEVEL {0}****", level + 1);
                 for (int i = 0; i < rowLength; i++)
                 {
                     for (int j = 0; j < colLength; j++)

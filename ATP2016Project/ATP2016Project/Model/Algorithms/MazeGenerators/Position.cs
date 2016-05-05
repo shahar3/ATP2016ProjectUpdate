@@ -106,7 +106,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
         /// <returns></returns>
         public override string ToString()
         {
-            return "(" + m_x + "," + m_y + "," + m_z + ")";
+            return "(" + m_x / 2 + "," + m_y / 2 + "," + m_z + ")";
         }
 
         public void print()

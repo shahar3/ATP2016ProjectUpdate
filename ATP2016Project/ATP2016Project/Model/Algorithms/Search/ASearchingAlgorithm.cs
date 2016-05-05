@@ -120,13 +120,13 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// <returns>time elapsed since the algorithm start to solve the problem till the end</returns>
         public string timeToSolve(ISearchable searchable)
         {
-
+            searchable.initializeGrid();
             DateTime startingTime = DateTime.Now;
             search(searchable);
             DateTime endTime = DateTime.Now;
             TimeSpan difference = endTime - startingTime;
             string result = difference.TotalSeconds.ToString();
-            return "It took " + result + "seconds to solve";
+            return "It took " + result + " seconds to solve";
         }
 
         /// <summary>

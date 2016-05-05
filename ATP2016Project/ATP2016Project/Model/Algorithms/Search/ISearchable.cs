@@ -28,5 +28,6 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// <param name="state"></param>
         /// <returns>all the possible solutions we can reach from the current state</returns>
         List<AState> getAllPossibleStates(AState state);
+        void initializeGrid();
     }
 }

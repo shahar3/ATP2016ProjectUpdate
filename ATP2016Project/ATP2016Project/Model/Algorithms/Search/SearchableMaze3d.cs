@@ -52,29 +52,29 @@ namespace ATP2016Project.Model.Algorithms.Search
             Position currentPosition = (state as MazeState).Position;
             m_successors = new List<AState>(); //init the successors list 
             //up position
-            Position upPosition = new Position(currentPosition.X - 1, currentPosition.Y, currentPosition.Z);
-            if (checkIfValid(upPosition) && !checkIfThereIsWall(upPosition))
+            Position upPosition = new Position(currentPosition.X - 2, currentPosition.Y, currentPosition.Z);
+            if (checkIfValid(upPosition) && !checkIfThereIsWall(upPosition, currentPosition))
             {
                 AState stateToAdd = new MazeState(upPosition, state);
                 m_successors.Add(stateToAdd);
             }
             //down position
-            Position downPosition = new Position(currentPosition.X + 1, currentPosition.Y, currentPosition.Z);
-            if (checkIfValid(downPosition) && !checkIfThereIsWall(downPosition))
+            Position downPosition = new Position(currentPosition.X + 2, currentPosition.Y, currentPosition.Z);
+            if (checkIfValid(downPosition) && !checkIfThereIsWall(downPosition, currentPosition))
             {
                 AState stateToAdd = new MazeState(downPosition, state);
                 m_successors.Add(stateToAdd);
             }
             //left position
-            Position leftPosition = new Position(currentPosition.X, currentPosition.Y - 1, currentPosition.Z);
-            if (checkIfValid(leftPosition) && !checkIfThereIsWall(leftPosition))
+            Position leftPosition = new Position(currentPosition.X, currentPosition.Y - 2, currentPosition.Z);
+            if (checkIfValid(leftPosition) && !checkIfThereIsWall(leftPosition, currentPosition))
             {
                 AState stateToAdd = new MazeState(leftPosition, state);
                 m_successors.Add(stateToAdd);
             }
             //right position
-            Position rightPosition = new Position(currentPosition.X, currentPosition.Y + 1, currentPosition.Z);
-            if (checkIfValid(rightPosition) && !checkIfThereIsWall(rightPosition))
+            Position rightPosition = new Position(currentPosition.X, currentPosition.Y + 2, currentPosition.Z);
+            if (checkIfValid(rightPosition) && !checkIfThereIsWall(rightPosition, currentPosition))
             {
                 AState stateToAdd = new MazeState(rightPosition, state);
                 m_successors.Add(stateToAdd);
@@ -88,6 +88,42 @@ namespace ATP2016Project.Model.Algorithms.Search
             }
             return m_successors;
 
+        }
+
+        /// <summary>
+        /// check if the wall between 2 adjacent cells is broken
+        /// </summary>
+        /// <param name="newPos"></param>
+        /// <param name="curPos"></param>
+        /// <returns></returns>
+        private bool checkIfThereIsWall(Position newPos, Position curPos)
+        {
+            if (newPos.X == curPos.X) //they are horizional
+            {
+                if (newPos.Y < curPos.Y)
+                {
+                    Position wallPosToCheck = new Position(newPos.X, newPos.Y + 1, newPos.Z);
+                    return checkIfThereIsWall(wallPosToCheck);
+                }
+                else
+                {
+                    Position wallPosToCheck = new Position(curPos.X, curPos.Y + 1, newPos.Z);
+                    return checkIfThereIsWall(wallPosToCheck);
+                }
+            }
+            else //they are vertical
+            {
+                if (newPos.X < curPos.X)
+                {
+                    Position wallPosToCheck = new Position(newPos.X + 1, newPos.Y, newPos.Z);
+                    return checkIfThereIsWall(wallPosToCheck);
+                }
+                else
+                {
+                    Position wallPosToCheck = new Position(curPos.X + 1, curPos.Y, newPos.Z);
+                    return checkIfThereIsWall(wallPosToCheck);
+                }
+            }
         }
 
         /// <summary>
@@ -134,17 +170,88 @@ namespace ATP2016Project.Model.Algorithms.Search
             return initialState;
         }
 
+        /// <summary>
+        /// this function help the user to see the path of the solution in a more visual way
+        /// </summary>
+        /// <param name="currentState"></param>
         private void markInGrid(MazeState currentState)
         {
             Position position = (currentState as MazeState).Position;
             (this.MyMaze.Maze2DLayers[position.Z] as Maze).Grid[position.X, position.Y] = 2;
         }
 
+        /// <summary>
+        /// this is the function that color the trace of the solution path
+        /// help the user to see the solution more clearly
+        /// </summary>
+        /// <param name="solution"></param>
         public void markSolutionInGrid(Solution solution)
         {
             foreach (MazeState state in solution.getSolutionPath())
             {
+                if (state.Previous != null)
+                {
+                    bool upOneLevel = !((state.Previous as MazeState).Position.Z == state.Position.Z);//check if we went to the upper level
+                    if (!upOneLevel)
+                        markInGrid(state, state.Previous);
+                }
                 markInGrid(state);
+            }
+        }
+
+        /// <summary>
+        /// paint also the wall between 2 cells
+        /// </summary>
+        /// <param name="state"></param>
+        /// <param name="previous"></param>
+        private void markInGrid(MazeState curState, AState prevState)
+        {
+            if (curState.Position.X == (prevState as MazeState).Position.X) //horizional wall
+            {
+                if (curState.Position.Y < (prevState as MazeState).Position.Y)
+                {
+                    Position posToPaint = new Position(curState.Position.X, curState.Position.Y + 1, curState.Position.Z);
+                    (this.MyMaze.Maze2DLayers[posToPaint.Z] as Maze).Grid[posToPaint.X, posToPaint.Y] = 2;
+                }
+                else
+                {
+                    Position posToPaint = new Position(curState.Position.X, curState.Position.Y - 1, curState.Position.Z);
+                    (this.MyMaze.Maze2DLayers[posToPaint.Z] as Maze).Grid[posToPaint.X, posToPaint.Y] = 2;
+                }
+            }
+            else //vertical wall
+            {
+                if (curState.Position.X < (prevState as MazeState).Position.X)
+                {
+                    Position posToPaint = new Position(curState.Position.X + 1, curState.Position.Y, curState.Position.Z);
+                    (this.MyMaze.Maze2DLayers[posToPaint.Z] as Maze).Grid[posToPaint.X, posToPaint.Y] = 2;
+                }
+                else
+                {
+                    Position posToPaint = new Position(curState.Position.X - 1, curState.Position.Y, curState.Position.Z);
+                    (this.MyMaze.Maze2DLayers[posToPaint.Z] as Maze).Grid[posToPaint.X, posToPaint.Y] = 2;
+                }
+            }
+        }
+
+        /// <summary>
+        /// remove all the 2's - the solution path
+        /// and restoring the default maze
+        /// </summary>
+        public void initializeGrid()
+        {
+            foreach (Maze mazeLayer in MyMaze.Maze2DLayers)
+            {
+                for (int i = 0; i < mazeLayer.XLength; i++)
+                {
+                    for (int j = 0; j < mazeLayer.YLength; j++)
+                    {
+                        if (mazeLayer.Grid[i, j] == 2)
+                        {
+                            mazeLayer.Grid[i, j] = 0;
+                        }
+                    }
+                }
             }
         }
     }

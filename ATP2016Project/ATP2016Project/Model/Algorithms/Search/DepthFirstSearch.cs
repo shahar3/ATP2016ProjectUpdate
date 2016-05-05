@@ -18,6 +18,7 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// 2.2- get all the sucsessors have on current state
         /// 3.2- choose random sucsessor and insert to open list 
         /// </summary>
+        private Random rnd = new Random();
         private Dictionary<AState, List<AState>> statesByPosition;
 
         public DepthFirstSearch() : base()
@@ -43,7 +44,6 @@ namespace ATP2016Project.Model.Algorithms.Search
             {
                 //get the next state from the open list
                 currentState = this.OpenList.Dequeue();
-                Console.WriteLine(currentState.State);
                 //check if the current state is the goal state
                 //if it is, we finish the algorithm otherwise we continue
                 if (currentState.Equals(this.Searchable.getGoalState()))
@@ -101,7 +101,6 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// <returns></returns>
         private AState randomSuccsessor()
         {
-            Random rnd = new Random();
             int length = statesByPosition[currentState].Count;
             int randomStateNum = rnd.Next(length);
             AState randomState = statesByPosition[currentState][randomStateNum];
