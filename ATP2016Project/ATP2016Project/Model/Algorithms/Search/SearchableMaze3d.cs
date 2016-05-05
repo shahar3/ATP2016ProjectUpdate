@@ -242,9 +242,9 @@ namespace ATP2016Project.Model.Algorithms.Search
         {
             foreach (Maze mazeLayer in MyMaze.Maze2DLayers)
             {
-                for (int i = 0; i < mazeLayer.XLength; i++)
+                for (int i = 0; i < mazeLayer.Grid.GetLength(0); i++)
                 {
-                    for (int j = 0; j < mazeLayer.YLength; j++)
+                    for (int j = 0; j < mazeLayer.Grid.GetLength(1); j++)
                     {
                         if (mazeLayer.Grid[i, j] == 2)
                         {

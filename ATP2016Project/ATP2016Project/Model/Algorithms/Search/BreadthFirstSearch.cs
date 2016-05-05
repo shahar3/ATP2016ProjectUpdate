@@ -33,6 +33,7 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// <returns>the solution to the searchable problem</returns>
         public override Solution search(ISearchable searchable)
         {
+            searchable.initializeGrid(); //init the grid
             Console.WriteLine("start from {0} and need to get to {1}", searchable.getInitialState().State, searchable.getGoalState().State);
             this.Searchable = searchable;
             //add the first state to the open list
@@ -40,6 +41,7 @@ namespace ATP2016Project.Model.Algorithms.Search
             //run the algorithm until we dont have anything in the open list
             while (this.OpenList.Count != 0)
             {
+                statesCounter++;
                 //get the next state from the open list
                 currentState = this.OpenList.Dequeue();
                 //check if the current state is the goal state

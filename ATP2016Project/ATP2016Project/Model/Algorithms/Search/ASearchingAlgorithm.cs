@@ -16,6 +16,7 @@ namespace ATP2016Project.Model.Algorithms.Search
     abstract class ASearchingAlgorithm : ISearchingAlgorithm
     {
         //our class members
+        protected static int statesCounter = 0;
         private Queue<AState> m_openList;
         private Queue<AState> m_closeList;
         private ISearchable m_searchable;
@@ -110,7 +111,7 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// <returns>number of states developed</returns>
         public int statesDeveloped()
         {
-            return CloseList.Count;
+            return statesCounter;
         }
 
         /// <summary>
