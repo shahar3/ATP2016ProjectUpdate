@@ -31,17 +31,44 @@ namespace ATP2016Project
             ASearchingAlgorithm bfs = new BreadthFirstSearch();
             //create the 3d maze that we perform our testings on
             AMazeGenerator mg = new MyMaze3dGenerator();
-            Maze maze = mg.generate(5, 5, 4);
+            Maze maze = mg.generate(20, 20, 4);
             //object adapter
             ISearchable searchable = new SearchableMaze3d(maze);
             Console.WriteLine("The original maze");
             maze.print();
-            efficiencyTest(searchable, dfs, "DFS", maze);
+            //help us to compare between algorithms
+            int numOfStatesDFS = 0;
+            int numOfStatesBFS = 0;
+            string timeDFS = string.Empty;
+            string timeBFS = string.Empty;
+            efficiencyTest(searchable, dfs, "DFS", maze, out numOfStatesDFS, out timeDFS);
             Console.WriteLine("Enter any key to continue");
             Console.Clear();
             //clear the maze
             searchable.initializeGrid();
-            efficiencyTest(searchable, bfs, "BFS", maze);
+            efficiencyTest(searchable, bfs, "BFS", maze, out numOfStatesBFS, out timeBFS);
+            //compare the algorithms and summerize
+            Console.Clear();
+            Console.WriteLine("---------------------------------------------------");
+            Console.WriteLine("--------------------SUMMERIZE----------------------");
+            Console.WriteLine("---------------------------------------------------");
+            Console.WriteLine();
+            if (numOfStatesDFS < numOfStatesBFS)
+            {
+                Console.WriteLine("DFS developed {0} less states than BFS", numOfStatesBFS - numOfStatesDFS);
+            }
+            else
+            {
+                Console.WriteLine("BFS developed {0} less states than BFS", numOfStatesDFS - numOfStatesBFS);
+            }
+            if (Double.Parse(timeDFS) < Double.Parse(timeBFS))
+            {
+                Console.WriteLine("DFS took {0} seconds less to run than BFS", Double.Parse(timeBFS) - Double.Parse(timeDFS));
+            }
+            else
+            {
+                Console.WriteLine("BFS took {0} seconds less to run than DFS", Double.Parse(timeDFS) - Double.Parse(timeBFS));
+            }
         }
 
         /// <summary>
@@ -51,9 +78,10 @@ namespace ATP2016Project
         /// <param name="searchable"></param>
         /// <param name="dfs"></param>
         /// <param name="algoName"></param>
-        private static void efficiencyTest(ISearchable searchable, ASearchingAlgorithm algo, string algoName, Maze maze)
+        private static void efficiencyTest(ISearchable searchable, ASearchingAlgorithm algo, string algoName, Maze maze, out int statesDeveloped, out string timeElapsed)
         {
             Console.WriteLine("Testing {0}:", algoName);
+            Console.WriteLine("Enter any key to continue");
             Console.ReadKey(true);
             Solution solution = algo.search(searchable);
             Console.WriteLine("The solution path (step by step)");
@@ -68,9 +96,17 @@ namespace ATP2016Project
             }
             Console.WriteLine("Enter any key to continue");
             Console.ReadKey(true);
-            Console.WriteLine("The {0} developed {1} states during his running time", algoName, algo.statesDeveloped());
+            Console.Write("The {0} developed ", algoName);
+            statesDeveloped = algo.statesDeveloped();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(algo.statesDeveloped());
+            Console.ResetColor();
+            Console.WriteLine(" states during his running time");
             Console.WriteLine("Checking the time to solve...");
-            Console.WriteLine(algo.timeToSolve(searchable));
+            string timeToSolve = algo.timeToSolve(searchable);
+            Console.WriteLine(timeToSolve);
+            int lastIndex = timeToSolve.IndexOf(" seconds");
+            timeElapsed = timeToSolve.Substring(8, lastIndex - 8);
             Console.WriteLine("Enter any key to continue");
             Console.ReadKey(true);
         }
