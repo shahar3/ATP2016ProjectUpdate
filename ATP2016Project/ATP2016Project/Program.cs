@@ -16,7 +16,6 @@ namespace ATP2016Project
 
         private static void testSearchAlgorithms()
         {
-
             ASearchingAlgorithm dfs = new DepthFirstSearch();
             AMazeGenerator mg = new MyMaze3dGenerator();
             Maze maze = mg.generate(19, 19, 2);

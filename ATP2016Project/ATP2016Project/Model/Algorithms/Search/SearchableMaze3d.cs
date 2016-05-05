@@ -79,6 +79,13 @@ namespace ATP2016Project.Model.Algorithms.Search
                 AState stateToAdd = new MazeState(rightPosition, state);
                 m_successors.Add(stateToAdd);
             }
+            //above position (z+1)
+            Position abovePosition = new Position(currentPosition.X, currentPosition.Y, currentPosition.Z + 1);
+            if (checkIfValid(abovePosition) && !checkIfThereIsWall(abovePosition))
+            {
+                AState stateToAdd = new MazeState(abovePosition, state);
+                m_successors.Add(stateToAdd);
+            }
             return m_successors;
 
         }
@@ -102,7 +109,8 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// <returns>if the position is inside or not</returns>
         private bool checkIfValid(Position posToCheck)
         {
-            return posToCheck.X > 0 && posToCheck.X < m_maze.XLength * 2 + 1 && posToCheck.Y > 0 && posToCheck.Y < m_maze.YLength * 2 + 1;
+            bool inside = posToCheck.Z < m_maze.ZLength;
+            return posToCheck.X > 0 && posToCheck.X < m_maze.XLength * 2 + 1 && posToCheck.Y > 0 && posToCheck.Y < m_maze.YLength * 2 + 1 && inside;
         }
 
         /// <summary>
@@ -112,7 +120,7 @@ namespace ATP2016Project.Model.Algorithms.Search
         /// <returns></returns>
         public AState getGoalState()
         {
-            AState goalState = new MazeState(new Position(m_maze.GoalPoint.X * 2 + 1, m_maze.GoalPoint.Y * 2 + 1), null);
+            AState goalState = new MazeState(new Position(m_maze.GoalPoint.X * 2 + 1, m_maze.GoalPoint.Y * 2 + 1, m_maze.GoalPoint.Z), null);
             return goalState;
         }
 
