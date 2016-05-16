@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ATP2016Project.Model.Algorithms.Compression
+{
+    interface ICompressor
+    {
+        byte[] compress(byte[] data);
+        byte[] decompress(byte[] data);
+    }
+}

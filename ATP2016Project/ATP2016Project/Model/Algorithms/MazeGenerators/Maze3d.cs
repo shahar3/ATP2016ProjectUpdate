@@ -16,6 +16,11 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
 
         }
 
+        public Maze3d(byte[] unCompressMaze)
+        {
+
+        }
+
         /// <summary>
         /// the "smart" algorithm printing method
         /// printing s at start point and e at goal point
@@ -67,6 +72,11 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                 Console.WriteLine();
                 Console.WriteLine();
             }
+        }
+
+        public byte[] toByteArray()
+        {
+            return null;
         }
     }
 }

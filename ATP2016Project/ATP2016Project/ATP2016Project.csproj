@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Algorithms\Compression\ICompressor.cs" />
+    <Compile Include="Model\Algorithms\Compression\MyCompressorStream.cs" />
+    <Compile Include="Model\Algorithms\Compression\MyMaze3Dcompressor.cs" />
     <Compile Include="Model\Algorithms\MazeGenerators\AMazeGenerator.cs" />
     <Compile Include="Model\Algorithms\MazeGenerators\IMaze.cs" />
     <Compile Include="Model\Algorithms\MazeGenerators\IMazeGenerator.cs" />
@@ -71,6 +74,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

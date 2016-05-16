@@ -31,7 +31,7 @@ namespace ATP2016Project
             ASearchingAlgorithm bfs = new BreadthFirstSearch();
             //create the 3d maze that we perform our testings on
             AMazeGenerator mg = new MyMaze3dGenerator();
-            Maze maze = mg.generate(5, 5, 4);
+            Maze maze = mg.generate(15, 15, 4);
             //object adapter
             ISearchable searchable = new SearchableMaze3d(maze);
             Console.WriteLine("The original maze");
