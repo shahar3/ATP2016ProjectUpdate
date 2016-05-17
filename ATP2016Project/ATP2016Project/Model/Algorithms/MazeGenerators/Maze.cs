@@ -89,8 +89,9 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             m_maze2DLayers = new ArrayList();
             for (int i = 0; i < zLength; i++)
             {
-                m_mazeArray = new int[m_xLength, m_yLength];
-                m_maze2DLayers.Add(m_mazeArray);
+                Maze2d mazeLayer = new Maze2d(m_xLength, m_yLength);
+                mazeLayer.Grid = new int[m_xLength * 2 + 1, m_yLength * 2 + 1];
+                m_maze2DLayers.Add(mazeLayer);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using ATP2016Project.Model.Algorithms.MazeGenerators;
+﻿using ATP2016Project.Model.Algorithms.Compression;
+using ATP2016Project.Model.Algorithms.MazeGenerators;
 using ATP2016Project.Model.Algorithms.Search;
 using System;
 
@@ -15,8 +16,53 @@ namespace ATP2016Project
         {
             //testMaze2dGenerator(new SimpleMaze2dGenerator());
             //testMaze3dGenerator(new MyMaze3dGenerator());
-            testSearchAlgorithms();
+            //testSearchAlgorithms();
+            testCompressor();
             Console.ReadKey();
+        }
+
+        private static void testCompressor()
+        {
+            ICompressor c = new MyMaze3Dcompressor();
+            //byte[] byteArray = { 1, 1, 1, 0, 0, 0, 1, 0, 0, 0 };
+            //byte[] sol = c.compress(byteArray);
+            //foreach (byte b in sol)
+            //{
+            //    Console.Write(b);
+            //}
+            //Console.WriteLine();
+
+            //Console.WriteLine(byte.MaxValue);
+
+            //byte[] d = c.decompress(sol);
+            //foreach (byte b in d)
+            //{
+            //    Console.Write(b);
+            //}
+            //test compress maze
+            IMazeGenerator mg = new MyMaze3dGenerator();
+            IMaze maze = mg.generate(5, 5, 2);
+            byte[] originalArray = (maze as Maze3d).toByteArray();
+            byte[] compressArray = c.compress(originalArray);
+            byte[] byArray = c.decompress(compressArray);
+            bool sameSize = byArray.Length == originalArray.Length;
+            if (sameSize)
+            {
+                bool ok = true;
+                for (int i = 0; i < originalArray.Length; i++)
+                {
+                    if (originalArray[i] != byArray[i])
+                    {
+                        ok = false;
+                        break;
+                    }
+                }
+                Console.WriteLine("OK = {0}", ok);
+            }
+            maze.print();
+            Console.WriteLine();
+            IMaze mazeFromBytes = new Maze3d(originalArray);
+            mazeFromBytes.print();
         }
 
         #region maze searching tester
