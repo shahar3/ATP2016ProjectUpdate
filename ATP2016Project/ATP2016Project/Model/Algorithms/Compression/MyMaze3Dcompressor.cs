@@ -8,18 +8,25 @@ namespace ATP2016Project.Model.Algorithms.Compression
 {
     class MyMaze3Dcompressor : ICompressor
     {
+        private bool firstTimeCompress = true; //help us to determine if it is the first time we use the compressor
+        private bool firstTimeDecompress = true;
+
         public byte[] compress(byte[] data)
         {
             //this list will contain the compress data
             List<byte> compressed = new List<byte>();
             //compress the settings of the maze(dimensions,start point,goal point)
-            int numOfSettings = 9;
-            for (int j = 0; j < numOfSettings; j++)
+            int i = 0;
+            if (firstTimeCompress)
             {
-                compressed.Add(data[j]);
+                int numOfSettings = 9;
+                for (int j = 0; j < numOfSettings; j++)
+                {
+                    compressed.Add(data[j]);
+                }
+                //compress the maze
+                i = numOfSettings;
             }
-            //compress the maze
-            int i = numOfSettings;
             int swapDigit = 0;
             while (i < data.Length)
             {
@@ -34,21 +41,25 @@ namespace ATP2016Project.Model.Algorithms.Compression
                 swapDigit++;
                 compressed.Add(count);
             }
+            firstTimeCompress = false;
             return compressed.ToArray();
         }
 
         public byte[] decompress(byte[] data)
         {
-
             List<byte> decompressed = new List<byte>();
             //decompress the settings of the maze(dimensions,start point,goal point)
-            int numOfSettings = 9;
-            for (int j = 0; j < numOfSettings; j++)
+            int i = 0;
+            if (firstTimeDecompress)
             {
-                decompressed.Add(data[j]);
+                int numOfSettings = 9;
+                for (int j = 0; j < numOfSettings; j++)
+                {
+                    decompressed.Add(data[j]);
+                }
+                //decompress the maze
+                i = numOfSettings;
             }
-            //decompress the maze
-            int i = numOfSettings;
             byte swapDigit = 0;
             while (i < data.Length)
             {
@@ -61,7 +72,7 @@ namespace ATP2016Project.Model.Algorithms.Compression
                 i++;
                 swapDigit = (byte)((swapDigit + 1) % 2);
             }
-
+            firstTimeDecompress = false;
             return decompressed.ToArray();
         }
     }

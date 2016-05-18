@@ -2,6 +2,7 @@
 using ATP2016Project.Model.Algorithms.MazeGenerators;
 using ATP2016Project.Model.Algorithms.Search;
 using System;
+using System.IO;
 
 namespace ATP2016Project
 {
@@ -17,8 +18,80 @@ namespace ATP2016Project
             //testMaze2dGenerator(new SimpleMaze2dGenerator());
             //testMaze3dGenerator(new MyMaze3dGenerator());
             //testSearchAlgorithms();
-            testCompressor();
+            //testCompressor();
+            testCompressorStream();
             Console.ReadKey();
+        }
+
+        private static void testCompressorStream()
+        {
+            IMazeGenerator mg = new MyMaze3dGenerator();
+            IMaze maze = mg.generate(8, 8, 2);
+            byte[] original = (maze as Maze3d).toByteArray();
+            using (FileStream fileOutStream = new FileStream("1.Maze", FileMode.Create))
+            {
+                using (Stream inputStream = new MemoryStream(original))
+                {
+                    using (Stream outStream = new MyCompressorStream(fileOutStream, MyCompressorStream.compressionMode.compress))
+                    {
+                        byte[] byteArray = new byte[100];
+                        int r = 0;
+                        while ((r = inputStream.Read(byteArray, 0, byteArray.Length)) != 0)
+                        {
+                            outStream.Write(byteArray, 0, 100);
+                            outStream.Flush();
+                            byteArray = new byte[100];
+                        }
+                    }
+                }
+            }
+            ICompressor c = new MyMaze3Dcompressor();
+            byte[] compressedOriginal = c.compress(original);
+            int additional = (original.Length / 100) * 2;
+            byte[] compressedFile;
+            using (FileStream fileInStream = new FileStream("1.maze", FileMode.Open))
+            {
+                compressedFile = new byte[compressedOriginal.Length + additional];
+                fileInStream.Read(compressedFile, 0, compressedFile.Length);
+            }
+
+            byte[] decompressedFile = c.decompress(compressedFile);
+            int min = Math.Min(original.Length, decompressedFile.Length);
+            for (int i = 0; i < min; i++)
+            {
+                if (original[i] != decompressedFile[i])
+                {
+                    Console.WriteLine("Not good");
+                    break;
+                }
+            }
+
+            byte[] mazeBytes;
+            byte[] buffer;
+            using (FileStream fileInStream = new FileStream("1.maze", FileMode.Open))
+            {
+                using (Stream inStream = new MyCompressorStream(fileInStream, MyCompressorStream.compressionMode.decompress))
+                {
+                    mazeBytes = new byte[(maze as Maze3d).toByteArray().Length];
+                    buffer = new byte[100];
+                    int mult = 0;
+                    int r = 0;
+                    while ((r = inStream.Read(buffer, 0, 100)) != 0)
+                    {
+                        for (int i = 0; (i + 100 * mult) < mazeBytes.Length && i < buffer.Length; i++)
+                        {
+                            mazeBytes[i + 100 * mult] = buffer[i];
+                        }
+                        buffer = new byte[100];
+                        mult++;
+                    }
+                }
+            }
+
+            Maze3d loadedMaze = new Maze3d(mazeBytes);
+            maze.print();
+            Console.WriteLine();
+            loadedMaze.print();
         }
 
         private static void testCompressor()
