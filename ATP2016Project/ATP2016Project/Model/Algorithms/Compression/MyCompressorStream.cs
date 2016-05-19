@@ -158,22 +158,19 @@ namespace ATP2016Project.Model.Algorithms.Compression
 
         public override void Write(byte[] buffer, int offset, int count)
         {
+            //we get uncompressed data and need to compress him 
             if (m_mode == compressionMode.compress)
             {
-                byte[] data = new byte[count];
-                for (int i = 0; i < count; i++)
-                {
-                    data[i] = buffer[i + offset];
-                }
+                //copy the data from the buffer we get to array of bytes
+                byte[] data = copyDataFromBuffer(buffer, offset, count);
+                //compress the data we et
                 byte[] compressed = m_mazeCompressor.compress(data);
+                //check if the final digit in the data is 0
+                //if it is we expands the array and add the digit 0
+                //else we dont change the array
                 if (data[count - 1] == 0)
                 {
-                    byte[] newCompressed = new byte[compressed.Length + 1];
-                    for (int i = 0; i < compressed.Length; i++)
-                    {
-                        newCompressed[i] = compressed[i];
-                    }
-                    newCompressed[compressed.Length] = 0;
+                    byte[] newCompressed = addZeroToArray(compressed);
                     m_io.Write(newCompressed, 0, newCompressed.Length);
                 }
                 else
@@ -183,18 +180,47 @@ namespace ATP2016Project.Model.Algorithms.Compression
             }
             else
             {
+                //we get compressed data and need to decompress him
                 if (m_mode == compressionMode.decompress)
                 {
-                    byte[] data = new byte[count];
-                    for (int i = 0; i < count; i++)
-                    {
-                        data[i] = buffer[i + offset];
-                    }
+                    byte[] data = copyDataFromBuffer(buffer, offset, count);
                     byte[] decompressed = m_mazeCompressor.decompress(data);
                     m_io.Write(decompressed, 0, decompressed.Length);
                 }
             }
 
+        }
+        /// <summary>
+        /// this function expands the array and add 0 to the and of him
+        /// </summary>
+        /// <param name="compressed">the old array of compressed data</param>
+        /// <returns>new compressed data after the expands and adding</returns>
+        private static byte[] addZeroToArray(byte[] compressed)
+        {
+            byte[] newCompressed = new byte[compressed.Length + 1];
+            for (int i = 0; i < compressed.Length; i++)
+            {
+                newCompressed[i] = compressed[i];
+            }
+            newCompressed[compressed.Length] = 0;
+            return newCompressed;
+        }
+        /// <summary>
+        /// this function copy the uncompressed data from buffer to a new array of bytes
+        /// </summary>
+        /// <param name="buffer">handle the all data uncompressed</param>
+        /// <param name="offset">from where we copy</param>
+        /// <param name="count">how much bytes we copied</param>
+        /// <returns>the array of bytes after the copied</returns>
+        private static byte[] copyDataFromBuffer(byte[] buffer, int offset, int count)
+        {
+            byte[] data = new byte[count];
+            for (int i = 0; i < count; i++)
+            {
+                data[i] = buffer[i + offset];
+            }
+
+            return data;
         }
 
         #region non-relevant
