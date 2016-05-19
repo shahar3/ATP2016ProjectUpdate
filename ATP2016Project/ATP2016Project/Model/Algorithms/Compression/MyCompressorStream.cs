@@ -7,15 +7,21 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Model.Algorithms.Compression
 {
+    /// <summary>
+    /// This is our stream decorator class. we using the decorator design pattern
+    /// to apply the naive compressor that we implemented in myMaze3Dcompressor class
+    /// we override the read and write functions and call the compress and decompress
+    /// methods from there
+    /// </summary>
     class MyCompressorStream : Stream
     {
-        private Stream m_io;
+        private Stream m_io; //the stream that we use as input
         private const int m_bufferSize = 100;
         private byte[] m_byteReadFromStream;
         private MyMaze3Dcompressor m_mazeCompressor;
-        private Queue<byte> m_queue;
-        private bool firstTime = true;
-        private bool add = false;
+        private Queue<byte> m_queue; //stores the bytes that we add to the buffer
+        private bool firstTime = true; //we change it to false after our first iteration
+        private bool add = false; //help us to do the needed adjustments to our buffer 
         public enum compressionMode
         {
             compress = 1,
@@ -23,24 +29,31 @@ namespace ATP2016Project.Model.Algorithms.Compression
         };
         private compressionMode m_mode;
 
+        /// <summary>
+        /// our constructor
+        /// gets an input stream that we use and the desired compression mode
+        /// </summary>
+        /// <param name="io">input stream</param>
+        /// <param name="mode">compression action(compress,decompress)</param>
         public MyCompressorStream(Stream io, compressionMode mode)
         {
             m_io = io;
-            m_mode = mode;
-            m_byteReadFromStream = new byte[m_bufferSize];
-            m_mazeCompressor = new MyMaze3Dcompressor();
+            m_mode = mode; //the compressing action
+            m_byteReadFromStream = new byte[m_bufferSize]; //stores the read bytes from the stream after the compressing action
+            m_mazeCompressor = new MyMaze3Dcompressor(); //we use our naive compressor
             m_queue = new Queue<byte>();
         }
 
+        //use the stream canRead setting
         public override bool CanRead
         {
-
             get
             {
                 return m_io.CanRead;
             }
         }
 
+        //use the stream canWrite setting
         public override bool CanWrite
         {
             get
@@ -49,11 +62,20 @@ namespace ATP2016Project.Model.Algorithms.Compression
             }
         }
 
+        //use the stream Flush method
         public override void Flush()
         {
             m_io.Flush();
         }
 
+        /// <summary>
+        /// read the bytes from the original stream (m_io) and perform the compressing action on them
+        /// (compress/decompress) store it in the m_queue and fill the buffer with it
+        /// </summary>
+        /// <param name="buffer">an empty array of bytes</param>
+        /// <param name="offset">from where to start on the buffer</param>
+        /// <param name="count">how many bytes to read</param>
+        /// <returns>number of read bytes</returns>
         public override int Read(byte[] buffer, int offset, int count)
         {
             if (m_mode == compressionMode.compress)
