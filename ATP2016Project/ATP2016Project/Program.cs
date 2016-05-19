@@ -23,10 +23,12 @@ namespace ATP2016Project
             Console.ReadKey();
         }
 
+        #region compressor testing
+
         private static void testCompressorStream()
         {
             IMazeGenerator mg = new MyMaze3dGenerator();
-            IMaze maze = mg.generate(8, 8, 2);
+            IMaze maze = mg.generate(18, 18, 2);
             byte[] original = (maze as Maze3d).toByteArray();
             using (FileStream fileOutStream = new FileStream("1.Maze", FileMode.Create))
             {
@@ -55,17 +57,6 @@ namespace ATP2016Project
                 fileInStream.Read(compressedFile, 0, compressedFile.Length);
             }
 
-            byte[] decompressedFile = c.decompress(compressedFile);
-            int min = Math.Min(original.Length, decompressedFile.Length);
-            for (int i = 0; i < min; i++)
-            {
-                if (original[i] != decompressedFile[i])
-                {
-                    Console.WriteLine("Not good");
-                    break;
-                }
-            }
-
             byte[] mazeBytes;
             byte[] buffer;
             using (FileStream fileInStream = new FileStream("1.maze", FileMode.Open))
@@ -88,6 +79,19 @@ namespace ATP2016Project
                 }
             }
 
+            string print = original.Length == mazeBytes.Length ?
+                "The Original maze and the decompressed maze bytes array are in the same size" : "The Original maze and the decompressed maze bytes array are not in the same size";
+            Console.WriteLine(print);
+            bool ok = true;
+            for (int i = 0; original.Length == mazeBytes.Length && i < mazeBytes.Length; i++)
+            {
+                if (mazeBytes[i] != original[i])
+                {
+                    ok = false;
+                    break;
+                }
+            }
+            Console.WriteLine(ok);
             Maze3d loadedMaze = new Maze3d(mazeBytes);
             maze.print();
             Console.WriteLine();
@@ -97,22 +101,6 @@ namespace ATP2016Project
         private static void testCompressor()
         {
             ICompressor c = new MyMaze3Dcompressor();
-            //byte[] byteArray = { 1, 1, 1, 0, 0, 0, 1, 0, 0, 0 };
-            //byte[] sol = c.compress(byteArray);
-            //foreach (byte b in sol)
-            //{
-            //    Console.Write(b);
-            //}
-            //Console.WriteLine();
-
-            //Console.WriteLine(byte.MaxValue);
-
-            //byte[] d = c.decompress(sol);
-            //foreach (byte b in d)
-            //{
-            //    Console.Write(b);
-            //}
-            //test compress maze
             IMazeGenerator mg = new MyMaze3dGenerator();
             IMaze maze = mg.generate(5, 5, 2);
             byte[] originalArray = (maze as Maze3d).toByteArray();
@@ -137,6 +125,8 @@ namespace ATP2016Project
             IMaze mazeFromBytes = new Maze3d(originalArray);
             mazeFromBytes.print();
         }
+
+        #endregion
 
         #region maze searching tester
         /// <summary>

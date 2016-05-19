@@ -92,14 +92,7 @@ namespace ATP2016Project.Model.Algorithms.Compression
                         data = new byte[bytesRead + 1];
                         data[0] = 0;
                     }
-                    if (firstTime && bytesRead % 2 == 0)
-                    {
-                        add = true;
-                    }
-                    else
-                    {
-                        add = false;
-                    }
+                    add = true;
                     for (int i = 0; i < bytesRead; i++)
                     {
                         data[i + addition] = m_byteReadFromStream[i];
