@@ -12,6 +12,7 @@ namespace ATP2016Project.Controller
     {
         protected IModel m_model;
         protected IView m_view;
+
         public ACommand(IModel model, IView view)
         {
             m_model = model;

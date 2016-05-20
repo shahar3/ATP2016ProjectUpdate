@@ -25,6 +25,7 @@ namespace ATP2016Project.Controller
         public void SetView(IView view)
         {
             m_view = view;
+            m_view.SetCommands(GetCommands());
         }
 
         public void Output(string output)

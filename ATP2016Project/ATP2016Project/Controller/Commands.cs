@@ -22,8 +22,23 @@ namespace ATP2016Project.Controller
             string path = parameters[0];
             try
             {
-
-            }catch(Exception e)
+                if (Directory.Exists(path))
+                {
+                    foreach (string dir in Directory.GetDirectories(path))
+                    {
+                        m_view.Output(dir);
+                    }
+                    foreach (string file in Directory.GetFiles(path))
+                    {
+                        m_view.Output(file);
+                    }
+                }
+                else
+                {
+                    m_view.Output("Directory " + path + " doesn't exist!");
+                }
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -245,6 +260,7 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
+            m_view.Output("Exit");
             Console.WriteLine("Exiting the program...\nThank you for using MazeRunner v1.0");
         }
 

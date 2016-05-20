@@ -111,5 +111,10 @@ namespace ATP2016Project.View
             input = sr.ReadLine();
             return input;
         }
+
+        public void SetCommands(Dictionary<string, ICommand> commands)
+        {
+            m_commands = commands;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ATP2016Project.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace ATP2016Project.View
         void Start();
         void Output(string output);
         string input();
+        void SetCommands(Dictionary<string, ICommand> commands);
     }
 }
