@@ -19,15 +19,7 @@ namespace ATP2016Project.Controller
         }
         public abstract void DoCommand(params string[] parameters);
 
-        public Dictionary<string, ICommand> GetCommands()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetDescription()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract string GetDescription();
 
         public abstract string GetName();
     }

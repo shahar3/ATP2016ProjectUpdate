@@ -10,5 +10,6 @@ namespace ATP2016Project.View
     {
         void Start();
         void Output(string output);
+        string input();
     }
 }
