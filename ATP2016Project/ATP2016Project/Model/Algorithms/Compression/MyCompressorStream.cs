@@ -124,6 +124,9 @@ namespace ATP2016Project.Model.Algorithms.Compression
             }
             return 0;
         }
+
+        #region helping methods for read
+
         /// <summary>
         /// this function expands the data array and insert in the start 0
         /// </summary>
@@ -178,6 +181,15 @@ namespace ATP2016Project.Model.Algorithms.Compression
             return data;
         }
 
+        #endregion
+
+        /// <summary>
+        /// gets a full buffer and perform the compressing action on it(compress/decompress)
+        /// and write the result on the stream
+        /// </summary>
+        /// <param name="buffer">full array of bytes</param>
+        /// <param name="offset">the place we start on the buffer</param>
+        /// <param name="count">number of bytes we read from the buffer</param>
         public override void Write(byte[] buffer, int offset, int count)
         {
             //we get uncompressed data and need to compress him 
@@ -212,6 +224,9 @@ namespace ATP2016Project.Model.Algorithms.Compression
             }
 
         }
+
+        #region helping methods for write
+
         /// <summary>
         /// this function expands the array and add 0 to the and of him
         /// </summary>
@@ -244,6 +259,8 @@ namespace ATP2016Project.Model.Algorithms.Compression
 
             return data;
         }
+
+        #endregion
 
         #region non-relevant
         public override bool CanSeek

@@ -1,6 +1,9 @@
-﻿using ATP2016Project.Model.Algorithms.Compression;
+﻿using ATP2016Project.Controller;
+using ATP2016Project.Model;
+using ATP2016Project.Model.Algorithms.Compression;
 using ATP2016Project.Model.Algorithms.MazeGenerators;
 using ATP2016Project.Model.Algorithms.Search;
+using ATP2016Project.View;
 using System;
 using System.IO;
 
@@ -19,7 +22,13 @@ namespace ATP2016Project
             //testMaze3dGenerator(new MyMaze3dGenerator());
             //testSearchAlgorithms();
             //testCompressor();
-            testCompressorStream();
+            //testCompressorStream();
+            IController controller = new MyController();
+            IModel model = new MyModel(controller);
+            controller.SetModel(model);
+            IView view = new CLI(controller, controller.GetCommands());
+            controller.SetView(view);
+            view.Start();
             Console.ReadKey();
         }
 
@@ -96,6 +105,14 @@ namespace ATP2016Project
             maze.print();
             Console.WriteLine();
             loadedMaze.print();
+            compressingEfficiency(original, compressedFile);
+        }
+
+        private static void compressingEfficiency(byte[] original, byte[] compressedFile)
+        {
+            Console.WriteLine("Statistics:");
+            Console.WriteLine("Original maze bytes length: {0}, compressed maze in file length: {1}", original.Length, compressedFile.Length);
+            Console.WriteLine("The compressed file saved total of {0} bytes and reduced {1}% of the size of the file", original.Length - compressedFile.Length, (int)(((double)original.Length / (double)compressedFile.Length) * 100));
         }
 
         private static void testCompressor()
