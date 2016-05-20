@@ -15,8 +15,6 @@ namespace ATP2016Project.View
         private Dictionary<string, ICommand> m_commands;
         private const string cursor = ">>";
         private IController m_controller;
-        private void v;
-        private void v1;
         private Dictionary<string, ICommand> dictionary;
 
         public CLI(IController controller)
