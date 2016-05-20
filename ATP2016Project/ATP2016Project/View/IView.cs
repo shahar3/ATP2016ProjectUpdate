@@ -1,4 +1,5 @@
 ﻿using ATP2016Project.Controller;
+using ATP2016Project.Model.Algorithms.MazeGenerators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace ATP2016Project.View
     {
         void Start();
         void Output(string output);
+        void displayMaze(IMaze maze);
         string input();
         void SetCommands(Dictionary<string, ICommand> commands);
     }

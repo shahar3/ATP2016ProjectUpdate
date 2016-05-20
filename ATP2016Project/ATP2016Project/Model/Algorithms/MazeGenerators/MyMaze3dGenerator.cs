@@ -6,6 +6,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
     {
         private PrimAlgorithm m_alg;
         private Maze3d myMaze;
+
         /// <summary>
         /// This method override the generate method from AMazeGenerator implementing
         /// it by our algorithm (prim's random MST algorithm)

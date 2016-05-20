@@ -77,7 +77,7 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
                         {
                             Console.Write(space);
                         }
-                        else
+                        else //solution path
                         {
                             Console.BackgroundColor = ConsoleColor.Red;
                             Console.Write(space);

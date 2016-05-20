@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ATP2016Project.Model.Algorithms.MazeGenerators;
 
 namespace ATP2016Project.View
 {
@@ -47,7 +48,7 @@ namespace ATP2016Project.View
                 }
                 else
                 {
-                    Console.WriteLine("unrecognize command!");
+                    Output("unrecognize command!");
                 }
                 if (userCommand == "exit")
                 {
@@ -59,7 +60,7 @@ namespace ATP2016Project.View
 
         private string[] getParams(string[] commandAndParams)
         {
-            string[] onlyParams = new string[commandAndParams.Length];
+            string[] onlyParams = new string[commandAndParams.Length - 1];
             for (int i = 1; i < commandAndParams.Length; i++)
             {
                 onlyParams[i - 1] = commandAndParams[i];
@@ -95,8 +96,16 @@ namespace ATP2016Project.View
             StreamWriter sw = new StreamWriter(m_output);
             sw.AutoFlush = true;
             Console.SetCursorPosition(0, Console.CursorTop);
+            sw.WriteLine("");
             sw.WriteLine(output);
             sw.Write(cursor);
+            Console.ResetColor();
+        }
+
+        private void Output(string output, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(output);
             Console.ResetColor();
         }
 
@@ -115,6 +124,49 @@ namespace ATP2016Project.View
         public void SetCommands(Dictionary<string, ICommand> commands)
         {
             m_commands = commands;
+        }
+
+        public void displayMaze(IMaze myMaze)
+        {
+            Maze3d maze3d = myMaze as Maze3d;
+            string wall = "██";
+            string space = "  ";
+            for (int level = 0; level < maze3d.ZLength; level++)
+            {
+                Maze2d maze = maze3d.Maze2DLayers[level] as Maze2d;
+                int rowLength = maze.Grid.GetLength(0);
+                int colLength = maze.Grid.GetLength(1);
+                Console.WriteLine("****LEVEL {0}****", level + 1);
+                for (int i = 0; i < rowLength; i++)
+                {
+                    for (int j = 0; j < colLength; j++)
+                    {
+                        if (level == 0 && i == maze3d.StartPoint.X * 2 + 1 && j == maze3d.StartPoint.Y * 2 + 1)
+                        {
+                            Output("S ", ConsoleColor.Green);
+                        }
+                        else if (level == maze3d.ZLength - 1 && i == maze3d.GoalPoint.X * 2 + 1 && j == maze3d.GoalPoint.Y * 2 + 1)
+                        {
+                            Output("E ", ConsoleColor.Red);
+                        }
+                        else if (maze.Grid[i, j] == 1) //put wall
+                        {
+                            Output(wall, ConsoleColor.White);
+                        }
+                        else if (maze.Grid[i, j] == 0) //there is a space
+                        {
+                            Output(space, ConsoleColor.White);
+                        }
+                        else
+                        {
+                            Output(space, ConsoleColor.Red);
+                        }
+                    }
+                    Output("\n", ConsoleColor.White);
+                }
+                Output("\n", ConsoleColor.White);
+                Output("\n", ConsoleColor.White);
+            }
         }
     }
 }
