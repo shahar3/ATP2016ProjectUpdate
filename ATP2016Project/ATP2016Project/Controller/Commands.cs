@@ -70,9 +70,12 @@ namespace ATP2016Project.Controller
             {
                 if (checkIfDimensionsAreValid(parameters))
                 {
+                    int x = Int32.Parse(parameters[1]);
+                    int y = Int32.Parse(parameters[2]);
+                    int z = Int32.Parse(parameters[3]);
                     Thread t = new Thread(() =>
                     {
-                        m_model.generateMaze(Int32.Parse(parameters[1]), Int32.Parse(parameters[2]), Int32.Parse(parameters[3]), parameters[0]);
+                        m_model.generateMaze(x, y, z, parameters[0]);
                         m_view.Output("Maze " + parameters[0] + " is ready");
                     });
                     t.Start();
