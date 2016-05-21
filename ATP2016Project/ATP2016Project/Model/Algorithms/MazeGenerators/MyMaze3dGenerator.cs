@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace ATP2016Project.Model.Algorithms.MazeGenerators
 {
@@ -20,11 +21,13 @@ namespace ATP2016Project.Model.Algorithms.MazeGenerators
             myMaze = maze as Maze3d; //cast the maze to 3dMaze
             for (int i = 0; i < z; i++)
             {
+
                 Maze2d maze2DLayer = new Maze2d(x, y);
                 m_alg = new PrimAlgorithm(maze2DLayer);
                 m_alg.startGenerating(); //activate the algorithm of prim to generate a random maze
                 maze2DLayer.Grid = m_alg.Grid;
                 myMaze.Maze2DLayers[i] = maze2DLayer;
+                Thread.Sleep(10);
             }
             generateRandomGoalPoint(); //choose a random goal point
             generateRandomStartPoint(); //choose a random start point
