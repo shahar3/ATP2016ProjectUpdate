@@ -23,14 +23,23 @@ namespace ATP2016Project
             //testSearchAlgorithms();
             //testCompressor();
             //testCompressorStream();
+            RunCLI();
+            Console.ReadKey();
+        }
+
+        #region CLI
+
+        private static void RunCLI()
+        {
             IController controller = new MyController();
             IModel model = new MyModel(controller);
             controller.SetModel(model);
             IView view = new CLI(controller, controller.GetCommands());
             controller.SetView(view);
             view.Start();
-            Console.ReadKey();
         }
+
+        #endregion
 
         #region compressor testing
 
