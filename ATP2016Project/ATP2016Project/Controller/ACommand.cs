@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
@@ -12,6 +13,7 @@ namespace ATP2016Project.Controller
     {
         protected IModel m_model;
         protected IView m_view;
+        protected static List<Thread> m_threads = new List<Thread>();
 
         public ACommand(IModel model, IView view)
         {

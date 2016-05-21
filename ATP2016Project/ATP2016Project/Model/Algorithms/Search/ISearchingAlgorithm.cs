@@ -11,7 +11,6 @@ namespace ATP2016Project.Model.Algorithms.Search
     /// includes the main function search that solve the searching problem
     /// and 2 helping methods to determine the efficiency level of each
     /// algorithm
-    /// </summary>
     interface ISearchingAlgorithm
     {
         /// <summary>

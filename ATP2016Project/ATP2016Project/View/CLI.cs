@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ATP2016Project.Model.Algorithms.MazeGenerators;
+using ATP2016Project.Model.Algorithms.Search;
 
 namespace ATP2016Project.View
 {
@@ -166,6 +167,14 @@ namespace ATP2016Project.View
                 }
                 Output("\n", ConsoleColor.White);
                 Output("\n", ConsoleColor.White);
+            }
+        }
+
+        public void displaySolution(Solution sol)
+        {
+            foreach (AState state in sol.getSolutionPath())
+            {
+                Output((state as MazeState).Position.ToString());
             }
         }
     }

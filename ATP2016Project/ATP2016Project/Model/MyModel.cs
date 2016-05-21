@@ -1,10 +1,12 @@
 ﻿using ATP2016Project.Controller;
 using ATP2016Project.Model.Algorithms.Compression;
 using ATP2016Project.Model.Algorithms.MazeGenerators;
+using ATP2016Project.Model.Algorithms.Search;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,11 +16,13 @@ namespace ATP2016Project.Model
     {
         private IController m_controller;
         private Dictionary<string, IMaze> m_mazes;
+        private Dictionary<string, Solution> m_mazesSolution;
 
         public MyModel(IController controller)
         {
             m_controller = controller;
             m_mazes = new Dictionary<string, IMaze>();
+            m_mazesSolution = new Dictionary<string, Solution>();
         }
 
         public void generateMaze(int x, int y, int z, string name)
@@ -37,6 +41,37 @@ namespace ATP2016Project.Model
             {
                 return null;
             }
+        }
+
+        public void loadMaze(string path, string name)
+        {
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                using (Stream fileStream = new MyCompressorStream(fs, MyCompressorStream.compressionMode.decompress))
+                {
+                    List<byte> mazeBytes = decompressFromFile(fileStream);
+                    IMaze maze = new Maze3d(mazeBytes.ToArray());
+                    m_mazes[name] = maze;
+                }
+            }
+
+        }
+
+        private static List<byte> decompressFromFile(Stream fileStream)
+        {
+            List<byte> mazeBytes = new List<byte>();
+            byte[] buffer = new byte[100];
+            int r = 0;
+            while ((r = fileStream.Read(buffer, 0, 100)) != 0)
+            {
+                for (int i = 0; i < r; i++)
+                {
+                    mazeBytes.Add(buffer[i]);
+                }
+                buffer = new byte[100];
+            }
+
+            return mazeBytes;
         }
 
         public void saveMaze(string mazeName, string path)
@@ -61,6 +96,59 @@ namespace ATP2016Project.Model
                 }
             }
 
+        }
+
+        public long getMazeSize(IMaze maze)
+        {
+            long size = 0;
+            Maze3d myMaze = maze as Maze3d;
+            byte[] mazeBytes = myMaze.toByteArray();
+            using (Stream s = new MemoryStream())
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(s, mazeBytes);
+                size = s.Length;
+            }
+            return size;
+        }
+
+        public long getFileSize(string filePath)
+        {
+            long size = 0;
+            size = new FileInfo(filePath).Length;
+            return size;
+        }
+
+        public bool algorithmExist(string algoName)
+        {
+            return algoName.ToLower() == "bfs" || algoName.ToLower() == "dfs";
+        }
+
+        public void solveMaze(string mazeName, string algoName)
+        {
+            string algorithm = algoName.ToLower();
+            ISearchingAlgorithm algo;
+            if (algorithm == "bfs")
+            {
+                algo = new BreadthFirstSearch();
+            }
+            else //dfs
+            {
+                algo = new DepthFirstSearch();
+            }
+            IMaze maze = m_mazes[mazeName];
+            ISearchable searchableMaze = new SearchableMaze3d(maze);
+            m_mazesSolution[mazeName] = algo.search(searchableMaze);
+        }
+
+        public bool solutionExist(string mazeName)
+        {
+            return m_mazesSolution.ContainsKey(mazeName);
+        }
+
+        public Solution getSolution(string mazeName)
+        {
+            return m_mazesSolution[mazeName];
         }
     }
 }

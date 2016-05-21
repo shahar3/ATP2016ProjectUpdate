@@ -54,7 +54,7 @@ namespace ATP2016Project.Controller
             commands.Add(mazeSize.GetName().ToLower(), mazeSize);
             commands.Add(fileSize.GetName().ToLower(), fileSize);
             commands.Add(solveMaze.GetName().ToLower(), solveMaze);
-            commands.Add(displaySolution.GetName().ToLower(), solveMaze);
+            commands.Add(displaySolution.GetName().ToLower(), displaySolution);
             commands.Add(exit.GetName().ToLower(), exit);
             return commands;
         }

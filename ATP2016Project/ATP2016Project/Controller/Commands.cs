@@ -70,11 +70,13 @@ namespace ATP2016Project.Controller
             {
                 if (checkIfDimensionsAreValid(parameters))
                 {
-                    new Thread(() =>
+                    Thread t = new Thread(() =>
                     {
                         m_model.generateMaze(Int32.Parse(parameters[1]), Int32.Parse(parameters[2]), Int32.Parse(parameters[3]), parameters[0]);
                         m_view.Output("Maze " + parameters[0] + " is ready");
-                    }).Start();
+                    });
+                    t.Start();
+                    m_threads.Add(t);
                 }
             }
             catch (Exception e)
@@ -191,7 +193,17 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
-            throw new NotImplementedException();
+            string path = parameters[0];
+            Console.WriteLine(path);
+            string name = parameters[1];
+            if (!File.Exists(path))
+            {
+                m_view.Output("File path " + path + " doesn't exist!");
+                return;
+            }
+            Console.WriteLine("ok");
+            m_model.loadMaze(path, name);
+
         }
 
         public override string GetDescription()
@@ -213,7 +225,13 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
-            throw new NotImplementedException();
+            string mazeName = parameters[0];
+            if (m_model.getMaze(mazeName) == null)
+            {
+                m_view.Output("Maze " + mazeName + " doesn't exist");
+                return;
+            }
+            m_view.Output("The size of the maze is " + m_model.getMazeSize(m_model.getMaze(mazeName)).ToString() + " Bytes");
         }
 
         public override string GetDescription()
@@ -235,7 +253,13 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
-            throw new NotImplementedException();
+            string filePath = parameters[0];
+            if (!File.Exists(filePath))
+            {
+                m_view.Output("File " + filePath + " doesn't exist");
+                return;
+            }
+            m_view.Output("The size of " + filePath + " is " + m_model.getFileSize(filePath) + " bytes");
         }
 
         public override string GetDescription()
@@ -257,12 +281,34 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
-
+            if (parameters.Length < 2)
+            {
+                m_view.Output("There is not enough arguments. Expected mazeName and algorithm");
+                return;
+            }
+            string mazeName = parameters[0];
+            string algorithm = parameters[1];
+            if (m_model.getMaze(mazeName) == null)
+            {
+                m_view.Output("There is no maze with the name " + mazeName);
+                return;
+            }
+            if (!m_model.algorithmExist(algorithm))
+            {
+                m_view.Output("The algorithm " + algorithm + " doesn't exist");
+            }
+            Thread t = new Thread(() =>
+            {
+                m_model.solveMaze(mazeName, algorithm);
+                m_view.Output("Solution for " + mazeName + " is ready");
+            });
+            t.Start();
+            m_threads.Add(t);
         }
 
         public override string GetDescription()
         {
-            return "solve maze <maze name> <algorithm(BFS or DFS)> - solvethe maze with specific algorithm";
+            return "solve maze <maze name> <algorithm(BFS or DFS)> - solve the maze with specific algorithm";
         }
 
         public override string GetName()
@@ -279,6 +325,13 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
+            string mazeName = parameters[0];
+            if (!m_model.solutionExist(mazeName))
+            {
+                m_view.Output("Solution for the maze " + mazeName + " doesn't exist");
+                return;
+            }
+            m_view.displaySolution(m_model.getSolution(mazeName));
         }
 
         public override string GetDescription()
@@ -302,6 +355,10 @@ namespace ATP2016Project.Controller
         public override void DoCommand(params string[] parameters)
         {
             m_view.Output("Exiting the program...\nThank you for using MazeRunner v1.0");
+            foreach (Thread t in m_threads)
+            {
+                t.Abort();
+            }
             Thread.Sleep(3000);
             Environment.Exit(0);
         }
