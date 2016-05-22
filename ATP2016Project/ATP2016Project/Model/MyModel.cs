@@ -130,6 +130,12 @@ namespace ATP2016Project.Model
             return algoName.ToLower() == "bfs" || algoName.ToLower() == "dfs";
         }
 
+        /// <summary>
+        /// solve the maze with a specific algorithm that we recieve as parameter.
+        /// store the solution in the dictionary
+        /// </summary>
+        /// <param name="mazeName">the name of the maze</param>
+        /// <param name="algoName">the name of the algorithm</param>
         public void solveMaze(string mazeName, string algoName)
         {
             string algorithm = algoName.ToLower();
@@ -147,6 +153,12 @@ namespace ATP2016Project.Model
             m_mazesSolution[mazeName] = algo.search(searchableMaze);
         }
 
+        /// <summary>
+        /// check if the solution of the maze is in our dictionary
+        /// and returns true or false
+        /// </summary>
+        /// <param name="mazeName">the name of the maze</param>
+        /// <returns>true or false (if the maze is in our dictionary)</returns>
         public bool solutionExist(string mazeName)
         {
             return m_mazesSolution.ContainsKey(mazeName);

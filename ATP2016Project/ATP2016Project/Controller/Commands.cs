@@ -230,6 +230,9 @@ namespace ATP2016Project.Controller
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     class CommandMazeSize : ACommand
     {
         public CommandMazeSize(IModel model, IView view) : base(model, view)
@@ -258,6 +261,9 @@ namespace ATP2016Project.Controller
         }
     }
 
+    /// <summary>
+    /// return the size in bytes of a maze we saved in a file
+    /// </summary>
     class CommandFileSize : ACommand
     {
         public CommandFileSize(IModel model, IView view) : base(model, view)
@@ -291,6 +297,9 @@ namespace ATP2016Project.Controller
         }
     }
 
+    /// <summary>
+    /// solve the specific maze we chose and store it in the dictionary
+    /// </summary>
     class CommandSolveMaze : ACommand
     {
         public CommandSolveMaze(IModel model, IView view) : base(model, view)
@@ -337,6 +346,9 @@ namespace ATP2016Project.Controller
         }
     }
 
+    /// <summary>
+    /// Display the solution of the specific maze we chose. 
+    /// </summary>
     class CommandDisplaySolution : ACommand
     {
         public CommandDisplaySolution(IModel model, IView view) : base(model, view)
@@ -388,6 +400,10 @@ namespace ATP2016Project.Controller
             Environment.Exit(0); //exit the program
         }
 
+        /// <summary>
+        /// an helping method, iterates on all the threads and waiting them to finish 
+        /// before exiting the program
+        /// </summary>
         private static void closeThreads()
         {
             foreach (Thread t in m_threads)
