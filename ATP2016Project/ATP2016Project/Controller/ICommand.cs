@@ -11,5 +11,6 @@ namespace ATP2016Project.Controller
         void DoCommand(params string[] parameters);
         string GetName();
         string GetDescription();
+        Object getLock();
     }
 }

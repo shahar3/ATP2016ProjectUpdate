@@ -16,30 +16,19 @@ namespace ATP2016Project.Controller
     {
         public CommandDir(IModel model, IView view) : base(model, view)
         {
-
         }
 
         public override void DoCommand(params string[] parameters)
         {
-            Console.WriteLine("Showing the dir {0}", parameters[0]);
-            string path = parameters[0];
+            string fullPath = string.Empty;
+            foreach (string sPath in parameters)
+            {
+                fullPath += " " + sPath;
+            }
             try
             {
-                if (Directory.Exists(path))
-                {
-                    foreach (string dir in Directory.GetDirectories(path))
-                    {
-                        m_view.Output(dir);
-                    }
-                    foreach (string file in Directory.GetFiles(path))
-                    {
-                        m_view.Output(file);
-                    }
-                }
-                else
-                {
-                    m_view.Output("Directory " + path + " doesn't exist!");
-                }
+                string dir = m_model.getDir(fullPath);
+                m_view.Output(dir);
             }
             catch (Exception e)
             {
@@ -49,7 +38,7 @@ namespace ATP2016Project.Controller
 
         public override string GetDescription()
         {
-            return "Dir <path> - show all the file and folders inside the path";
+            return "Dir <path> - show all the file and folders inside the path \nWrite in the format \"C:\\directory \"";
         }
 
         public override string GetName()
@@ -76,6 +65,7 @@ namespace ATP2016Project.Controller
                     Thread t = new Thread(() =>
                     {
                         m_model.generateMaze(x, y, z, parameters[0]);
+                        Monitor.Wait(myLock);
                         m_view.Output("Maze " + parameters[0] + " is ready");
                     });
                     t.Start();
@@ -112,12 +102,17 @@ namespace ATP2016Project.Controller
                     m_view.Output("You need to insert only positive numbers");
                     return false;
                 }
+                if (res > 40)
+                {
+                    m_view.Output("The numbers must be lower than 40");
+                    return false;
+                }
             }
             return true;
         }
         public override string GetDescription()
         {
-            return "generate 3d maze <maze name> <dimensions(x y z)> \n generate new maze with the name and the dimensions that you enter. \n if exist a maze with a same name the new maze will override it";
+            return "generate 3d maze <maze name> <dimensions(x y z)> \n   generate new maze with the name and the dimensions that you enter. \n   if exist a maze with a same name the new maze will override it\n   Maximum size is 40. Name the maze without spaces";
         }
 
         public override string GetName()
@@ -134,11 +129,13 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
-            string mazeName = parameters[0];
-            if (m_model.getMaze(mazeName) != null)
+            string mazeName = parameters[0].ToLower();
+            if (m_model.getMaze(mazeName) == null)
             {
-                m_view.displayMaze(m_model.getMaze(mazeName));
+                m_view.Output("Maze " + mazeName + " doesn't exist");
+                return;
             }
+            m_view.displayMaze(m_model.getMaze(mazeName));
         }
 
         public override string GetDescription()
@@ -160,8 +157,17 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
+            if (parameters.Length < 2)
+            {
+                m_view.Output("Must have 2 parameters");
+                return;
+            }
             string mazeName = parameters[0];
-            string path = parameters[1];
+            string path = string.Empty;
+            for (int i = 1; i < parameters.Length; i++)
+            {
+                path += parameters[i];
+            }
             if (!Directory.Exists(path))
             {
                 m_view.Output("File path " + path + " doesn't exist!");
@@ -303,8 +309,10 @@ namespace ATP2016Project.Controller
             Thread t = new Thread(() =>
             {
                 m_model.solveMaze(mazeName, algorithm);
+                Monitor.Wait(myLock);
                 m_view.Output("Solution for " + mazeName + " is ready");
             });
+            t.Name = "generateThread";
             t.Start();
             m_threads.Add(t);
         }
@@ -349,6 +357,9 @@ namespace ATP2016Project.Controller
         }
     }
 
+    /// <summary>
+    /// Exit the program, after closing all the active threads
+    /// </summary>
     class CommandExit : ACommand
     {
         public CommandExit(IModel model, IView view) : base(model, view)
@@ -358,12 +369,17 @@ namespace ATP2016Project.Controller
         public override void DoCommand(params string[] parameters)
         {
             m_view.Output("Exiting the program...\nThank you for using MazeRunner v1.0");
+            closeThreads(); //close all the threads
+            Thread.Sleep(3000); //wait
+            Environment.Exit(0); //exit the program
+        }
+
+        private static void closeThreads()
+        {
             foreach (Thread t in m_threads)
             {
-                t.Abort();
+                t.Join();
             }
-            Thread.Sleep(3000);
-            Environment.Exit(0);
         }
 
         public override string GetDescription()

@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ATP2016Project.Model.Algorithms.MazeGenerators;
 using ATP2016Project.Model.Algorithms.Search;
+using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace ATP2016Project.View
 {
@@ -36,9 +38,10 @@ namespace ATP2016Project.View
             printInstructions();
             string userCommand;
             bool exit = false;
+            printCommands();
             while (!exit)
             {
-                printCommands();
+                Console.WriteLine();
                 Output("");
                 string[] commandAndParams = input().Trim().Split(' ');
                 userCommand = commandAndParams[0].ToLower();
@@ -54,6 +57,15 @@ namespace ATP2016Project.View
                 if (userCommand == "exit")
                 {
                     exit = true;
+                    break;
+                }
+                if (userCommand == "generate3dmaze")
+                {
+                    printCommands(m_commands[userCommand].getLock());
+                }
+                else
+                {
+                    printCommands();
                 }
                 //Console.ReadKey();
             }
@@ -74,14 +86,45 @@ namespace ATP2016Project.View
             return m_commands.ContainsKey(command);
         }
 
+        private void printCommands(Object myLock)
+        {
+            int i = 1;
+            foreach (string command in m_commands.Keys)
+            {
+                Console.Write("{0}- {1} - ", i, command);
+                MarkParameters(command);
+                Console.WriteLine();
+                i++;
+            }
+            Monitor.Pulse(myLock);
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private void printCommands()
         {
             int i = 1;
             foreach (string command in m_commands.Keys)
             {
-
-                Console.WriteLine("{0}- {1} - {2} ", i, command, m_commands[command].GetDescription());
+                Console.Write("{0}- {1} - ", i, command);
+                MarkParameters(command);
+                Console.WriteLine();
                 i++;
+            }
+        }
+
+        private void MarkParameters(string command)
+        {
+            foreach (char commandChar in m_commands[command].GetDescription())
+            {
+                if (commandChar == '<')
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                Console.Write(commandChar);
+                if (commandChar == '>')
+                {
+                    Console.ResetColor();
+                }
             }
         }
 

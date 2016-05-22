@@ -20,5 +20,6 @@ namespace ATP2016Project.Model
         void solveMaze(string mazeName, string algoName);
         bool solutionExist(string mazeName);
         Solution getSolution(string mazeName);
+        string getDir(string path);
     }
 }

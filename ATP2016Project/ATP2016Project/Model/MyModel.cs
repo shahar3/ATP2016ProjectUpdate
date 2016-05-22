@@ -28,7 +28,7 @@ namespace ATP2016Project.Model
         public void generateMaze(int x, int y, int z, string name)
         {
             IMazeGenerator mazeGenerator = new MyMaze3dGenerator();
-            m_mazes[name] = mazeGenerator.generate(x, y, z);
+            m_mazes[name.ToLower()] = mazeGenerator.generate(x, y, z);
         }
 
         public IMaze getMaze(string name)
@@ -150,5 +150,27 @@ namespace ATP2016Project.Model
         {
             return m_mazesSolution[mazeName];
         }
+
+        public string getDir(string path)
+        {
+            string output = string.Format("Showing the dir of {0}\n", path);
+            if (Directory.Exists(path))
+            {
+                foreach (string dir in Directory.GetDirectories(path))
+                {
+                    output += dir + "\n";
+                }
+                foreach (string file in Directory.GetFiles(path))
+                {
+                    output += file + "\n";
+                }
+            }
+            else
+            {
+                output = "Directory " + path + " doesn't exist!";
+            }
+            return output;
+        }
+
     }
 }
