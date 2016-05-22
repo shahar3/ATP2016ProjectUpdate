@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading;
 using ATP2016Project.Model.Algorithms.MazeGenerators;
 using static System.Net.Mime.MediaTypeNames;
+using System.Runtime.CompilerServices;
 
 namespace ATP2016Project.Controller
 {
@@ -65,9 +66,10 @@ namespace ATP2016Project.Controller
                     Thread t = new Thread(() =>
                     {
                         m_model.generateMaze(x, y, z, parameters[0]);
-                        Monitor.Wait(myLock);
+                        Thread.Sleep(40);
                         m_view.Output("Maze " + parameters[0] + " is ready");
                     });
+                    t.Name = "GenerateThread";
                     t.Start();
                     m_threads.Add(t);
                 }
@@ -166,7 +168,7 @@ namespace ATP2016Project.Controller
             string path = string.Empty;
             for (int i = 1; i < parameters.Length; i++)
             {
-                path += parameters[i];
+                path += " " + parameters[i];
             }
             if (!Directory.Exists(path))
             {
@@ -175,7 +177,7 @@ namespace ATP2016Project.Controller
             }
             if (m_model.getMaze(mazeName) != null)
             {
-                m_model.saveMaze(mazeName, path);
+                m_view.Output(m_model.saveMaze(mazeName, path));
             }
             else
             {
@@ -202,22 +204,24 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
-            string path = parameters[0];
-            Console.WriteLine(path);
-            string name = parameters[1];
+            string path = string.Empty;
+            for (int i = 0; i < parameters.Length - 1; i++)
+            {
+                path += " " + parameters[i];
+            }
+            string name = parameters[parameters.Length - 1];
             if (!File.Exists(path))
             {
                 m_view.Output("File path " + path + " doesn't exist!");
                 return;
             }
-            Console.WriteLine("ok");
-            m_model.loadMaze(path, name);
+            m_view.Output(m_model.loadMaze(path, name));
 
         }
 
         public override string GetDescription()
         {
-            return "load maze <file path> <maze name> - load the maze from the path";
+            return "load maze <file path> <maze name> - load the maze from the whole path and save it in the name you choose";
         }
 
         public override string GetName()
@@ -262,7 +266,12 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
-            string filePath = parameters[0];
+
+            string filePath = string.Empty;
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                filePath += " " + parameters[i];
+            }
             if (!File.Exists(filePath))
             {
                 m_view.Output("File " + filePath + " doesn't exist");
@@ -309,10 +318,10 @@ namespace ATP2016Project.Controller
             Thread t = new Thread(() =>
             {
                 m_model.solveMaze(mazeName, algorithm);
-                Monitor.Wait(myLock);
+                Thread.Sleep(60);
                 m_view.Output("Solution for " + mazeName + " is ready");
             });
-            t.Name = "generateThread";
+            t.Name = "SolveThread";
             t.Start();
             m_threads.Add(t);
         }
@@ -336,6 +345,11 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
+            if (parameters.Length < 2)
+            {
+                m_view.Output("You need 2 parameters");
+                return;
+            }
             string mazeName = parameters[0];
             if (!m_model.solutionExist(mazeName))
             {

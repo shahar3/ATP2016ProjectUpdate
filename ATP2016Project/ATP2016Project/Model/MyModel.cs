@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,7 +44,7 @@ namespace ATP2016Project.Model
             }
         }
 
-        public void loadMaze(string path, string name)
+        public string loadMaze(string path, string name)
         {
             using (FileStream fs = new FileStream(path, FileMode.Open))
             {
@@ -54,6 +55,7 @@ namespace ATP2016Project.Model
                     m_mazes[name] = maze;
                 }
             }
+            return "Loaded maze successfully";
 
         }
 
@@ -74,8 +76,12 @@ namespace ATP2016Project.Model
             return mazeBytes;
         }
 
-        public void saveMaze(string mazeName, string path)
+        public string saveMaze(string mazeName, string path)
         {
+            if (path[path.Length - 1] != '\\')
+            {
+                path += @"\";
+            }
             string filePath = path + mazeName + ".maze";
             Maze3d myMaze = getMaze(mazeName) as Maze3d;
             using (FileStream fs = new FileStream(filePath, FileMode.Create))
@@ -95,7 +101,7 @@ namespace ATP2016Project.Model
                     }
                 }
             }
-
+            return "saved the maze " + mazeName + " in " + filePath;
         }
 
         public long getMazeSize(IMaze maze)

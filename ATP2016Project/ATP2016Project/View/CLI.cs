@@ -38,10 +38,10 @@ namespace ATP2016Project.View
             printInstructions();
             string userCommand;
             bool exit = false;
-            printCommands();
             while (!exit)
             {
                 Console.WriteLine();
+                printCommands();
                 Output("");
                 string[] commandAndParams = input().Trim().Split(' ');
                 userCommand = commandAndParams[0].ToLower();
@@ -57,15 +57,6 @@ namespace ATP2016Project.View
                 if (userCommand == "exit")
                 {
                     exit = true;
-                    break;
-                }
-                if (userCommand == "generate3dmaze")
-                {
-                    printCommands(m_commands[userCommand].getLock());
-                }
-                else
-                {
-                    printCommands();
                 }
                 //Console.ReadKey();
             }
@@ -86,20 +77,6 @@ namespace ATP2016Project.View
             return m_commands.ContainsKey(command);
         }
 
-        private void printCommands(Object myLock)
-        {
-            int i = 1;
-            foreach (string command in m_commands.Keys)
-            {
-                Console.Write("{0}- {1} - ", i, command);
-                MarkParameters(command);
-                Console.WriteLine();
-                i++;
-            }
-            Monitor.Pulse(myLock);
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
         private void printCommands()
         {
             int i = 1;
@@ -215,10 +192,12 @@ namespace ATP2016Project.View
 
         public void displaySolution(Solution sol)
         {
+            string displaySolution = string.Empty;
             foreach (AState state in sol.getSolutionPath())
             {
-                Output((state as MazeState).Position.ToString());
+                displaySolution += (state as MazeState).Position.ToString() + "\n";
             }
+            Output(displaySolution);
         }
     }
 }

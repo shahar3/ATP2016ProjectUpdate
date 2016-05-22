@@ -12,8 +12,8 @@ namespace ATP2016Project.Model
     {
         void generateMaze(int x, int y, int z, string name);
         IMaze getMaze(string name);
-        void saveMaze(string mazeName, string filePath);
-        void loadMaze(string path, string name);
+        string saveMaze(string mazeName, string filePath);
+        string loadMaze(string path, string name);
         long getMazeSize(IMaze maze);
         long getFileSize(string filePath);
         bool algorithmExist(string algoName);

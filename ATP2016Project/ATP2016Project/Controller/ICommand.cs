@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
@@ -11,6 +12,6 @@ namespace ATP2016Project.Controller
         void DoCommand(params string[] parameters);
         string GetName();
         string GetDescription();
-        Object getLock();
+        List<Thread> getThreads();
     }
 }

@@ -13,7 +13,6 @@ namespace ATP2016Project.Controller
     {
         protected IModel m_model;
         protected IView m_view;
-        protected object myLock = new object();
         protected static List<Thread> m_threads = new List<Thread>();
 
         public ACommand(IModel model, IView view)
@@ -27,9 +26,9 @@ namespace ATP2016Project.Controller
 
         public abstract string GetName();
 
-        public Object getLock()
+        public List<Thread> getThreads()
         {
-            return myLock;
+            return m_threads;
         }
     }
 }
