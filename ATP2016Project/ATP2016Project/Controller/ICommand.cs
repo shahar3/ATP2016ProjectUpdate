@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
 {
+    /// <summary>
+    /// one of the main cores of our CLI
+    /// set the interface for the commands we have in our system.
+    /// we can get the relevant information about the commands and
+    /// perform them
+    /// </summary>
     interface ICommand
     {
         void DoCommand(params string[] parameters);
         string GetName();
         string GetDescription();
-        List<Thread> getThreads();
     }
 }

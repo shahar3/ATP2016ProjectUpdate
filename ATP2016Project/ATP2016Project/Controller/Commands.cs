@@ -52,6 +52,10 @@ namespace ATP2016Project.Controller
         }
     }
 
+    /// <summary>
+    /// this command is responsible to get the dimensions and the maze name as
+    /// parameters and call the generate function in the model layer 
+    /// </summary>
     class CommandGenerate3dMaze : ACommand
     {
         public CommandGenerate3dMaze(IModel model, IView view) : base(model, view)
@@ -84,6 +88,11 @@ namespace ATP2016Project.Controller
             }
         }
 
+        /// <summary>
+        /// an helping method to check if the dimensions of the maze are valid
+        /// </summary>
+        /// <param name="parameters">the dimensions</param>
+        /// <returns>if the dimensions are valid or not</returns>
         private bool checkIfDimensionsAreValid(string[] parameters)
         {
             //length
@@ -108,7 +117,7 @@ namespace ATP2016Project.Controller
                     m_view.Output("You need to insert only positive numbers");
                     return false;
                 }
-                if (res > 40)
+                if (res > 40) //our maze limit
                 {
                     m_view.Output("The numbers must be lower than 40");
                     return false;
@@ -116,6 +125,7 @@ namespace ATP2016Project.Controller
             }
             return true;
         }
+
         public override string GetDescription()
         {
             return "generate 3d maze <maze name> <dimensions(x y z)> \n   generate new maze with the name and the dimensions that you enter. \n   if exist a maze with a same name the new maze will override it\n   Maximum size is 40. Name the maze without spaces";
@@ -127,6 +137,10 @@ namespace ATP2016Project.Controller
         }
     }
 
+    /// <summary>
+    /// This command is responsible to call the model to recieve the maze
+    /// and than call the view layer to display the maze
+    /// </summary>
     class CommandDisplay : ACommand
     {
         public CommandDisplay(IModel model, IView view) : base(model, view)
@@ -155,6 +169,9 @@ namespace ATP2016Project.Controller
         }
     }
 
+    /// <summary>
+    /// save the maze in the dictionary with a name we get from the user
+    /// </summary>
     class CommandSaveMaze : ACommand
     {
         public CommandSaveMaze(IModel model, IView view) : base(model, view)
@@ -200,6 +217,10 @@ namespace ATP2016Project.Controller
         }
     }
 
+    /// <summary>
+    /// load the maze with the name we get as a parameter from a path
+    /// we get from the user
+    /// </summary>
     class CommandLoadMaze : ACommand
     {
         public CommandLoadMaze(IModel model, IView view) : base(model, view)
@@ -235,7 +256,7 @@ namespace ATP2016Project.Controller
     }
 
     /// <summary>
-    /// 
+    /// retuns the size of the maze in our memory in bytes
     /// </summary>
     class CommandMazeSize : ACommand
     {
@@ -328,6 +349,7 @@ namespace ATP2016Project.Controller
             {
                 m_view.Output("The algorithm " + algorithm + " doesn't exist");
             }
+            //run the computations in a new thread
             Thread t = new Thread(() =>
             {
                 m_model.solveMaze(mazeName, algorithm);
@@ -361,7 +383,7 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
-            if (parameters.Length < 2)
+            if (parameters.Length < 2) //parameters check
             {
                 m_view.Output("You need 2 parameters");
                 return;

@@ -15,6 +15,13 @@ namespace ATP2016Project.Controller
         protected IView m_view;
         protected static List<Thread> m_threads = new List<Thread>();
 
+        /// <summary>
+        /// The constructor
+        /// gets a model and a view objects and set them to be
+        /// the controller model and view layers
+        /// </summary>
+        /// <param name="model">model object</param>
+        /// <param name="view">view object</param>
         public ACommand(IModel model, IView view)
         {
             m_model = model;
@@ -26,9 +33,8 @@ namespace ATP2016Project.Controller
 
         public abstract string GetName();
 
-        public List<Thread> getThreads()
-        {
-            return m_threads;
-        }
+        /// <summary>
+        /// 
+        /// </summary>
     }
 }

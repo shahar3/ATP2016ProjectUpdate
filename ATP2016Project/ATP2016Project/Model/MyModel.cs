@@ -59,6 +59,11 @@ namespace ATP2016Project.Model
 
         }
 
+        /// <summary>
+        /// gets a file and decompress the maze from it
+        /// </summary>
+        /// <param name="fileStream">the compressed file</param>
+        /// <returns>list of bytes from the compressed file</returns>
         private static List<byte> decompressFromFile(Stream fileStream)
         {
             List<byte> mazeBytes = new List<byte>();
