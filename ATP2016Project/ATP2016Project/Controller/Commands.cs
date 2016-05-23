@@ -13,6 +13,10 @@ using System.Runtime.CompilerServices;
 
 namespace ATP2016Project.Controller
 {
+    /// <summary>
+    /// The dir command gets a path as a parameter and prints to the stream
+    /// all the directories and files inside the path
+    /// </summary>
     class CommandDir : ACommand
     {
         public CommandDir(IModel model, IView view) : base(model, view)
