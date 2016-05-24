@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ATP2016Project.Controller
 {
+    /// <summary>
+    /// the facade of the contoroller layer
+    /// </summary>
     interface IController
     {
         void SetModel(IModel model);
