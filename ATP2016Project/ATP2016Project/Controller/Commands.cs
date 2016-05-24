@@ -149,6 +149,11 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
+            if (parameters.Length < 1)
+            {
+                m_view.Output("Expected to get a parameter");
+                return;
+            }
             string mazeName = parameters[0].ToLower();
             if (m_model.getMaze(mazeName) == null)
             {
@@ -208,7 +213,7 @@ namespace ATP2016Project.Controller
 
         public override string GetDescription()
         {
-            return "save maze <maze name> <file path> - save the maze with a given name to a given file path(full path)";
+            return "save maze <maze name> <file path> - save the maze with a given name to a given directory";
         }
 
         public override string GetName()
@@ -229,6 +234,11 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
+            if (parameters.Length < 2)
+            {
+                m_view.Output("Must have 2 parameters");
+                return;
+            }
             string path = string.Empty;
             for (int i = 0; i < parameters.Length - 1; i++)
             {
@@ -241,7 +251,6 @@ namespace ATP2016Project.Controller
                 return;
             }
             m_view.Output(m_model.loadMaze(path, name));
-
         }
 
         public override string GetDescription()
@@ -266,6 +275,11 @@ namespace ATP2016Project.Controller
 
         public override void DoCommand(params string[] parameters)
         {
+            if (parameters.Length < 1)
+            {
+                m_view.Output("Expected to get a parameter");
+                return;
+            }
             string mazeName = parameters[0];
             if (m_model.getMaze(mazeName) == null)
             {

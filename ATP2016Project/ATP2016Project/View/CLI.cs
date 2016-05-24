@@ -99,7 +99,10 @@ namespace ATP2016Project.View
             int i = 1;
             foreach (string command in m_commands.Keys)
             {
-                Console.Write("{0}- {1} - ", i, command);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("({0})", i);
+                Console.ResetColor();
+                Console.Write(" {1} - ", i, command);
                 MarkParameters(command); //print the description and mark the parameters in red
                 Console.WriteLine();
                 i++;

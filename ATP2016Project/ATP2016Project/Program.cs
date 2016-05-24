@@ -22,8 +22,8 @@ namespace ATP2016Project
             //testMaze3dGenerator(new MyMaze3dGenerator());
             //testSearchAlgorithms();
             //testCompressor();
-            //testCompressorStream();
-            RunCLI();
+            testCompressorStream();
+            //RunCLI();
             Console.ReadKey();
         }
 
@@ -45,6 +45,7 @@ namespace ATP2016Project
 
         private static void testCompressorStream()
         {
+            //write compressed maze
             IMazeGenerator mg = new MyMaze3dGenerator();
             IMaze maze = mg.generate(18, 18, 2);
             byte[] original = (maze as Maze3d).toByteArray();
@@ -65,6 +66,7 @@ namespace ATP2016Project
                     }
                 }
             }
+            //check if the compressed file is ok
             ICompressor c = new MyMaze3Dcompressor();
             byte[] compressedOriginal = c.compress(original);
             int additional = (original.Length / 100) * 2;
@@ -74,7 +76,25 @@ namespace ATP2016Project
                 compressedFile = new byte[compressedOriginal.Length + additional];
                 fileInStream.Read(compressedFile, 0, compressedFile.Length);
             }
-
+            //write decompressed maze
+            using (FileStream fileOutStream = new FileStream("1Dec.Maze", FileMode.Create))
+            {
+                using (Stream inputStream = new FileStream("1.Maze", FileMode.Open))
+                {
+                    using (Stream outStream = new MyCompressorStream(fileOutStream, MyCompressorStream.compressionMode.decompress))
+                    {
+                        byte[] byteArray = new byte[100];
+                        int r = 0;
+                        while ((r = inputStream.Read(byteArray, 0, byteArray.Length)) != 0)
+                        {
+                            outStream.Write(byteArray, 0, 100);
+                            outStream.Flush();
+                            byteArray = new byte[100];
+                        }
+                    }
+                }
+            }
+            //read decompressed maze
             byte[] mazeBytes;
             byte[] buffer;
             using (FileStream fileInStream = new FileStream("1.maze", FileMode.Open))
