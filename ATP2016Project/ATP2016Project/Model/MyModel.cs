@@ -15,9 +15,9 @@ namespace ATP2016Project.Model
 {
     class MyModel : IModel
     {
-        private IController m_controller;
-        private Dictionary<string, IMaze> m_mazes;
-        private Dictionary<string, Solution> m_mazesSolution;
+        private IController m_controller; //the controller layer object
+        private Dictionary<string, IMaze> m_mazes; //the mazes dictionary
+        private Dictionary<string, Solution> m_mazesSolution; //the solutions dictionary
 
         public MyModel(IController controller)
         {
@@ -195,5 +195,22 @@ namespace ATP2016Project.Model
             return output;
         }
 
+        /// <summary>
+        /// mark the solution for the maze in the grid
+        /// </summary>
+        /// <param name="mazeName">the grid</param>
+        public void markSolution(string mazeName)
+        {
+            ISearchable searchableMaze = new SearchableMaze3d(m_mazes[mazeName]);
+            //mark the solution in grid
+            (searchableMaze as SearchableMaze3d).markSolutionInGrid(m_mazesSolution[mazeName]);
+        }
+
+        public void clearSolution(string mazeName)
+        {
+            ISearchable searchableMaze = new SearchableMaze3d(m_mazes[mazeName]);
+            //mark the solution in grid
+            (searchableMaze as SearchableMaze3d).initializeGrid();
+        }
     }
 }
