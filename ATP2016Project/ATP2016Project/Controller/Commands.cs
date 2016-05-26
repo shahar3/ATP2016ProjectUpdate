@@ -552,7 +552,7 @@ namespace ATP2016Project.Controller
         /// <param name="parameters">maze name</param>
         public override void DoCommand(params string[] parameters)
         {
-            if (parameters.Length < 1)
+            if (parameters.Length < 1) //need 1 parameter
             {
                 m_view.Output("Expected to get a parameter");
                 return;
