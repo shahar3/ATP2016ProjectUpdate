@@ -375,11 +375,6 @@ namespace ATP2016Project.Controller
         /// <param name="parameters">name of maze</param>
         public override void DoCommand(params string[] parameters)
         {
-            if (parameters.Length < 1)
-            {
-                m_view.Output("Expected to get a parameter");
-                return;
-            }
             string mazeName = parameters[0];
             if (m_model.getMaze(mazeName) == null)
             {
@@ -421,11 +416,7 @@ namespace ATP2016Project.Controller
         /// <param name="parameters">path</param>
         public override void DoCommand(params string[] parameters)
         {
-            if (parameters.Length < 1)
-            {
-                m_view.Output("Expected to get a parameter");
-                return;
-            }
+
             string filePath = string.Empty;
             for (int i = 0; i < parameters.Length; i++)
             {
@@ -564,14 +555,6 @@ namespace ATP2016Project.Controller
                 return;
             }
             m_view.displaySolution(m_model.getSolution(mazeName));
-            m_view.Output("Do you want to show a visual solution? (y/n)");
-            string ans = m_view.input();
-            if (ans.ToLower() == "y")
-            {
-                m_model.markSolution(mazeName); //change the solution path to 2's
-                m_view.displayMaze(m_model.getMaze(mazeName));
-                m_model.clearSolution(mazeName); //change the 2's to 0's
-            }
         }
         /// <summary>
         /// this function return the description of this command

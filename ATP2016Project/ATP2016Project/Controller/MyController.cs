@@ -5,7 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+/// <summary>
+/// In this class we have create the commands dictionary and insert to the
+/// dictionary all the commands
+/// </summary>
 namespace ATP2016Project.Controller
 {
     class MyController : IController
@@ -16,12 +19,18 @@ namespace ATP2016Project.Controller
         public MyController()
         {
         }
-
+        /// <summary>
+        /// init the field m_odel with the model that we get
+        /// </summary>
+        /// <param name="model">model</param>
         public void SetModel(IModel model)
         {
             m_model = model;
         }
-
+        /// <summary>
+        /// init the field m_view with the view that we get
+        /// </summary>
+        /// <param name="view"></param>
         public void SetView(IView view)
         {
             m_view = view;
@@ -30,9 +39,11 @@ namespace ATP2016Project.Controller
 
         public void Output(string output)
         {
-            throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// create the new commmands and insert them to the commands dictionary 
+        /// </summary>
+        /// <returns>commands dictionary</returns>
         public Dictionary<string, ICommand> GetCommands()
         {
             Dictionary<string, ICommand> commands = new Dictionary<string, ICommand>();

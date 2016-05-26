@@ -88,15 +88,5 @@ namespace ATP2016Project.Model
         /// <param name="path">the path of the dir</param>
         /// <returns>all the files and dirs in the path</returns>
         string getDir(string path);
-        /// <summary>
-        /// mark the solution for the maze in the grid
-        /// </summary>
-        /// <param name="mazeName">our maze</param>
-        void markSolution(string mazeName);
-        /// <summary>
-        /// clear the solution path
-        /// </summary>
-        /// <param name="mazeName">our maze</param>
-        void clearSolution(string mazeName);
     }
 }

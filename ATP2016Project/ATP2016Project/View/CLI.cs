@@ -161,14 +161,7 @@ namespace ATP2016Project.View
         /// <param name="color">the desired color</param>
         private void Output(string output, ConsoleColor color)
         {
-            if (color == ConsoleColor.Red)
-            {
-                Console.BackgroundColor = color;
-            }
-            else
-            {
-                Console.ForegroundColor = color;
-            }
+            Console.ForegroundColor = color;
             Console.Write(output);
             Console.ResetColor();
         }
@@ -239,7 +232,7 @@ namespace ATP2016Project.View
             }
             else if (level == maze3d.ZLength - 1 && i == maze3d.GoalPoint.X * 2 + 1 && j == maze3d.GoalPoint.Y * 2 + 1)
             {
-                Output("E ", ConsoleColor.DarkRed);
+                Output("E ", ConsoleColor.Red);
             }
             else if (maze.Grid[i, j] == 1) //put wall
             {
@@ -249,7 +242,7 @@ namespace ATP2016Project.View
             {
                 Output(space, ConsoleColor.White);
             }
-            else //2 put solution block
+            else
             {
                 Output(space, ConsoleColor.Red);
             }

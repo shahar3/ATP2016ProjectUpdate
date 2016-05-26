@@ -10,28 +10,43 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
-
+/// <summary>
+/// In this class we do the calculate that we need to help service the user 
+/// </summary>
 namespace ATP2016Project.Model
 {
     class MyModel : IModel
     {
-        private IController m_controller; //the controller layer object
-        private Dictionary<string, IMaze> m_mazes; //the mazes dictionary
-        private Dictionary<string, Solution> m_mazesSolution; //the solutions dictionary
-
+        private IController m_controller;
+        private Dictionary<string, IMaze> m_mazes;
+        private Dictionary<string, Solution> m_mazesSolution;
+        /// <summary>
+        /// ctor with controller in parameter
+        /// </summary>
+        /// <param name="controller">contoller</param>
         public MyModel(IController controller)
         {
             m_controller = controller;
             m_mazes = new Dictionary<string, IMaze>();
             m_mazesSolution = new Dictionary<string, Solution>();
         }
-
+        /// <summary>
+        /// generate maze with the diminsion that we give from the user
+        /// </summary>
+        /// <param name="x">x length</param>
+        /// <param name="y">y length</param>
+        /// <param name="z">z length</param>
+        /// <param name="name">name</param>
         public void generateMaze(int x, int y, int z, string name)
         {
             IMazeGenerator mazeGenerator = new MyMaze3dGenerator();
             m_mazes[name.ToLower()] = mazeGenerator.generate(x, y, z);
         }
-
+        /// <summary>
+        /// get the maze from the dictionary
+        /// </summary>
+        /// <param name="name">maze name</param>
+        /// <returns>maze</returns>
         public IMaze getMaze(string name)
         {
             if (m_mazes.ContainsKey(name))
@@ -43,7 +58,13 @@ namespace ATP2016Project.Model
                 return null;
             }
         }
-
+        /// <summary>
+        /// load maze from the path that we give from the user and
+        /// save thae maze in the dictionary with name that we give from the user
+        /// </summary>
+        /// <param name="path">path to load</param>
+        /// <param name="name">maze new name</param>
+        /// <returns></returns>
         public string loadMaze(string path, string name)
         {
             using (FileStream fs = new FileStream(path, FileMode.Open))
@@ -80,7 +101,12 @@ namespace ATP2016Project.Model
 
             return mazeBytes;
         }
-
+        /// <summary>
+        /// save the maze to the path that we give from the user
+        /// </summary>
+        /// <param name="mazeName">maze name</param>
+        /// <param name="path">path</param>
+        /// <returns>save or not</returns>
         public string saveMaze(string mazeName, string path)
         {
             if (path[path.Length - 1] != '\\')
@@ -89,6 +115,8 @@ namespace ATP2016Project.Model
             }
             string filePath = path + mazeName + ".maze";
             Maze3d myMaze = getMaze(mazeName) as Maze3d;
+            try
+            {
             using (FileStream fs = new FileStream(filePath, FileMode.Create))
             {
                 using (Stream mazeStream = new MemoryStream(myMaze.toByteArray()))
@@ -108,7 +136,17 @@ namespace ATP2016Project.Model
             }
             return "saved the maze " + mazeName + " in " + filePath;
         }
+            catch (Exception e)
+            {
+                return "You need run as a adminitrator";
+            }
 
+        }
+        /// <summary>
+        /// get maze size from the doctionary
+        /// </summary>
+        /// <param name="maze">maze</param>
+        /// <returns>the size of the maze</returns>
         public long getMazeSize(IMaze maze)
         {
             long size = 0;
@@ -122,14 +160,22 @@ namespace ATP2016Project.Model
             }
             return size;
         }
-
+        /// <summary>
+        /// get the file size from the path that we give from the user
+        /// </summary>
+        /// <param name="filePath">file path</param>
+        /// <returns></returns>
         public long getFileSize(string filePath)
         {
             long size = 0;
             size = new FileInfo(filePath).Length;
             return size;
         }
-
+        /// <summary>
+        /// check if the algo that we give from the user is valid
+        /// </summary>
+        /// <param name="algoName">name of the algorithm</param>
+        /// <returns>true or false</returns>
         public bool algorithmExist(string algoName)
         {
             return algoName.ToLower() == "bfs" || algoName.ToLower() == "dfs";
@@ -206,6 +252,10 @@ namespace ATP2016Project.Model
             (searchableMaze as SearchableMaze3d).markSolutionInGrid(m_mazesSolution[mazeName]);
         }
 
+        /// <summary>
+        /// clear the path of the solution
+        /// </summary>
+        /// <param name="mazeName">the maze with the solution path</param>
         public void clearSolution(string mazeName)
         {
             ISearchable searchableMaze = new SearchableMaze3d(m_mazes[mazeName]);
