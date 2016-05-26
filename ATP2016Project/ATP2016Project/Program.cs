@@ -22,8 +22,8 @@ namespace ATP2016Project
             //testMaze3dGenerator(new MyMaze3dGenerator());
             //testSearchAlgorithms();
             //testCompressor();
-            testCompressorStream();
-            //RunCLI();
+            //testCompressorStream();
+            RunCLI();
             Console.ReadKey();
         }
 
