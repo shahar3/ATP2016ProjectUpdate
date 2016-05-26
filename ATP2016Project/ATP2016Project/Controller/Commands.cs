@@ -375,7 +375,7 @@ namespace ATP2016Project.Controller
         /// <param name="parameters">name of maze</param>
         public override void DoCommand(params string[] parameters)
         {
-            string mazeName = parameters[0];
+            string mazeName = parameters[0].ToLower();
             if (m_model.getMaze(mazeName) == null)
             {
                 m_view.Output("Maze " + mazeName + " doesn't exist");
@@ -560,9 +560,9 @@ namespace ATP2016Project.Controller
             if (ans.ToLower() == "y")
             {
                 m_model.markSolution(mazeName);
+                m_view.displayMaze(m_model.getMaze(mazeName));
+                m_model.clearSolution(mazeName);
             }
-            m_view.displayMaze(m_model.getMaze(mazeName));
-            m_model.clearSolution(mazeName);
         }
         /// <summary>
         /// this function return the description of this command
