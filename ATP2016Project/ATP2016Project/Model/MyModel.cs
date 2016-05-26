@@ -117,25 +117,25 @@ namespace ATP2016Project.Model
             Maze3d myMaze = getMaze(mazeName) as Maze3d;
             try
             {
-            using (FileStream fs = new FileStream(filePath, FileMode.Create))
-            {
-                using (Stream mazeStream = new MemoryStream(myMaze.toByteArray()))
+                using (FileStream fs = new FileStream(filePath, FileMode.Create))
                 {
-                    using (Stream fileStream = new MyCompressorStream(fs, MyCompressorStream.compressionMode.compress))
+                    using (Stream mazeStream = new MemoryStream(myMaze.toByteArray()))
                     {
-                        byte[] byteArray = new byte[100];
-                        int r = 0;
-                        while ((r = mazeStream.Read(byteArray, 0, byteArray.Length)) != 0)
+                        using (Stream fileStream = new MyCompressorStream(fs, MyCompressorStream.compressionMode.compress))
                         {
-                            fileStream.Write(byteArray, 0, 100);
-                            fileStream.Flush();
-                            byteArray = new byte[100];
+                            byte[] byteArray = new byte[100];
+                            int r = 0;
+                            while ((r = mazeStream.Read(byteArray, 0, byteArray.Length)) != 0)
+                            {
+                                fileStream.Write(byteArray, 0, 100);
+                                fileStream.Flush();
+                                byteArray = new byte[100];
+                            }
                         }
                     }
                 }
+                return "saved the maze " + mazeName + " in " + filePath;
             }
-            return "saved the maze " + mazeName + " in " + filePath;
-        }
             catch (Exception e)
             {
                 return "You need run as a adminitrator";
@@ -199,9 +199,9 @@ namespace ATP2016Project.Model
             {
                 algo = new DepthFirstSearch();
             }
-            IMaze maze = m_mazes[mazeName];
+            IMaze maze = m_mazes[mazeName.ToLower()];
             ISearchable searchableMaze = new SearchableMaze3d(maze);
-            m_mazesSolution[mazeName] = algo.search(searchableMaze);
+            m_mazesSolution[mazeName.ToLower()] = algo.search(searchableMaze);
         }
 
         /// <summary>
@@ -212,12 +212,12 @@ namespace ATP2016Project.Model
         /// <returns>true or false (if the maze is in our dictionary)</returns>
         public bool solutionExist(string mazeName)
         {
-            return m_mazesSolution.ContainsKey(mazeName);
+            return m_mazesSolution.ContainsKey(mazeName.ToLower());
         }
 
         public Solution getSolution(string mazeName)
         {
-            return m_mazesSolution[mazeName];
+            return m_mazesSolution[mazeName.ToLower()];
         }
 
         public string getDir(string path)
