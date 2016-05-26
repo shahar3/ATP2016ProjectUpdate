@@ -23,7 +23,7 @@ namespace ATP2016Project
             //testSearchAlgorithms();
             //testCompressor();
             //testCompressorStream();
-            RunCLI();
+            RunCLI(); //our user command line interface
             Console.ReadKey();
         }
 

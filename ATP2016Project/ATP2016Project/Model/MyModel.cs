@@ -117,31 +117,28 @@ namespace ATP2016Project.Model
             Maze3d myMaze = getMaze(mazeName) as Maze3d;
             try
             {
-
-                using (FileStream fs = new FileStream(filePath, FileMode.Create))
+            using (FileStream fs = new FileStream(filePath, FileMode.Create))
+            {
+                using (Stream mazeStream = new MemoryStream(myMaze.toByteArray()))
                 {
-                    using (Stream mazeStream = new MemoryStream(myMaze.toByteArray()))
+                    using (Stream fileStream = new MyCompressorStream(fs, MyCompressorStream.compressionMode.compress))
                     {
-                        using (Stream fileStream = new MyCompressorStream(fs, MyCompressorStream.compressionMode.compress))
+                        byte[] byteArray = new byte[100];
+                        int r = 0;
+                        while ((r = mazeStream.Read(byteArray, 0, byteArray.Length)) != 0)
                         {
-                            byte[] byteArray = new byte[100];
-                            int r = 0;
-                            while ((r = mazeStream.Read(byteArray, 0, byteArray.Length)) != 0)
-                            {
-                                fileStream.Write(byteArray, 0, 100);
-                                fileStream.Flush();
-                                byteArray = new byte[100];
-                            }
+                            fileStream.Write(byteArray, 0, 100);
+                            fileStream.Flush();
+                            byteArray = new byte[100];
                         }
                     }
                 }
-                return "saved the maze " + mazeName + " in " + filePath;
             }
+            return "saved the maze " + mazeName + " in " + filePath;
+        }
             catch (Exception e)
             {
-
                 return "You need run as a adminitrator";
-
             }
 
         }
@@ -244,5 +241,26 @@ namespace ATP2016Project.Model
             return output;
         }
 
+        /// <summary>
+        /// mark the solution for the maze in the grid
+        /// </summary>
+        /// <param name="mazeName">the grid</param>
+        public void markSolution(string mazeName)
+        {
+            ISearchable searchableMaze = new SearchableMaze3d(m_mazes[mazeName]);
+            //mark the solution in grid
+            (searchableMaze as SearchableMaze3d).markSolutionInGrid(m_mazesSolution[mazeName]);
+        }
+
+        /// <summary>
+        /// clear the path of the solution
+        /// </summary>
+        /// <param name="mazeName">the maze with the solution path</param>
+        public void clearSolution(string mazeName)
+        {
+            ISearchable searchableMaze = new SearchableMaze3d(m_mazes[mazeName]);
+            //mark the solution in grid
+            (searchableMaze as SearchableMaze3d).initializeGrid();
+        }
     }
 }
