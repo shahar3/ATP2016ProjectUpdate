@@ -496,7 +496,7 @@ namespace ATP2016Project.Controller
                 m_view.Output("There is not enough arguments. Expected mazeName and algorithm");
                 return false;
             }
-            mazeName = parameters[0];
+            mazeName = parameters[0].ToLower();
             algorithm = parameters[1];
             //exist
             if (m_model.getMaze(mazeName) == null)
@@ -548,13 +548,21 @@ namespace ATP2016Project.Controller
                 m_view.Output("Expected to get a parameter");
                 return;
             }
-            string mazeName = parameters[0];
+            string mazeName = parameters[0].ToLower();
             if (!m_model.solutionExist(mazeName))
             {
                 m_view.Output("Solution for the maze " + mazeName + " doesn't exist");
                 return;
             }
             m_view.displaySolution(m_model.getSolution(mazeName));
+            m_view.Output("Do you want to show a visual solution? (y\\n)");
+            string ans = m_view.input();
+            if (ans.ToLower() == "y")
+            {
+                m_model.markSolution(mazeName);
+            }
+            m_view.displayMaze(m_model.getMaze(mazeName));
+            m_model.clearSolution(mazeName);
         }
         /// <summary>
         /// this function return the description of this command
