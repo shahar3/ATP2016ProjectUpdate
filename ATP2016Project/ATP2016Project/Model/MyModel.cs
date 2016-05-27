@@ -138,7 +138,7 @@ namespace ATP2016Project.Model
             }
             catch (Exception e)
             {
-                return "You need run as a adminitrator";
+                return "You need to run the program as adminitrator";
             }
 
         }
