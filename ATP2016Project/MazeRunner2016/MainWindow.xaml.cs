@@ -28,7 +28,8 @@ namespace MazeRunner2016
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            Position p = new Position();
+
+
         }
     }
 }

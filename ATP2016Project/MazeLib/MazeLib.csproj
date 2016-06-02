@@ -40,8 +40,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Position.cs" />
+    <Compile Include="Compression\ICompressor.cs" />
+    <Compile Include="Compression\MyCompressorStream.cs" />
+    <Compile Include="Compression\MyMaze3Dcompressor.cs" />
+    <Compile Include="MazeGenerators\AMazeGenerator.cs" />
+    <Compile Include="MazeGenerators\IMaze.cs" />
+    <Compile Include="MazeGenerators\IMazeGenerator.cs" />
+    <Compile Include="MazeGenerators\Maze.cs" />
+    <Compile Include="MazeGenerators\Maze2d.cs" />
+    <Compile Include="MazeGenerators\Maze3d.cs" />
+    <Compile Include="MazeGenerators\MyMaze3dGenerator.cs" />
+    <Compile Include="MazeGenerators\Position.cs" />
+    <Compile Include="MazeGenerators\SimpleMaze2dGenerator.cs" />
+    <Compile Include="PrimAlgorithm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Search\ASearchingAlgorithm.cs" />
+    <Compile Include="Search\AState.cs" />
+    <Compile Include="Search\BreadthFirstSearch.cs" />
+    <Compile Include="Search\DepthFirstSearch.cs" />
+    <Compile Include="Search\ISearchable.cs" />
+    <Compile Include="Search\ISearchingAlgorithm.cs" />
+    <Compile Include="Search\MazeState.cs" />
+    <Compile Include="Search\SearchableMaze3d.cs" />
+    <Compile Include="Search\Solution.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
