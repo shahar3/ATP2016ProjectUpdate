@@ -21,15 +21,18 @@ namespace MazeRunner2016
     /// </summary>
     public partial class MainWindow : Window
     {
+        IView view = new View();
+        IModel model = new Model();
         public MainWindow()
         {
             InitializeComponent();
+            Presenter p = new Presenter(view, model);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-
-
+            Console.WriteLine("OK");
+            view.activateEvent(sender, e);
         }
     }
 }
