@@ -58,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="displayWindow.xaml.cs">
+      <DependentUpon>displayWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="generateWindow.xaml.cs">
       <DependentUpon>generateWindow.xaml</DependentUpon>
     </Compile>
@@ -67,6 +70,10 @@
     <Compile Include="Presenter\ICommand.cs" />
     <Compile Include="Presenter\Presenter.cs" />
     <Compile Include="View\View.cs" />
+    <Page Include="displayWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="generateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

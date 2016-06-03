@@ -40,7 +40,7 @@ namespace MazeRunner2016
 
         private void loadMazeBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            displayWindow displayW = new displayWindow(view, model);
         }
 
         private void mazeSizeBtn_Click(object sender, RoutedEventArgs e)
