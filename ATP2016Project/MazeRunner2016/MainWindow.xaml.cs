@@ -21,27 +21,30 @@ namespace MazeRunner2016
     /// </summary>
     public partial class MainWindow : Window
     {
-        IView view = new View();
-        IModel model = new Model();
+        private IModel model;
+        private IView view;
+
         public MainWindow()
         {
             InitializeComponent();
+            model = new Model();
+            view = new View(t);
             Presenter p = new Presenter(view, model);
             generate3dMazeBtn.Click += generateClick;
         }
 
+
         private void button_Click(object sender, RoutedEventArgs e)
         {
-
-            view.activateEvent(sender, e);
-
+            EventArgs args = new MazeEventArgs("dana", "10", "10", "2");
+            (args as MazeEventArgs).TextBox = t;
         }
 
         private void generateClick(object sender, RoutedEventArgs e)
         {
-            generateWindow w = new generateWindow();
+            generateWindow w = new generateWindow(view, model);
             w.Show();
-            
+
         }
     }
 }

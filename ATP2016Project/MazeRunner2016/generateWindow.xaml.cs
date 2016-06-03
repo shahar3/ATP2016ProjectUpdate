@@ -19,18 +19,39 @@ namespace MazeRunner2016
     /// </summary>
     public partial class generateWindow : Window
     {
+        private IView m_ui;
+        private IModel m_model;
         public generateWindow()
         {
             InitializeComponent();
         }
 
-        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        public generateWindow(IView ui, IModel model) : base()
         {
+            InitializeComponent();
+            m_ui = ui;
+            m_model = model;
         }
 
         private void WidthMaze_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            widthVal.Text = ((int)WidthMaze.Value).ToString();
+        }
 
+        private void HeightMaze_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            heightVal.Text = ((int)HeightMaze.Value).ToString();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            string[] parameters = new string[4];
+            parameters[0] = textBox.Text;
+            parameters[1] = widthVal.Text;
+            parameters[2] = heightVal.Text;
+            parameters[3] = "2";
+            m_ui.activateEvent(sender, new MazeEventArgs(parameters));
+            this.Close();
         }
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MazeRunner2016
 {
-    delegate void somethingHappened(Object sender, EventArgs e);
-    interface IView
+    public delegate void somethingHappened(Object sender, EventArgs e);
+    public interface IView
     {
         event somethingHappened ViewChanged;
         void activateEvent(Object sender, EventArgs e);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MazeRunner2016
@@ -10,7 +11,7 @@ namespace MazeRunner2016
     /// this command is responsible to get the dimensions and the maze name as
     /// parameters and call the generate function in the model layer 
     /// </summary>
-    class CommandGenerate3dMaze : ACommand
+    public class CommandGenerate3dMaze : ACommand
     {
         public CommandGenerate3dMaze(IModel model, IView view) : base(model, view)
         {
@@ -22,82 +23,48 @@ namespace MazeRunner2016
         /// <param name="parameters"></param>
         public override void DoCommand(params string[] parameters)
         {
-            //                try
-            //                {
-            //                    if (checkIfDimentionsAreValid(parameters))
-            //                    {
-            //                        //convert the strings parameters to a int
-            //                        int x, y, z;
-            //                        convertParmToInt(parameters, out x, out y, out z);
-            //                        //create a new thread that run the generate separately
-            //                        Thread t = new Thread(() =>
-            //                        {
-            //                            m_model.generateMaze(x, y, z, parameters[0]);
-            //                            Thread.Sleep(40);
-            //                            m_view.Output("Maze " + parameters[0] + " is ready");
-            //                        });
-            //                        t.Name = "GenerateThread";
-            //                        t.Start();
-            //                        //add the thread to list of threads for kill them in the end of the program
-            //                        m_threads.Add(t);
-            //                    }
-            //                }
-            //                catch (Exception e)
-            //                {
-            //                    m_view.Output(e.Message);
-            //                }
-        }
-        //            /// <summary>
-        //            /// convert the parameters to Int
-        //            /// </summary>
-        //            /// <param name="parameters">parameters</param>
-        //            /// <param name="x">int x</param>
-        //            /// <param name="y">int y</param>
-        //            /// <param name="z">int z</param>
-        //            private static void convertParmToInt(string[] parameters, out int x, out int y, out int z)
-        //            {
-        //                x = Int32.Parse(parameters[1]);
-        //                y = Int32.Parse(parameters[2]);
-        //                z = Int32.Parse(parameters[3]);
-        //            }
+            try
+            {
+                //convert the strings parameters to a int
+                int x, y, z;
+                convertParmToInt(parameters, out x, out y, out z);
+                //create a new thread that run the generate separately
+                Thread t = new Thread(() =>
+                {
+                    m_model.generateMaze(x, y, z, parameters[0]);
+                    Thread.Sleep(40);
+                    //m_view.Output("Maze " + parameters[0] + " is ready");
+                });
+                t.Name = "GenerateThread";
+                t.Start();
+                m_model.activateEvent("generate3dMaze", parameters[0]);
 
-        //            /// <summary>
-        //            /// an helping method to check if the dimensions of the maze are valid
-        //            /// </summary>
-        //            /// <param name="parameters">the dimensions</param>
-        //            /// <returns>if the dimensions are valid or not</returns>
-        //            private bool checkIfDimentionsAreValid(string[] parameters)
-        //            {
-        //                //length
-        //                if (parameters.Length != 4)
-        //                {
-        //                    m_view.Output("Expected 4 parameters");
-        //                    return false;
-        //                }
-        //                //there is numbers?
-        //                //positive numbers?
-        //                for (int i = 1; i < parameters.Length; i++)
-        //                {
-        //                    string param = parameters[i];
-        //                    int res = 0;
-        //                    if (!Int32.TryParse(param, out res))
-        //                    {
-        //                        m_view.Output("please insert only numbers");
-        //                        return false;
-        //                    }
-        //                    if (res < 0)
-        //                    {
-        //                        m_view.Output("You need to insert only positive numbers");
-        //                        return false;
-        //                    }
-        //                    if (res > 40) //our maze limit
-        //                    {
-        //                        m_view.Output("The numbers must be lower than 40");
-        //                        return false;
-        //                    }
-        //                }
-        //                return true;
-        //            }
+                //add the thread to list of threads for kill them in the end of the program
+                m_threads.Add(t);
+            }
+            catch (Exception e)
+            {
+                //m_view.Output(e.Message);
+            }
+        }
+
+
+
+        /// <summary>
+        /// convert the parameters to Int
+        /// </summary>
+        /// <param name="parameters">parameters</param>
+        /// <param name="x">int x</param>
+        /// <param name="y">int y</param>
+        /// <param name="z">int z</param>
+        private static void convertParmToInt(string[] parameters, out int x, out int y, out int z)
+        {
+            x = Int32.Parse(parameters[1]);
+            y = Int32.Parse(parameters[2]);
+            z = Int32.Parse(parameters[3]);
+        }
+
+
         /// <summary>
         /// this function return the description of this command
         /// </summary>

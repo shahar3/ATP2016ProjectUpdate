@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace MazeRunner2016
 {
-    class Presenter
+    public class Presenter
     {
         private View m_ui;
         private Model m_model;
@@ -41,8 +41,27 @@ namespace MazeRunner2016
             m_ui.ViewChanged += delegate (Object sender, EventArgs e)
             {
                 Button b = sender as Button;
+                string[] args = (e as MazeEventArgs).Params;
                 string command = b.Name.Substring(0, b.Name.Length - 3);
-                m_commands[command].DoCommand(null);
+                //((e as MazeEventArgs).TextBox as TextBox).Text = command;
+                m_commands[command].DoCommand(args);
+            };
+
+            m_model.ModelChanged += delegate (string notification, string otherInfromation)
+            {
+                switch (notification)
+                {
+                    case "generate3dMaze":
+                        m_ui.displayInTextBox("Maze: " + otherInfromation + ", is generated");
+                        break;
+                    case "display":
+                        //code
+                        break;
+                    case "exit":
+                        break;
+                    default:
+                        break;
+                }
             };
         }
     }

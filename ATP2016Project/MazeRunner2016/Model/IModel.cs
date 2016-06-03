@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace MazeRunner2016
 {
-    delegate void finishedComputing(string name);
+    public delegate void finishedComputing(string name, string otherInformation);
 
-    interface IModel
+    public interface IModel
     {
         event finishedComputing ModelChanged;
+
+        void generateMaze(int x, int y, int z, string v);
+        void activateEvent(string commandName, string otherInformation);
     }
 }

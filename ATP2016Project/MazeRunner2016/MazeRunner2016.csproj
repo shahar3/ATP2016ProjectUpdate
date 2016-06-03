@@ -61,6 +61,7 @@
     <Compile Include="generateWindow.xaml.cs">
       <DependentUpon>generateWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MazeEventArgs.cs" />
     <Compile Include="Presenter\ACommand.cs" />
     <Compile Include="Presenter\Commands.cs" />
     <Compile Include="Presenter\ICommand.cs" />

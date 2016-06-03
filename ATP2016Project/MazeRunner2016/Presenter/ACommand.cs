@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MazeRunner2016
 {
-    abstract class ACommand : ICommand
+    public abstract class ACommand : ICommand
     {
         protected IModel m_model;
         protected IView m_view;

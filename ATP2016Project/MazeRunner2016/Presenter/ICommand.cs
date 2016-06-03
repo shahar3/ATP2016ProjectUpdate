@@ -13,7 +13,7 @@ namespace MazeRunner2016
     /// we can get the relevant information about the commands and
     /// perform them
     /// </summary>
-    interface ICommand
+    public interface ICommand
     {
         void DoCommand(params string[] parameters);
         string GetName();

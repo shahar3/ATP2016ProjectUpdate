@@ -7,19 +7,23 @@
         mc:Ignorable="d"
         Title="generateWindow" Height="300" Width="300">
     <Grid RenderTransformOrigin="0.453,0.443">
-        <Slider x:Name="WidthMaze" HorizontalAlignment="Left" Margin="57,68,0,0" VerticalAlignment="Top" Height="10" Width="40" ValueChanged="WidthMaze_ValueChanged" AutomationProperties.HelpText="loading"/>
-        <Slider x:Name="HeightMaze" HorizontalAlignment="Left" Margin="57,166,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="10" Width="40" Maximum="40" Minimum="0">
+        <Slider x:Name="WidthMaze" Minimum="0" Maximum="40" HorizontalAlignment="Left" Margin="48,84,0,0" VerticalAlignment="Top" Height="20" Width="138" ValueChanged="WidthMaze_ValueChanged" AutomationProperties.HelpText="loading"/>
+        <Slider x:Name="HeightMaze" HorizontalAlignment="Left" Margin="48,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="22" Width="138" Maximum="40" Minimum="0" ValueChanged="HeightMaze_ValueChanged">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.035"/>
+                    <SkewTransform AngleX="0.111"/>
+                    <RotateTransform Angle="-0.01"/>
                     <TranslateTransform/>
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Label x:Name="label" Content="WidthMaze" HorizontalAlignment="Left" Margin="57,40,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label1" Content="HeightMaze" HorizontalAlignment="Left" Margin="81,135,0,0" VerticalAlignment="Top"/>
-
+        <Label x:Name="label" Content="WidthMaze" HorizontalAlignment="Left" Margin="70,56,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="HeightMaze" HorizontalAlignment="Left" Margin="72,109,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="generate3dMazeBtn" Content="Submit" HorizontalAlignment="Left" Margin="100,175,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Label x:Name="label2" Content="Maze name:" HorizontalAlignment="Left" Height="24" Margin="45,27,0,0" VerticalAlignment="Top" Width="78"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="24" Margin="123,31,0,0" TextWrapping="Wrap" Text="Enter maze name" VerticalAlignment="Top" Width="98"/>
+        <TextBox x:Name="widthVal" HorizontalAlignment="Left" Height="24" Margin="197,69,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="41"/>
+        <TextBox x:Name="heightVal" HorizontalAlignment="Left" Height="22" Margin="197,135,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="41"/>
     </Grid>
 </Window>
