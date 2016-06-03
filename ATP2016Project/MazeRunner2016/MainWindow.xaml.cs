@@ -27,12 +27,21 @@ namespace MazeRunner2016
         {
             InitializeComponent();
             Presenter p = new Presenter(view, model);
+            generate3dMazeBtn.Click += generateClick;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("OK");
+
             view.activateEvent(sender, e);
+
+        }
+
+        private void generateClick(object sender, RoutedEventArgs e)
+        {
+            generateWindow w = new generateWindow();
+            w.Show();
+            
         }
     }
 }

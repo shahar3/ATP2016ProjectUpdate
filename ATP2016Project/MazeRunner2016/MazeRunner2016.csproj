@@ -58,8 +58,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Presenter.cs" />
-    <Compile Include="View.cs" />
+    <Compile Include="generateWindow.xaml.cs">
+      <DependentUpon>generateWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presenter\ACommand.cs" />
+    <Compile Include="Presenter\Commands.cs" />
+    <Compile Include="Presenter\ICommand.cs" />
+    <Compile Include="Presenter\Presenter.cs" />
+    <Compile Include="View\View.cs" />
+    <Page Include="generateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,15 +78,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IModel.cs" />
-    <Compile Include="IView.cs" />
+    <Compile Include="Model\IModel.cs" />
+    <Compile Include="View\IView.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model.cs" />
+    <Compile Include="Model\Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -103,6 +113,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
