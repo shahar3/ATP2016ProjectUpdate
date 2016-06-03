@@ -200,6 +200,7 @@ namespace ATP2016Project.Controller
             string mazeName = parameters[0].ToLower();
             //check if this maze exit and if not print to the sream message to the user
             if (m_model.getMaze(mazeName) == null)
+
             {
                 m_view.Output("Maze " + mazeName + " doesn't exist");
                 return;
