@@ -7,15 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button x:Name="saveMazeBtn" Content="saveMaze" HorizontalAlignment="Left" Margin="344,30,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Button x:Name="displayMazeBtn" Content="displayMaze" HorizontalAlignment="Left" Margin="33,205,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Button x:Name="generate3dMazeBtn" Content="generate3dMaze" HorizontalAlignment="Left" Margin="33,30,0,0" VerticalAlignment="Top" Width="103" Click="button_Click"/>
-        <Button x:Name="loadMazeBtn" Content="loadMaze" HorizontalAlignment="Left" Margin="33,89,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Button x:Name="mazeSizeBtn" Content="mazeSize" HorizontalAlignment="Left" Margin="344,89,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Button x:Name="fileSizeBtn" Content="fileSize" HorizontalAlignment="Left" Margin="33,150,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Button x:Name="solveMazeBtn" Content="solveMaze" HorizontalAlignment="Left" Margin="344,150,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Button x:Name="displaySolutionBtn" Content="DisplaySolution" HorizontalAlignment="Left" Margin="344,210,0,0" VerticalAlignment="Top" Width="96" Click="button_Click"/>
-        <Button x:Name="ExitBtn" Content="Exit" HorizontalAlignment="Left" Margin="196,135,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Button x:Name="saveMazeBtn" Content="saveMaze" HorizontalAlignment="Left" Margin="344,30,0,0" VerticalAlignment="Top" Width="75" Click="saveMazeBtn_Click"/>
+        <Button x:Name="displayMazeBtn" Content="displayMaze" HorizontalAlignment="Left" Margin="33,205,0,0" VerticalAlignment="Top" Width="75" Click="displayMazeBtn_Click"/>
+        <Button x:Name="generate3dMazeBtn" Content="generate3dMaze" HorizontalAlignment="Left" Margin="33,30,0,0" VerticalAlignment="Top" Width="103" Click="generateClick"/>
+        <Button x:Name="loadMazeBtn" Content="loadMaze" HorizontalAlignment="Left" Margin="33,89,0,0" VerticalAlignment="Top" Width="75" Click="loadMazeBtn_Click"/>
+        <Button x:Name="mazeSizeBtn" Content="mazeSize" HorizontalAlignment="Left" Margin="344,89,0,0" VerticalAlignment="Top" Width="75" Click="mazeSizeBtn_Click"/>
+        <Button x:Name="fileSizeBtn" Content="fileSize" HorizontalAlignment="Left" Margin="33,150,0,0" VerticalAlignment="Top" Width="75" Click="fileSizeBtn_Click"/>
+        <Button x:Name="solveMazeBtn" Content="solveMaze" HorizontalAlignment="Left" Margin="344,150,0,0" VerticalAlignment="Top" Width="75" Click="solveMazeBtn_Click"/>
+        <Button x:Name="displaySolutionBtn" Content="DisplaySolution" HorizontalAlignment="Left" Margin="344,210,0,0" VerticalAlignment="Top" Width="96" Click="displaySolutionBtn_Click"/>
+        <Button x:Name="ExitBtn" Content="Exit" HorizontalAlignment="Left" Margin="196,135,0,0" VerticalAlignment="Top" Width="75" Click="ExitBtn_Click"/>
         <TextBox x:Name="t" HorizontalAlignment="Left" Height="64" Margin="176,45,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

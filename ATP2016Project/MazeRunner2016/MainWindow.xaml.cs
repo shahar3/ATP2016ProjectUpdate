@@ -30,20 +30,51 @@ namespace MazeRunner2016
             model = new Model();
             view = new View(t);
             Presenter p = new Presenter(view, model);
-            generate3dMazeBtn.Click += generateClick;
-        }
-
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            EventArgs args = new MazeEventArgs("dana", "10", "10", "2");
-            (args as MazeEventArgs).TextBox = t;
         }
 
         private void generateClick(object sender, RoutedEventArgs e)
         {
             generateWindow w = new generateWindow(view, model);
             w.Show();
+        }
+
+        private void loadMazeBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mazeSizeBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void fileSizeBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void displayMazeBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void saveMazeBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void solveMazeBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void displaySolutionBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ExitBtn_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
