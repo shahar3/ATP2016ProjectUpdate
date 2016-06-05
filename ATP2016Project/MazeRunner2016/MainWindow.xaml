@@ -15,7 +15,6 @@
         <Button x:Name="fileSizeBtn" Content="fileSize" HorizontalAlignment="Left" Margin="33,150,0,0" VerticalAlignment="Top" Width="75" Click="fileSizeBtn_Click"/>
         <Button x:Name="solveMazeBtn" Content="solveMaze" HorizontalAlignment="Left" Margin="344,150,0,0" VerticalAlignment="Top" Width="75" Click="solveMazeBtn_Click"/>
         <Button x:Name="displaySolutionBtn" Content="DisplaySolution" HorizontalAlignment="Left" Margin="344,210,0,0" VerticalAlignment="Top" Width="96" Click="displaySolutionBtn_Click"/>
-        <Button x:Name="ExitBtn" Content="Exit" HorizontalAlignment="Left" Margin="196,135,0,0" VerticalAlignment="Top" Width="75" Click="ExitBtn_Click"/>
-        <TextBox x:Name="t" HorizontalAlignment="Left" Height="64" Margin="176,45,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="ExitBtn" Content="Exit" HorizontalAlignment="Left" Margin="196,210,0,0" VerticalAlignment="Top" Width="75" Click="ExitBtn_Click"/>
     </Grid>
 </Window>

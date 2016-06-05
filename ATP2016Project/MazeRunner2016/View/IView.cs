@@ -11,5 +11,9 @@ namespace MazeRunner2016
     {
         event somethingHappened ViewChanged;
         void activateEvent(Object sender, EventArgs e);
+        string[] getMazesNames();
+        void enterMazesNames(string[] names);
+        void displayMaze(Object maze);
+        byte[] getMazeBytes();
     }
 }

@@ -14,5 +14,8 @@ namespace MazeRunner2016
 
         void generateMaze(int x, int y, int z, string v);
         void activateEvent(string commandName, string otherInformation);
+        void prepareMazesNames();
+        string[] getMazesNames();
+        object getMaze(string nameOfTheMaze);
     }
 }

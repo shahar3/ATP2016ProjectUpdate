@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace MazeRunner2016
@@ -34,25 +35,41 @@ namespace MazeRunner2016
             m_commands["solveMaze"] = new CommandSolveMaze(m_model, m_ui);
             m_commands["displaySolution"] = new CommandDisplaySolution(m_model, m_ui);
             m_commands["Exit"] = new CommandExit(m_model, m_ui);
+            m_commands["getMazesNames"] = new CommandGetMazesNames(m_model, m_ui);
         }
 
         private void initEvents()
         {
             m_ui.ViewChanged += delegate (Object sender, EventArgs e)
             {
-                Button b = sender as Button;
-                string[] args = (e as MazeEventArgs).Params;
-                string command = b.Name.Substring(0, b.Name.Length - 3);
-                //((e as MazeEventArgs).TextBox as TextBox).Text = command;
+                string command = string.Empty;
+                string[] args;
+                //check if its a button
+                if (sender is Button)
+                {
+                    Button b = sender as Button;
+                    args = (e as MazeEventArgs).Params;
+                    command = b.Name.Substring(0, b.Name.Length - 3);
+                }
+                else
+                {
+                    command = (e as MazeEventArgs).Params[0];
+                    args = (e as MazeEventArgs).Params;
+                }
                 m_commands[command].DoCommand(args);
+                //((e as MazeEventArgs).TextBox as TextBox).Text = command;
             };
 
             m_model.ModelChanged += delegate (string notification, string otherInfromation)
             {
                 switch (notification)
                 {
+                    case "getMazesNames":
+                        string[] names = m_model.getMazesNames();
+                        m_ui.enterMazesNames(names);
+                        break;
                     case "generate3dMaze":
-                        m_ui.displayInTextBox("Maze: " + otherInfromation + ", is generated");
+                        MessageBox.Show("Maze: " + otherInfromation + ", is generated");
                         break;
                     case "display":
                         //code

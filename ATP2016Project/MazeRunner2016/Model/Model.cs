@@ -10,6 +10,7 @@ namespace MazeRunner2016
     public class Model : IModel
     {
         public event finishedComputing ModelChanged;
+        private List<string> m_mazesNames;
         private Dictionary<string, IMaze> m_mazes = new Dictionary<string, IMaze>();
 
         public void generateMaze(int x, int y, int z, string mazeName)
@@ -24,6 +25,21 @@ namespace MazeRunner2016
             ModelChanged(commandName, otherInformation);
         }
 
+        public void prepareMazesNames()
+        {
+            m_mazesNames = new List<string>();
+            m_mazesNames.AddRange(m_mazes.Keys);
+            ModelChanged("getMazesNames", "done");
+        }
 
+        public string[] getMazesNames()
+        {
+            return m_mazesNames.ToArray();
+        }
+
+        public object getMaze(string nameOfTheMaze)
+        {
+            return m_mazes[nameOfTheMaze];
+        }
     }
 }

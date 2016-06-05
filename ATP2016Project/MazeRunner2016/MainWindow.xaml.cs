@@ -28,7 +28,7 @@ namespace MazeRunner2016
         {
             InitializeComponent();
             model = new Model();
-            view = new View(t);
+            view = new View();
             Presenter p = new Presenter(view, model);
         }
 
@@ -55,7 +55,8 @@ namespace MazeRunner2016
 
         private void displayMazeBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            displayWindow displayMazeWindow = new displayWindow(view,model);
+            displayMazeWindow.Show();
         }
 
         private void saveMazeBtn_Click(object sender, RoutedEventArgs e)

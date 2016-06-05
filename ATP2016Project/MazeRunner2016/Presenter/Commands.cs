@@ -99,22 +99,8 @@ namespace MazeRunner2016
         /// <param name="parameters">name of a maze</param>
         public override void DoCommand(params string[] parameters)
         {
-            //                if (parameters.Length < 1)
-            //                {
-            //                    m_view.Output("Expected to get a parameter");
-            //                    return;
-            //                }
-            //                //get the maze name
-            //                string mazeName = parameters[0].ToLower();
-            //                //check if this maze exit and if not print to the sream message to the user
-            //                if (m_model.getMaze(mazeName) == null)
-            //                {
-            //                    m_view.Output("Maze " + mazeName + " doesn't exist");
-            //                    return;
-            //                }
-            //                //activate function the display the maze in the view layer
-            //                //after we activate function in model layer the return the specific maze
-            //                m_view.displayMaze(m_model.getMaze(mazeName));
+            string nameOfTheMaze = parameters[0];
+            m_view.displayMaze(m_model.getMaze(nameOfTheMaze));
         }
         /// <summary>
         /// this function return the description of this command
@@ -535,6 +521,31 @@ namespace MazeRunner2016
         {
             return "exit";
         }
+
     }
+
+    #region helping commands
+    public class CommandGetMazesNames : ACommand
+    {
+        public CommandGetMazesNames(IModel model, IView view) : base(model, view)
+        {
+        }
+
+        public override void DoCommand(params string[] parameters)
+        {
+            m_model.prepareMazesNames();
+        }
+
+        public override string GetDescription()
+        {
+            return "prepare all the mazes names exist in our system";
+        }
+
+        public override string GetName()
+        {
+            return "prepareMazesNames";
+        }
+    }
+    #endregion
 
 }

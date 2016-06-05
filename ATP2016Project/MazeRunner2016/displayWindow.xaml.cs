@@ -29,8 +29,24 @@ namespace MazeRunner2016
 
         public displayWindow(IView view, IModel model)
         {
+            InitializeComponent();
             this.view = view;
             this.model = model;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            string[] commandName = new string[] { "getMazesNames" };
+            view.activateEvent(sender, new MazeEventArgs(commandName));
+            mazeBox.ItemsSource = view.getMazesNames();
+        }
+
+        private void displayBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string mazeToShow = mazeBox.SelectedItem.ToString();
+            view.activateEvent(sender, new MazeEventArgs(mazeToShow));
+            byte[] myMaze = view.getMazeBytes();
+            mazeDisplay.Text = myMaze.ToString();
         }
     }
 }

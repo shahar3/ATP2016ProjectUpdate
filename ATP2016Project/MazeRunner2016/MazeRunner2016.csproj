@@ -64,6 +64,9 @@
     <Compile Include="generateWindow.xaml.cs">
       <DependentUpon>generateWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MazeControl.xaml.cs">
+      <DependentUpon>MazeControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MazeEventArgs.cs" />
     <Compile Include="Presenter\ACommand.cs" />
     <Compile Include="Presenter\Commands.cs" />
@@ -92,6 +95,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MazeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Model.cs" />
