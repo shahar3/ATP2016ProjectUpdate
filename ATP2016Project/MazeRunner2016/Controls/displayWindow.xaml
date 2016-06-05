@@ -19,6 +19,6 @@
         <Button Grid.Column="1" Name="displayMazeBtn" Click="displayBtn_Click">
             <Bold>Display</Bold>
         </Button>
-        <TextBox Name="mazeDisplay" Grid.Row="1" Grid.ColumnSpan="2">bla bla bla...</TextBox>
+        <StackPanel Name="mazePanel" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"></StackPanel>
     </Grid>
 </Window>

@@ -58,13 +58,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="displayWindow.xaml.cs">
+    <Compile Include="Controls\displayWindow.xaml.cs">
       <DependentUpon>displayWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="generateWindow.xaml.cs">
+    <Compile Include="Controls\generateWindow.xaml.cs">
       <DependentUpon>generateWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MazeControl.xaml.cs">
+    <Compile Include="Controls\MazeControl.xaml.cs">
       <DependentUpon>MazeControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MazeEventArgs.cs" />
@@ -73,15 +73,15 @@
     <Compile Include="Presenter\ICommand.cs" />
     <Compile Include="Presenter\Presenter.cs" />
     <Compile Include="View\View.cs" />
-    <Page Include="displayWindow.xaml">
+    <Page Include="Controls\displayWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="generateWindow.xaml">
+    <Page Include="Controls\generateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Controls\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -91,11 +91,11 @@
     </Compile>
     <Compile Include="Model\IModel.cs" />
     <Compile Include="View\IView.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Controls\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MazeControl.xaml">
+    <Page Include="Controls\MazeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

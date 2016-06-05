@@ -46,7 +46,8 @@ namespace MazeRunner2016
             string mazeToShow = mazeBox.SelectedItem.ToString();
             view.activateEvent(sender, new MazeEventArgs(mazeToShow));
             byte[] myMaze = view.getMazeBytes();
-            mazeDisplay.Text = myMaze.ToString();
+            MazeControl mazeDisplay = new MazeControl();
+            mazePanel.Children.Add(mazeDisplay);
         }
     }
 }
