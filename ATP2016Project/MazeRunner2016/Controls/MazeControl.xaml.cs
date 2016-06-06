@@ -177,7 +177,9 @@ namespace MazeRunner2016.Controls
             SolutionInfoControl solInfo = new SolutionInfoControl(mazeSol);
             Window parentWindow = Application.Current.MainWindow;
             (parentWindow as MainWindow).myDock.Children.Add(solInfo);
+            //get the time  to solve
 
+            view.activateEvent(sender, new MazeEventArgs(parameters));
             MessageBox.Show("solution done");
         }
 
