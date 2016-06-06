@@ -1,12 +1,42 @@
-﻿<UserControl x:Class="MazeRunner2016.MazeControl"
+﻿<UserControl x:Class="MazeRunner2016.Controls.MazeControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MazeRunner2016"
+             xmlns:local="clr-namespace:MazeRunner2016.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Label FontSize="15">Here will be a maze that we chose to display</Label>
-    </Grid>
+    <DockPanel Name="mainPanel">
+        <Grid Name="levelsPanel" DockPanel.Dock="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Name="levelsDisplayPanel" Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Background="White" HorizontalAlignment="Center">
+                    Level:
+                </Label>
+                <TextBox Text="1" Name="levelNumber" Grid.Column="1"></TextBox>
+            </Grid>
+            <Button Grid.Row="1" Name="nextLevelBtn" Content="+" Click="nextLevelBtn_Click"></Button>
+            <Button Grid.Row="2" Name="prevLevelBtn" Click="prevLevelBtn_Click">-</Button>
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <ComboBox Name="comboBoxAlgo">
+                    <ComboBoxItem IsSelected="True" >BFS</ComboBoxItem>
+                    <ComboBoxItem>DFS</ComboBoxItem>
+                </ComboBox>
+            <Button Grid.Row="1" Name="solveMazeBtn" Foreground="Red" FontWeight="ExtraBlack" Click="solveMazeBtn_Click">Solve</Button>
+            </Grid>
+        </Grid>
+    </DockPanel>
 </UserControl>

@@ -58,14 +58,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\displayWindow.xaml.cs">
-      <DependentUpon>displayWindow.xaml</DependentUpon>
+    <Compile Include="Controls\DisplayControl.xaml.cs">
+      <DependentUpon>DisplayControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\generateWindow.xaml.cs">
-      <DependentUpon>generateWindow.xaml</DependentUpon>
+    <Compile Include="Controls\GenerateControl.xaml.cs">
+      <DependentUpon>GenerateControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MazeControl.xaml.cs">
       <DependentUpon>MazeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SolutionInfoControl.xaml.cs">
+      <DependentUpon>SolutionInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="MazeEventArgs.cs" />
     <Compile Include="Presenter\ACommand.cs" />
@@ -73,15 +79,23 @@
     <Compile Include="Presenter\ICommand.cs" />
     <Compile Include="Presenter\Presenter.cs" />
     <Compile Include="View\View.cs" />
-    <Page Include="Controls\displayWindow.xaml">
+    <Page Include="Controls\DisplayControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\generateWindow.xaml">
+    <Page Include="Controls\GenerateControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\MainWindow.xaml">
+    <Page Include="Controls\SolutionInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -91,7 +105,7 @@
     </Compile>
     <Compile Include="Model\IModel.cs" />
     <Compile Include="View\IView.cs" />
-    <Compile Include="Controls\MainWindow.xaml.cs">
+    <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

@@ -356,54 +356,9 @@ namespace MazeRunner2016
         /// <param name="parameters">maze name,algoritm</param>
         public override void DoCommand(params string[] parameters)
         {
-            //                string mazeName, algorithm;
-            //                //check the parmeters
-            //                if (!checkToParamSolve(parameters, out mazeName, out algorithm))
-            //                {
-            //                    return;
-            //                }
-            //                //run the computations in a new thread
-            //                Thread t = new Thread(() =>
-            //                {
-            //                    m_model.solveMaze(mazeName, algorithm);
-            //                    Thread.Sleep(60);
-            //                    m_view.Output("Solution for " + mazeName + " is ready");
-            //                });
-            //                t.Name = "SolveThread";
-            //                t.Start();
-            //                m_threads.Add(t);
+            m_model.solveMaze(parameters[0], parameters[1]);
         }
-        //            /// <summary>
-        //            /// this function check the parameters that we get from the user
-        //            /// </summary>
-        //            /// <param name="parameters">parmeters from user</param>
-        //            /// <param name="mazeName">maze name</param>
-        //            /// <param name="algorithm">algo</param>
-        //            /// <returns>valid or not</returns>
-        //            private bool checkToParamSolve(string[] parameters, out string mazeName, out string algorithm)
-        //            {
-        //                mazeName = string.Empty;
-        //                algorithm = string.Empty;
-        //                //length
-        //                if (parameters.Length < 2)
-        //                {
-        //                    m_view.Output("There is not enough arguments. Expected mazeName and algorithm");
-        //                    return false;
-        //                }
-        //                mazeName = parameters[0].ToLower();
-        //                algorithm = parameters[1];
-        //                //exist
-        //                if (m_model.getMaze(mazeName) == null)
-        //                {
-        //                    m_view.Output("There is no maze with the name " + mazeName);
-        //                    return false;
-        //                }
-        //                if (!m_model.algorithmExist(algorithm))
-        //                {
-        //                    m_view.Output("The algorithm " + algorithm + " doesn't exist");
-        //                }
-        //                return true;
-        //            }
+
         /// <summary>
         /// this function return the description of this command
         /// </summary>

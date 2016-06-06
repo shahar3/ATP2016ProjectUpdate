@@ -12,6 +12,7 @@ namespace MazeRunner2016
     {
         private string[] mazesNames;
         private Maze3d myMaze;
+        private Solution mazeSolution;
 
         public View()
         {
@@ -34,14 +35,24 @@ namespace MazeRunner2016
             mazesNames = names;
         }
 
-        public byte[] getMazeBytes()
+        public Maze3d getMaze()
         {
-            return myMaze.toByteArray();
+            return myMaze;
         }
 
         public string[] getMazesNames()
         {
             return mazesNames;
+        }
+
+        public void saveSolution(Solution sol)
+        {
+            mazeSolution = sol;
+        }
+
+        public Solution getSolution()
+        {
+            return mazeSolution;
         }
     }
 }

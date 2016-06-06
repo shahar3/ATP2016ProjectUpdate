@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="MazeRunner2016.Controls.GenerateControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MazeRunner2016.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Slider Grid.Column="0" Grid.Row="2" x:Name="WidthMaze" IsSnapToTickEnabled="True" Minimum="0" Maximum="40" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="138" AutomationProperties.HelpText="loading"/>
+        <Slider Grid.Column="0" Grid.Row="4" x:Name="HeightMaze" IsSnapToTickEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Height="22" Width="138" Maximum="40" Minimum="0" />
+        <Slider Grid.Column="0" Grid.Row="6" x:Name="LevelsMaze" IsSnapToTickEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Height="22" Width="138" Maximum="10" Minimum="1"  Value="1"/>
+        <Label Grid.Column="0" Grid.Row="1"  x:Name="widthLabel"  Content="_WidthMaze" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Grid.Column="0" Grid.Row="3" x:Name="heightLabel"  Content="_HeightMaze" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Grid.Column="0" Grid.Row="5" x:Name="levelLabel"  Content="_LevelMaze" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center" x:Name="generate3dMazeBtn" Content="Submit" VerticalAlignment="Center" Width="75" Click="button_Click"/>
+        <TextBox Grid.Column="1" Grid.Row="2" x:Name="widthVal" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" Text="{Binding Path=Value,ElementName=WidthMaze,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="41"/>
+        <TextBox Grid.Column="1" Grid.Row="4" x:Name="heightVal" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" Text="{Binding Path=Value,ElementName=HeightMaze,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="41"/>
+        <TextBox Grid.Column="1" Grid.Row="6" x:Name="levelVal" HorizontalAlignment="Left" Height="22" TextWrapping="Wrap" Text="{Binding Path=Value,ElementName=LevelsMaze,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="41"></TextBox>
+        <Grid Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" x:Name="textBox" HorizontalAlignment="Center" Height="24" TextWrapping="Wrap" Text="Enter maze name" VerticalAlignment="Center" Width="98"/>
+            <Label Grid.Column="0" Grid.Row="0" x:Name="label2" Content="Maze name:" HorizontalAlignment="Center" Height="24" VerticalAlignment="Center" Width="78"/>
+        </Grid>
+    </Grid>
+</UserControl>

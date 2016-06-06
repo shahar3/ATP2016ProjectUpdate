@@ -69,10 +69,13 @@ namespace MazeRunner2016
                         m_ui.enterMazesNames(names);
                         break;
                     case "generate3dMaze":
-                        MessageBox.Show("Maze: " + otherInfromation + ", is generated");
+                        MessageBox.Show("Maze: " + otherInfromation + " is generated");
                         break;
                     case "display":
                         //code
+                        break;
+                    case "solveMaze":
+                        m_ui.saveSolution(m_model.getSolution(otherInfromation));
                         break;
                     case "exit":
                         break;

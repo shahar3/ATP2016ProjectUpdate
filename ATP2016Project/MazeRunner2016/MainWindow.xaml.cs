@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MazeLib;
+using MazeRunner2016.Controls;
 
 namespace MazeRunner2016
 {
@@ -21,6 +22,7 @@ namespace MazeRunner2016
     /// </summary>
     public partial class MainWindow : Window
     {
+        public DockPanel myDock;
         private IModel model;
         private IView view;
 
@@ -30,17 +32,18 @@ namespace MazeRunner2016
             model = new Model();
             view = new View();
             Presenter p = new Presenter(view, model);
+            myDock = solutionInfoPanel;
         }
 
         private void generateClick(object sender, RoutedEventArgs e)
         {
-            generateWindow w = new generateWindow(view, model);
-            w.Show();
+            GenerateControl generateControl = new GenerateControl(view, model);
+            actionPanel.Children.Clear();
+            actionPanel.Children.Add(generateControl);
         }
 
         private void loadMazeBtn_Click(object sender, RoutedEventArgs e)
         {
-            displayWindow displayW = new displayWindow(view, model);
         }
 
         private void mazeSizeBtn_Click(object sender, RoutedEventArgs e)
@@ -55,8 +58,9 @@ namespace MazeRunner2016
 
         private void displayMazeBtn_Click(object sender, RoutedEventArgs e)
         {
-            displayWindow displayMazeWindow = new displayWindow(view,model);
-            displayMazeWindow.Show();
+            DisplayControl displayControl = new DisplayControl(view, model);
+            actionPanel.Children.Clear();
+            actionPanel.Children.Add(displayControl);
         }
 
         private void saveMazeBtn_Click(object sender, RoutedEventArgs e)

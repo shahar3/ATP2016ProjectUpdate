@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MazeLib;
 
 namespace MazeRunner2016
 {
@@ -14,6 +15,8 @@ namespace MazeRunner2016
         string[] getMazesNames();
         void enterMazesNames(string[] names);
         void displayMaze(Object maze);
-        byte[] getMazeBytes();
+        Maze3d getMaze();
+        void saveSolution(Solution sol);
+        Solution getSolution();
     }
 }
