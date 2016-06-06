@@ -18,8 +18,6 @@ namespace MazeLib
         private Maze m_maze; //we keep our maze in this variable
         private List<AState> m_successors; //list of all the neighbours of the state
 
-
-
         /// <summary>
         /// the default constructor
         /// cast the maze to the abstract class Maze and store it in our member variable

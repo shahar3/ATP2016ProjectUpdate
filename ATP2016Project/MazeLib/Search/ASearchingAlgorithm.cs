@@ -16,7 +16,7 @@ namespace MazeLib
     public abstract class ASearchingAlgorithm : ISearchingAlgorithm
     {
         //our class members
-        protected static int statesCounter = 0;
+        protected int statesCounter = 0;
         private Queue<AState> m_openList;
         private Queue<AState> m_closeList;
         private ISearchable m_searchable;
@@ -102,7 +102,7 @@ namespace MazeLib
         /// </summary>
         /// <param name="searchable"></param>
         /// <returns>the solution to the maze</returns>
-        public abstract Solution search(ISearchable searchable);
+        public abstract Solution search(ISearchable searchable, out string timeToSolve);
 
         /// <summary>
         /// usefull for the statistics, 
@@ -112,22 +112,6 @@ namespace MazeLib
         public int statesDeveloped()
         {
             return statesCounter;
-        }
-
-        /// <summary>
-        /// also a good function to determine which algorithm is better
-        /// </summary>
-        /// <param name="searchable"></param>
-        /// <returns>time elapsed since the algorithm start to solve the problem till the end</returns>
-        public string timeToSolve(ISearchable searchable)
-        {
-            searchable.initializeGrid();
-            DateTime startingTime = DateTime.Now;
-            search(searchable);
-            DateTime endTime = DateTime.Now;
-            TimeSpan difference = endTime - startingTime;
-            string result = difference.TotalSeconds.ToString();
-            return result;
         }
 
         /// <summary>
