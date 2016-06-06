@@ -70,5 +70,10 @@ namespace MazeRunner2016
         {
             return statesDeveloped;
         }
+
+        public void saveStatesDeveloped(int states)
+        {
+            statesDeveloped = states.ToString();
+        }
     }
 }

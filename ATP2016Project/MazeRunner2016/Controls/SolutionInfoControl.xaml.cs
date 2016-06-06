@@ -29,7 +29,7 @@ namespace MazeRunner2016.Controls
             InitializeComponent();
         }
 
-        public SolutionInfoControl(Solution solution)
+        public SolutionInfoControl(Solution solution, string timeToSolve, string statesDeveloped)
         {
             InitializeComponent();
             mySolution = solution;
