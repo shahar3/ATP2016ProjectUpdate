@@ -173,12 +173,13 @@ namespace MazeRunner2016.Controls
             ISearchable searchableMaze = new SearchableMaze3d(myMaze);
             Solution mazeSol = view.getSolution();
             (searchableMaze as SearchableMaze3d).markSolutionInGrid(mazeSol);
+            //get the time  to solve
+            string timeToSolve = view.getTimeToSolve();
+            string statesDeveloped = view.getStatesDeveloped();
             redrawSolution(myMaze.XLength * 2 + 1, myMaze.YLength * 2 + 1);
-            SolutionInfoControl solInfo = new SolutionInfoControl(mazeSol);
+            SolutionInfoControl solInfo = new SolutionInfoControl(mazeSol, timeToSolve, );
             Window parentWindow = Application.Current.MainWindow;
             (parentWindow as MainWindow).myDock.Children.Add(solInfo);
-            //get the time  to solve
-
             view.activateEvent(sender, new MazeEventArgs(parameters));
             MessageBox.Show("solution done");
         }

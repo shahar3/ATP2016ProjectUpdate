@@ -13,6 +13,7 @@ namespace MazeRunner2016
         private string[] mazesNames;
         private Maze3d myMaze;
         private Solution mazeSolution;
+        private string timeToSolve, statesDeveloped;
 
         public View()
         {
@@ -53,6 +54,21 @@ namespace MazeRunner2016
         public Solution getSolution()
         {
             return mazeSolution;
+        }
+
+        public string getTimeToSolve()
+        {
+            return timeToSolve;
+        }
+
+        public void saveTimeToSolve(string time)
+        {
+            timeToSolve = time;
+        }
+
+        public string getStatesDeveloped()
+        {
+            return statesDeveloped;
         }
     }
 }

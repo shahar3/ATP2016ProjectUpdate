@@ -17,6 +17,10 @@ namespace MazeRunner2016
         void displayMaze(Object maze);
         Maze3d getMaze();
         void saveSolution(Solution sol);
+        void saveStatesDeveloped(int states);
         Solution getSolution();
+        string getTimeToSolve();
+        void saveTimeToSolve(string time);
+        string getStatesDeveloped();
     }
 }

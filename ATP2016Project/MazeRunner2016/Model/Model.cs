@@ -13,12 +13,12 @@ namespace MazeRunner2016
         private List<string> m_mazesNames;
         private Dictionary<string, IMaze> m_mazes = new Dictionary<string, IMaze>();
         private Dictionary<Maze3d, Solution> m_mazesSolution = new Dictionary<Maze3d, Solution>();
+        private Dictionary<string, string> m_mazesSolveTime = new Dictionary<string, string>();
 
         public void generateMaze(int x, int y, int z, string mazeName)
         {
             MazeLib.IMazeGenerator generateMaze = new MyMaze3dGenerator();
             m_mazes[mazeName] = generateMaze.generate(x, y, z);
-
         }
 
         public void activateEvent(string commandName, string otherInformation)
@@ -51,6 +51,7 @@ namespace MazeRunner2016
                 //
                 ISearchingAlgorithm BFS = new BreadthFirstSearch();
                 m_mazesSolution[m_mazes[mazeName] as Maze3d] = BFS.search(mySearchableMaze);
+                m_mazesSolveTime[mazeName] = BFS.timeToSolve(mySearchableMaze);
                 ModelChanged("solveMaze", mazeName);
             }
             else
@@ -58,6 +59,7 @@ namespace MazeRunner2016
                 //
                 ISearchingAlgorithm DFS = new DepthFirstSearch();
                 m_mazesSolution[m_mazes[mazeName] as Maze3d] = DFS.search(mySearchableMaze);
+                m_mazesSolveTime[mazeName] = DFS.timeToSolve(mySearchableMaze);
                 ModelChanged("solveMaze", mazeName);
             }
         }
@@ -65,6 +67,11 @@ namespace MazeRunner2016
         public Solution getSolution(string mazeName)
         {
             return m_mazesSolution[m_mazes[mazeName] as Maze3d];
+        }
+
+        internal string getSolvedTime(string mazeName)
+        {
+            return m_mazesSolveTime[mazeName];
         }
     }
 }

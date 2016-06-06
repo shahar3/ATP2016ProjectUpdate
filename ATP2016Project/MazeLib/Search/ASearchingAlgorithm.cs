@@ -127,7 +127,7 @@ namespace MazeLib
             DateTime endTime = DateTime.Now;
             TimeSpan difference = endTime - startingTime;
             string result = difference.TotalSeconds.ToString();
-            return "It took " + result + " seconds to solve";
+            return result;
         }
 
         /// <summary>
