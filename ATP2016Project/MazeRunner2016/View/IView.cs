@@ -25,5 +25,7 @@ namespace MazeRunner2016
         string getSaveMessage();
         void loadMessage(string msg);
         string getLoadMessage();
+        void saveFunctions(List<string> functions);
+        List<string> getFunctions();
     }
 }

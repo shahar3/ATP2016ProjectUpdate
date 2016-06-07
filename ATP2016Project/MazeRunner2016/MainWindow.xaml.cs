@@ -35,6 +35,8 @@ namespace MazeRunner2016
             view = new View();
             Presenter p = new Presenter(view, model);
             myDock = solutionInfoPanel;
+            SideMenuControl sideMenuControl = new SideMenuControl(view, model);
+            sideMenuPanel.Children.Add(sideMenuControl);
         }
 
         private void generateClick(object sender, RoutedEventArgs e)

@@ -14,6 +14,7 @@ namespace MazeRunner2016
         private string m_saveMessage, timeToSolve, statesDeveloped, m_loadMessage;
         private Maze3d myMaze;
         private Solution mazeSolution;
+        private List<string> m_functions;
 
         public View()
         {
@@ -94,6 +95,16 @@ namespace MazeRunner2016
         public string getLoadMessage()
         {
             return m_loadMessage;
+        }
+
+        public void saveFunctions(List<string> functions)
+        {
+            m_functions = functions;
+        }
+
+        public List<string> getFunctions()
+        {
+            return m_functions;
         }
     }
 }
