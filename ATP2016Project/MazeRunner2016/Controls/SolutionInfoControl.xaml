@@ -16,17 +16,17 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Label Grid.ColumnSpan="2" Grid.Row="3" Name="solutionPathLbl" Content="solution path:" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
-        <Label Name="numOfStepsLbl" Content="number of steps:" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"></Label>
-        <TextBox Name="numOfStepsTxt" Text="0" Width="40" IsReadOnly="True" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"></TextBox>
+        <Label Name="numOfStepsLbl" Content="number of steps:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0"></Label>
+        <TextBox Name="numOfStepsTxt" Text="0" Width="40" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1"></TextBox>
         <DockPanel Grid.Row="4" Grid.ColumnSpan="2">
         <ListBox DockPanel.Dock="Top" Name="listOfStepsLst" ></ListBox>
         </DockPanel>
-        <Label Name="numOfStatesLbl" Content="number of states" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"></Label>
-        <TextBox Name="numOfStatsTxt" Text="0" Width="40" IsReadOnly="True" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"></TextBox>
-        <Label Name="timeLbl" Content="Time" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"></Label>
-        <TextBox Name="timeTxt" Width="40" IsReadOnly="True" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"></TextBox>
+        <Label Name="numOfStatesLbl" Content="number of states" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"></Label>
+        <TextBox Name="numOfStatsTxt" Text="0" Width="40" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"></TextBox>
+        <Label Name="timeLbl" Content="Time" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"></Label>
+        <TextBox Name="timeTxt" Width="40" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"></TextBox>
     </Grid>
 </UserControl>

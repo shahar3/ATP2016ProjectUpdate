@@ -22,7 +22,7 @@ namespace MazeRunner2016.Controls
     public partial class SolutionInfoControl : UserControl
     {
         private Solution mySolution;
-        public TextBox timeTxtBox;
+        private string statesDeveloped, timeToSolve;
 
         public SolutionInfoControl()
         {
@@ -32,8 +32,9 @@ namespace MazeRunner2016.Controls
         public SolutionInfoControl(Solution solution, string timeToSolve, string statesDeveloped)
         {
             InitializeComponent();
+            this.statesDeveloped = statesDeveloped;
+            this.timeToSolve = timeToSolve;
             mySolution = solution;
-            timeTxtBox = this.timeTxt;
             updateTexts();
         }
 
@@ -48,6 +49,8 @@ namespace MazeRunner2016.Controls
                 solPathPositions.Add(position);
             }
             listOfStepsLst.ItemsSource = solPathPositions;
+            numOfStatsTxt.Text = statesDeveloped;
+            timeTxt.Text = timeToSolve;
         }
     }
 }

@@ -18,17 +18,11 @@ namespace MazeLib
         /// </summary>
         /// <param name="searchable">can vary through many different searching problem</param>
         /// <returns>the solution for the problem</returns>
-        Solution search(ISearchable searchable);
+        Solution search(ISearchable searchable, out string timeToSolve);
         /// <summary>
         /// help us to determine if the algorithm is effective compared to other algorithms
         /// </summary>
         /// <returns>how many states was developed during the search process</returns>
         int statesDeveloped();
-        /// <summary>
-        /// help us to determine how good is the algorithm time-wise.
-        /// </summary>
-        /// <param name="searchable"></param>
-        /// <returns>the time elapsed since we start to solve the problem untill it solved</returns>
-        String timeToSolve(ISearchable searchable);
     }
 }

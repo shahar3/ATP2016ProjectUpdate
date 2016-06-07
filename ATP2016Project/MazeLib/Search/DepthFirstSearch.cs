@@ -33,8 +33,15 @@ namespace MazeLib
         /// </summary>
         /// <param name="searchable"></param>
         /// <returns></returns>
-        public override Solution search(ISearchable searchable)
+        public override Solution search(ISearchable searchable, out string timeToSolve)
         {
+            statesCounter = 0;
+            OpenList.Clear();
+            CloseList.Clear();
+            this.OpenList = new Queue<AState>();
+            this.CloseList = new Queue<AState>();
+            timeToSolve = "";
+            DateTime startingTime = DateTime.Now;
             searchable.initializeGrid(); //init the grid
             Console.WriteLine("start from {0} and need to get to {1}", searchable.getInitialState().State, searchable.getGoalState().State);
             this.Searchable = searchable;
@@ -53,6 +60,10 @@ namespace MazeLib
                     //we finished and now we backtrace the solution
                     backtraceSolution();
                     this.Solution.ReverseSolution();
+                    DateTime endTime = DateTime.Now;
+                    TimeSpan difference = endTime - startingTime;
+                    string result = difference.TotalSeconds.ToString();
+                    timeToSolve = result;
                     return this.Solution;
                 }
                 //check if we visited this state before

@@ -35,8 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MazeLib">
-      <HintPath>..\MazeLib\bin\Debug\MazeLib.dll</HintPath>
+    <Reference Include="MyMazeLib">
+      <HintPath>..\MazeLib\bin\Debug\MyMazeLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

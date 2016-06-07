@@ -15,6 +15,7 @@ namespace MazeRunner2016
         private Dictionary<string, IMaze> m_mazes = new Dictionary<string, IMaze>();
         private Dictionary<Maze3d, Solution> m_mazesSolution = new Dictionary<Maze3d, Solution>();
         private Dictionary<string, string> m_mazesSolveTime = new Dictionary<string, string>();
+        private Dictionary<string, int> m_mazesStatesDeveloped = new Dictionary<string, int>();
 
         public void generateMaze(int x, int y, int z, string mazeName)
         {
@@ -47,20 +48,23 @@ namespace MazeRunner2016
         public void solveMaze(string mazeName, string algoName)
         {
             ISearchable mySearchableMaze = new SearchableMaze3d(m_mazes[mazeName]);
+            string timeToSolve = string.Empty;
             if (algoName == "BFS")
             {
                 //
                 ISearchingAlgorithm BFS = new BreadthFirstSearch();
-                m_mazesSolution[m_mazes[mazeName] as Maze3d] = BFS.search(mySearchableMaze);
-                m_mazesSolveTime[mazeName] = BFS.timeToSolve(mySearchableMaze);
+                m_mazesSolution[m_mazes[mazeName] as Maze3d] = BFS.search(mySearchableMaze, out timeToSolve);
+                m_mazesSolveTime[mazeName] = timeToSolve;
+                m_mazesStatesDeveloped[mazeName] = BFS.statesDeveloped();
                 ModelChanged("solveMaze", mazeName);
             }
             else
             {
                 //
                 ISearchingAlgorithm DFS = new DepthFirstSearch();
-                m_mazesSolution[m_mazes[mazeName] as Maze3d] = DFS.search(mySearchableMaze);
-                m_mazesSolveTime[mazeName] = DFS.timeToSolve(mySearchableMaze);
+                m_mazesSolution[m_mazes[mazeName] as Maze3d] = DFS.search(mySearchableMaze, out timeToSolve);
+                m_mazesSolveTime[mazeName] = timeToSolve;
+                m_mazesStatesDeveloped[mazeName] = DFS.statesDeveloped();
                 ModelChanged("solveMaze", mazeName);
             }
         }
