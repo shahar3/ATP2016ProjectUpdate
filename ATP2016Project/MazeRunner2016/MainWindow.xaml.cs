@@ -48,6 +48,7 @@ namespace MazeRunner2016
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Maze files (*.maze)|*.maze";
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (openFileDialog.ShowDialog() == true)
             {
                 string[] args = new string[2];
@@ -100,7 +101,7 @@ namespace MazeRunner2016
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            view.activateEvent(sender, new MazeEventArgs("Exit"));
         }
     }
 }

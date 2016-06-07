@@ -383,10 +383,8 @@ namespace MazeRunner2016
 
         public override void DoCommand(params string[] parameters)
         {
-            //                m_view.Output("Exiting the program...\nThank you for using MazeRunner v1.0");
-            //                closeThreads(); //close all the threads
-            //                Thread.Sleep(3000); //wait
-            //                Environment.Exit(0); //exit the program
+            //exit threads
+            Environment.Exit(0);
         }
 
         //            /// <summary>
