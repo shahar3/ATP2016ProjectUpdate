@@ -46,6 +46,19 @@ namespace MazeRunner2016
 
         private void loadMazeBtn_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string[] args = new string[2];
+                string path = openFileDialog.FileName;
+                args[0] = path;
+                LoadDialog loadDialog = new LoadDialog("Please enter a name for the maze:", "MazeName");
+                if (loadDialog.ShowDialog() == true)
+                {
+                    args[1] = loadDialog.Answer;
+                }
+                view.activateEvent(sender, new MazeEventArgs(args));
+            }
         }
 
         private void mazeSizeBtn_Click(object sender, RoutedEventArgs e)
