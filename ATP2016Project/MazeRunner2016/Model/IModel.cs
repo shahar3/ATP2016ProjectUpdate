@@ -20,6 +20,7 @@ namespace MazeRunner2016
         object getMaze(string nameOfTheMaze);
         void solveMaze(string mazeName, string algoName);
         Solution getSolution(string mazeName);
+        void saveMaze(string mazeName, string mazePath);
         int getStatesDeveloped(string mazeName);
     }
 }

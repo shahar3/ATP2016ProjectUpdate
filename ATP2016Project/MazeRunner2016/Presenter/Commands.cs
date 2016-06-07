@@ -135,53 +135,11 @@ namespace MazeRunner2016
         /// <param name="parameters">path</param>
         public override void DoCommand(params string[] parameters)
         {
-            //                string mazeName, path = string.Empty;
-            //                //check the parameters
-            //                if (!checkParamToSave(parameters, out mazeName, out path))
-            //                {
-            //                    return;
-            //                }
-            //                //check if this maze name that ew get from the user exist
-            //                //and activate the function in model later that save the maze
-            //                //after this we print to the stream in view layer that its save
-            //                if (m_model.getMaze(mazeName) != null)
-            //                {
-            //                    m_view.Output(m_model.saveMaze(mazeName, path));
-            //                }
-            //                else
-            //                {
-            //                    m_view.Output("Maze " + mazeName + " doesn't exist!");
-            //                }
+            //activate the function in model that save the maze
+            string mazeName = parameters[0];
+            string mazePath = parameters[1];
+            m_model.saveMaze(mazeName, mazePath);
         }
-        //            /// <summary>
-        //            /// check if the param that ew get from the user is valid
-        //            /// </summary>
-        //            /// <param name="parameters">parmateres</param>
-        //            /// <param name="mazeName">maze name-empty</param>
-        //            /// <param name="path">path-empty</param>
-        //            private bool checkParamToSave(string[] parameters, out string mazeName, out string path)
-        //            {
-        //                path = string.Empty;
-        //                mazeName = string.Empty;
-        //                //length
-        //                if (parameters.Length < 2)
-        //                {
-        //                    m_view.Output("Must have 2 parameters");
-        //                    return false;
-        //                }
-        //                mazeName = parameters[0];
-        //                for (int i = 1; i < parameters.Length; i++)
-        //                {
-        //                    path += " " + parameters[i];
-        //                }
-        //                //check if this path is exit
-        //                if (!Directory.Exists(path))
-        //                {
-        //                    m_view.Output("File path " + path + " doesn't exist!");
-        //                    return false;
-        //                }
-        //                return true;
-        //            }
         /// <summary>
         /// this function return the description of this command
         /// </summary>

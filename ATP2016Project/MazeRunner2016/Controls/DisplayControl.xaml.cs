@@ -51,5 +51,7 @@ namespace MazeRunner2016.Controls
             view.activateEvent(sender, new MazeEventArgs(commandName));
             mazeBox.ItemsSource = view.getMazesNames();
         }
+
+
     }
 }

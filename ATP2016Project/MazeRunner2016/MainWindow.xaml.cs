@@ -80,7 +80,9 @@ namespace MazeRunner2016
 
         private void saveMazeBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            SaveControl saveControl = new SaveControl(model, view);
+            actionPanel.Children.Clear();
+            actionPanel.Children.Add(saveControl);
         }
 
         private void solveMazeBtn_Click(object sender, RoutedEventArgs e)
