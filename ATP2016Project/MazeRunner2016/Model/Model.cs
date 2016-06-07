@@ -108,5 +108,10 @@ namespace MazeRunner2016
             }
             ModelChanged("saveMaze", "done");
         }
+
+        public int getStatesDeveloped(string mazeName)
+        {
+            return m_mazesStatesDeveloped[mazeName];
+        }
     }
 }
