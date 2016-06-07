@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MazeLib;
+using System.IO;
 
 namespace MazeRunner2016
 {
@@ -72,6 +73,36 @@ namespace MazeRunner2016
         internal string getSolvedTime(string mazeName)
         {
             return m_mazesSolveTime[mazeName];
+        }
+
+        public void saveMaze(string mazeName, string mazePath)
+        {
+            Maze3d myMaze = m_mazes[mazeName] as Maze3d;
+            try
+            {
+                using (FileStream fs = new FileStream(mazePath, FileMode.Create))
+                {
+                    using (Stream mazeStream = new MemoryStream(myMaze.toByteArray()))
+                    {
+                        using (Stream fileStream = new MyCompressorStream(fs, MyCompressorStream.compressionMode.compress))
+                        {
+                            byte[] byteArray = new byte[100];
+                            int r = 0;
+                            while ((r = mazeStream.Read(byteArray, 0, byteArray.Length)) != 0)
+                            {
+                                fileStream.Write(byteArray, 0, 100);
+                                fileStream.Flush();
+                                byteArray = new byte[100];
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                ModelChanged("saveMaze", "errorSave");
+            }
+            ModelChanged("saveMaze", "done");
         }
     }
 }

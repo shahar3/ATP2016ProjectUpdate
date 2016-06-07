@@ -22,5 +22,6 @@ namespace MazeRunner2016
         string getTimeToSolve();
         void saveTimeToSolve(string time);
         string getStatesDeveloped();
+        string getSaveMessage();
     }
 }

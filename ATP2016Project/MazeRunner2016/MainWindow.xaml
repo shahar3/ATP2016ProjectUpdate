@@ -26,7 +26,9 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <StackPanel>
+                        <WrapPanel>
                         <Button x:Name="saveMazeBtn" Content="saveMaze" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="saveMazeBtn_Click"/>
+                        </WrapPanel>
                         <Button x:Name="displayMazeBtn" Content="displayMaze" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="75" Click="displayMazeBtn_Click" Margin="0,0,121,0"/>
                         <Button x:Name="generate3dMazeBtn" Content="generate3dMaze" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="103" Click="generateClick"/>
                         <Button x:Name="loadMazeBtn" Content="loadMaze" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="loadMazeBtn_Click"/>
@@ -41,7 +43,7 @@
                 </Grid>
             </Border>
             <DockPanel Name="in"></DockPanel>
-            <DockPanel Name="actionPanel" Grid.Column="2" >
+            <DockPanel Name="actionPanel" Grid.Column="1" Margin="0,2,0,-2" >
             </DockPanel>
         </Grid>
     </DockPanel>

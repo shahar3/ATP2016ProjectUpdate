@@ -11,6 +11,7 @@ namespace MazeRunner2016
     public class View : IView
     {
         private string[] mazesNames;
+        private string m_saveMessage;
         private Maze3d myMaze;
         private Solution mazeSolution;
         private string timeToSolve, statesDeveloped;
@@ -74,6 +75,16 @@ namespace MazeRunner2016
         public void saveStatesDeveloped(int states)
         {
             statesDeveloped = states.ToString();
+        }
+
+        public void saveMessage(string otherInfromation)
+        {
+            m_saveMessage = otherInfromation;
+        }
+
+        public string getSaveMessage()
+        {
+            return m_saveMessage;
         }
     }
 }
