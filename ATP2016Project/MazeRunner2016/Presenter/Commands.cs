@@ -174,25 +174,7 @@ namespace MazeRunner2016
         /// <param name="parameters">path and name</param>
         public override void DoCommand(params string[] parameters)
         {
-            //                if (parameters.Length < 2)
-            //                {
-            //                    m_view.Output("Must have 2 parameters");
-            //                    return;
-            //                }
-            //                string path = string.Empty;
-            //                for (int i = 0; i < parameters.Length - 1; i++)
-            //                {
-            //                    path += " " + parameters[i];
-            //                }
-            //                string name = parameters[parameters.Length - 1];
-            //                //check if this file exist
-            //                if (!File.Exists(path))
-            //                {
-            //                    m_view.Output("File path " + path + " doesn't exist!");
-            //                    return;
-            //                }
-            //                m_view.Output(m_model.loadMaze(path, name));
-
+            m_model.loadMaze(parameters[0], parameters[1]);
         }
         /// <summary>
         /// this function return the description of this command

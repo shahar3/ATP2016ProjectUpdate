@@ -82,6 +82,9 @@ namespace MazeRunner2016
                     case "saveMaze":
                         m_ui.saveMessage(otherInfromation);
                         break;
+                    case "loadMaze":
+                        m_ui.loadMessage(otherInfromation);
+                        break;
                     case "exit":
                         break;
                     default:
