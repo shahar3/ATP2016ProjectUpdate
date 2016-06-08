@@ -113,5 +113,41 @@ namespace MazeRunner2016
         {
             return m_mazesStatesDeveloped[mazeName];
         }
+
+        public void loadMaze(string mazePath, string mazeNameToSave)
+        {
+            using (FileStream fs = new FileStream(mazePath, FileMode.Open))
+            {
+                using (Stream fileStream = new MyCompressorStream(fs, MyCompressorStream.compressionMode.decompress))
+                {
+                    List<byte> mazeBytes = decompressFromFile(fileStream);
+                    IMaze maze = new Maze3d(mazeBytes.ToArray());
+                    m_mazes[mazeNameToSave] = maze;
+                }
+            }
+            ModelChanged("loadMaze", "mazeNameToSave");
+        }
+
+        /// <summary>
+        /// gets a file and decompress the maze from it
+        /// </summary>
+        /// <param name="fileStream">the compressed file</param>
+        /// <returns>list of bytes from the compressed file</returns>
+        private static List<byte> decompressFromFile(Stream fileStream)
+        {
+            List<byte> mazeBytes = new List<byte>();
+            byte[] buffer = new byte[100];
+            int r = 0;
+            while ((r = fileStream.Read(buffer, 0, 100)) != 0)
+            {
+                for (int i = 0; i < r; i++)
+                {
+                    mazeBytes.Add(buffer[i]);
+                }
+                buffer = new byte[100];
+            }
+
+            return mazeBytes;
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace MazeRunner2016
         private View m_ui;
         private Model m_model;
         private Dictionary<string, ICommand> m_commands;
+        private List<string> m_functions = new List<string>();
 
         public Presenter(IView ui, IModel model)
         {
@@ -21,6 +22,7 @@ namespace MazeRunner2016
             //initialize the events for the view and model layer
             initEvents();
             setCommands();
+            initFunctions();
         }
 
         private void setCommands()
@@ -36,6 +38,15 @@ namespace MazeRunner2016
             m_commands["displaySolution"] = new CommandDisplaySolution(m_model, m_ui);
             m_commands["Exit"] = new CommandExit(m_model, m_ui);
             m_commands["getMazesNames"] = new CommandGetMazesNames(m_model, m_ui);
+        }
+
+        private void initFunctions()
+        {
+            m_functions.Add("Generate maze");
+            m_functions.Add("Save maze");
+            m_functions.Add("Load maze");
+            m_functions.Add("Display maze");
+            m_functions.Add("Exit");
         }
 
         private void initEvents()
@@ -57,7 +68,6 @@ namespace MazeRunner2016
                     args = (e as MazeEventArgs).Params;
                 }
                 m_commands[command].DoCommand(args);
-                //((e as MazeEventArgs).TextBox as TextBox).Text = command;
             };
 
             m_model.ModelChanged += delegate (string notification, string otherInfromation)
@@ -82,7 +92,13 @@ namespace MazeRunner2016
                     case "saveMaze":
                         m_ui.saveMessage(otherInfromation);
                         break;
+                    case "loadMaze":
+                        m_ui.loadMessage(otherInfromation);
+                        break;
                     case "exit":
+                        break;
+                    case "getFunctions":
+                        m_ui.saveFunctions(m_functions);
                         break;
                     default:
                         break;

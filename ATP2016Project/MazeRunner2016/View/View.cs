@@ -11,10 +11,10 @@ namespace MazeRunner2016
     public class View : IView
     {
         private string[] mazesNames;
-        private string m_saveMessage;
+        private string m_saveMessage, timeToSolve, statesDeveloped, m_loadMessage;
         private Maze3d myMaze;
         private Solution mazeSolution;
-        private string timeToSolve, statesDeveloped;
+        private List<string> m_functions;
 
         public View()
         {
@@ -85,6 +85,26 @@ namespace MazeRunner2016
         public string getSaveMessage()
         {
             return m_saveMessage;
+        }
+
+        public void loadMessage(string msg)
+        {
+            m_loadMessage = "Maze " + msg + " was saved successfully";
+        }
+
+        public string getLoadMessage()
+        {
+            return m_loadMessage;
+        }
+
+        public void saveFunctions(List<string> functions)
+        {
+            m_functions = functions;
+        }
+
+        public List<string> getFunctions()
+        {
+            return m_functions;
         }
     }
 }
