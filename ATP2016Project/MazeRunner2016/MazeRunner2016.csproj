@@ -78,8 +78,11 @@
     <Compile Include="Controls\SolutionInfoControl.xaml.cs">
       <DependentUpon>SolutionInfoControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoadDialog.xaml.cs">
-      <DependentUpon>LoadDialog.xaml</DependentUpon>
+    <Compile Include="CustomDialog.xaml.cs">
+      <DependentUpon>CustomDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExitDialog.xaml.cs">
+      <DependentUpon>ExitDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="MazeEventArgs.cs" />
     <Compile Include="Presenter\ACommand.cs" />
@@ -111,7 +114,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LoadDialog.xaml">
+    <Page Include="CustomDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExitDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

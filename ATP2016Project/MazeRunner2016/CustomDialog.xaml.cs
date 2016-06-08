@@ -17,9 +17,9 @@ namespace MazeRunner2016
     /// <summary>
     /// Interaction logic for LoadDialog.xaml
     /// </summary>
-    public partial class LoadDialog : Window
+    public partial class CustomDialog : Window
     {
-        public LoadDialog(string question, string defaultAnswer = "")
+        public CustomDialog(string question, string defaultAnswer = "")
         {
             InitializeComponent();
             lblQuestion.Content = question;

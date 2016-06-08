@@ -31,7 +31,7 @@ namespace MazeRunner2016
             m_commands["generate3dMaze"] = new CommandGenerate3dMaze(m_model, m_ui);
             m_commands["displayMaze"] = new CommandDisplay(m_model, m_ui);
             m_commands["saveMaze"] = new CommandSaveMaze(m_model, m_ui);
-            m_commands["loadMaze"] = new CommandLoadMaze(m_model, m_ui);
+            m_commands["Load maze"] = new CommandLoadMaze(m_model, m_ui);
             m_commands["mazeSize"] = new CommandMazeSize(m_model, m_ui);
             m_commands["fileSize"] = new CommandFileSize(m_model, m_ui);
             m_commands["solveMaze"] = new CommandSolveMaze(m_model, m_ui);
@@ -56,11 +56,17 @@ namespace MazeRunner2016
                 string command = string.Empty;
                 string[] args;
                 //check if its a button
-                if (sender is Button)
+                if (sender is ListBox)
                 {
-                    Button b = sender as Button;
+                    ListBox listMenu = sender as ListBox;
                     args = (e as MazeEventArgs).Params;
-                    command = b.Name.Substring(0, b.Name.Length - 3);
+                    command = listMenu.SelectedItem.ToString();
+                }
+                else if (sender is Button)
+                {
+                    Button button = sender as Button;
+                    args = (e as MazeEventArgs).Params;
+                    command = button.Name.Substring(0, button.Name.Length - 3);
                 }
                 else
                 {

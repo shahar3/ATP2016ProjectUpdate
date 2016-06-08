@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MazeLib;
 using System.IO;
+using System.Threading;
 
 namespace MazeRunner2016
 {
@@ -16,6 +17,18 @@ namespace MazeRunner2016
         private Dictionary<Maze3d, Solution> m_mazesSolution = new Dictionary<Maze3d, Solution>();
         private Dictionary<string, string> m_mazesSolveTime = new Dictionary<string, string>();
         private Dictionary<string, int> m_mazesStatesDeveloped = new Dictionary<string, int>();
+
+        public Model()
+        {
+            initThreadPool();
+        }
+
+        private void initThreadPool()
+        {
+            int workerThreads = 10;
+            int completedThreads = 10;
+            ThreadPool.SetMaxThreads(workerThreads, completedThreads);
+        }
 
         public void generateMaze(int x, int y, int z, string mazeName)
         {
