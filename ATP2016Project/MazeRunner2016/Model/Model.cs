@@ -106,7 +106,7 @@ namespace MazeRunner2016
             {
                 ModelChanged("saveMaze", "errorSave");
             }
-            ModelChanged("saveMaze", "done");
+            ModelChanged("saveMaze", "The maze saved");
         }
 
         public int getStatesDeveloped(string mazeName)

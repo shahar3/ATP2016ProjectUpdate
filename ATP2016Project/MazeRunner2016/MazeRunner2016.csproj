@@ -64,6 +64,9 @@
     <Compile Include="Controls\MazeControl.xaml.cs">
       <DependentUpon>MazeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Mazepreview.xaml.cs">
+      <DependentUpon>Mazepreview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SaveControl.xaml.cs">
       <DependentUpon>SaveControl.xaml</DependentUpon>
     </Compile>
@@ -84,6 +87,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\GenerateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Mazepreview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
