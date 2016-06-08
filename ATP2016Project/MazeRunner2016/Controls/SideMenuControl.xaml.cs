@@ -36,5 +36,11 @@ namespace MazeRunner2016.Controls
             m_model.activateEvent("getFunctions", "");
             sideMenu.ItemsSource = m_view.getFunctions();
         }
+
+        private void sideMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string msg = sideMenu.SelectedItem.ToString();
+            MessageBox.Show(msg);
+        }
     }
 }
