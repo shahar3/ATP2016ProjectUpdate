@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Image Source="C:\Users\YAKIR HERSHKOVIZ\Source\Repos\ATP2016ProjectUpdate2\ATP2016Project\MazeRunner2016\Images\questionMark.png" Width="32" Height="32" Grid.RowSpan="2" Margin="20,0" />
+        <Image Source="Resources\questionMark.png" Width="32" Height="32" Grid.RowSpan="2" Margin="20,0" />
         <Label Name="lblQuestion" Grid.Column="1">Please enter a name for the maze:</Label>
         <TextBox Name="txtAnswer" Grid.Column="1" Grid.Row="1" MinWidth="250">mazeName</TextBox>
         <WrapPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,15,0,0">
