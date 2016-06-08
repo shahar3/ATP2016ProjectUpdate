@@ -9,7 +9,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -17,9 +17,10 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
         </Grid.RowDefinitions>
-        <ComboBox Grid.ColumnSpan="2" Grid.Column="1" VerticalAlignment="Center" Grid.Row="0" Name ="comboBoxSave"></ComboBox>
+        <DockPanel Name="mazeDisplayPanel" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"></DockPanel>
+        <ComboBox Grid.Column="1" VerticalAlignment="Center" Grid.Row="0" Name ="comboBoxSave"></ComboBox>
         <Button Grid.Row="1" Grid.Column="1" Name="saveMazeBtn" Content="Save" Click="saveBtn_Click"></Button>
-        <Label  VerticalAlignment="Center"  Background="White">choose maze:</Label>
-        
+        <Label  VerticalAlignment="Center" HorizontalAlignment="Center"  Background="White">choose maze:</Label>
+        <Button Name="previewBtn" Content="preview" Grid.Column="2" VerticalAlignment="Center" Height="20" Click="previewBtn_Click"></Button>
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using MazeLib;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -46,19 +47,48 @@ namespace MazeRunner2016.Controls
 
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
-            //the name maze that will save
-            string mazeToSave = comboBoxSave.SelectedItem.ToString();
-            //get tha path
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.ShowDialog();
-            string fullPath = sfd.FileName;
-            string[] parameters = new string[2];
-            parameters[0] = mazeToSave;
-            parameters[1] = fullPath;
-            //event
-            m_view.activateEvent(sender, new MazeEventArgs(parameters));
-            string saveMessage = m_view.getSaveMessage();
-            MessageBox.Show(saveMessage);
+            if (comboBoxSave.SelectedItem != null)
+            {
+                //the name maze that will save
+                string mazeToSave = comboBoxSave.SelectedItem.ToString();
+                //get tha path
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "Text file (*.txt)|*.txt|C# file (*.cs)|*.cs";
+                sfd.InitialDirectory = @"c:\";
+                sfd.FileName = ".txt";
+                string fullPath = sfd.FileName;
+                string[] parameters = new string[2];
+                parameters[0] = mazeToSave;
+                parameters[1] = fullPath;
+                //event
+                m_view.activateEvent(sender, new MazeEventArgs(parameters));
+                string saveMessage = m_view.getSaveMessage();
+                if (sfd.ShowDialog() == true)
+                {
+                    MessageBox.Show(saveMessage);
+                }
+            }
+            else
+            {
+                MessageBox.Show("You must choose maze from the list");
+            }
+        }
+
+        private void previewBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (comboBoxSave.SelectedItem != null)
+            {
+                string mazeToShow = comboBoxSave.SelectedItem.ToString();
+                (sender as Button).Name = "displayMazeBtn";
+                m_view.activateEvent(sender, new MazeEventArgs(mazeToShow));
+                Maze3d myMaze = m_view.getMaze();
+                Mazepreview mazePreview = new Mazepreview(myMaze, m_view, m_model, mazeToShow);
+                mazeDisplayPanel.Children.Add(mazePreview);
+            }
+            else
+            {
+                MessageBox.Show("You must choose maze fromthe list");
+            }
         }
     }
 }
