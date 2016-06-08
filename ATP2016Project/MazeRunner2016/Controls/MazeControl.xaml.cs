@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -170,18 +172,10 @@ namespace MazeRunner2016.Controls
             parameters[0] = mazeName;
             parameters[1] = nameAlgo;
             view.activateEvent(sender, new MazeEventArgs(parameters));
-            ISearchable searchableMaze = new SearchableMaze3d(myMaze);
-            Solution mazeSol = view.getSolution();
-            (searchableMaze as SearchableMaze3d).markSolutionInGrid(mazeSol);
-            //get the time  to solve
-            redrawSolution(myMaze.XLength * 2 + 1, myMaze.YLength * 2 + 1);
-            string timeToSolve = view.getTimeToSolve();
-            string statesDeveloped = view.getStatesDeveloped();
-            SolutionInfoControl solInfo = new SolutionInfoControl(mazeSol, timeToSolve, statesDeveloped);
-            Window parentWindow = Application.Current.MainWindow;
-            (parentWindow as MainWindow).myDock.Children.Clear();
-            (parentWindow as MainWindow).myDock.Children.Add(solInfo);
-            MessageBox.Show("solution done");
+            view.SolutionRetrieved += delegate ()
+            {
+                markSolution();
+            };
         }
 
         private void redrawSolution(int x, int y)
@@ -194,6 +188,22 @@ namespace MazeRunner2016.Controls
             initializeGrid(myMaze, levelsGrid[0], 0, true);
             prevGrid = levelsGrid[0];
             levelsVisited.Add(0);
+        }
+
+        public void markSolution()
+        {
+            ISearchable searchableMaze = new SearchableMaze3d(myMaze);
+            //we need to wait for solution from the thread
+            Solution mazeSol = view.getSolution();
+            (searchableMaze as SearchableMaze3d).markSolutionInGrid(mazeSol);
+            //get the time  to solve
+            redrawSolution(myMaze.XLength * 2 + 1, myMaze.YLength * 2 + 1);
+            string timeToSolve = view.getTimeToSolve();
+            string statesDeveloped = view.getStatesDeveloped();
+            SolutionInfoControl solInfo = new SolutionInfoControl(mazeSol, timeToSolve, statesDeveloped);
+            Window parentWindow = Application.Current.MainWindow;
+            (parentWindow as MainWindow).myDock.Children.Clear();
+            (parentWindow as MainWindow).myDock.Children.Add(solInfo);
         }
     }
 }

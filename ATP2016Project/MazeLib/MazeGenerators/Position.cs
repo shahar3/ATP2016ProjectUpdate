@@ -44,6 +44,19 @@ namespace MazeLib
             m_y = y;
             m_z = 0;
         }
+
+        /// <summary>
+        /// Build a position from a string
+        /// </summary>
+        /// <param name="positionString">represent the position</param>
+        public Position(string positionString)
+        {
+            string positionTrimmed = positionString.Trim('(', ')');
+            string[] dimensions = positionTrimmed.Split(',');
+            m_x = Int32.Parse(dimensions[0]);
+            m_y = Int32.Parse(dimensions[1]);
+            m_z = Int32.Parse(dimensions[2]);
+        }
         /// <summary>
         /// the getters and setters
         /// </summary>

@@ -29,8 +29,6 @@ namespace MazeRunner2016
         {
             this.DialogResult = true;
         }
-
-
     }
 }
 

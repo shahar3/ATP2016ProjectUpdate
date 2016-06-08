@@ -94,6 +94,7 @@ namespace MazeRunner2016
                         m_ui.saveSolution(m_model.getSolution(otherInfromation));
                         m_ui.saveTimeToSolve(m_model.getSolvedTime(otherInfromation));
                         m_ui.saveStatesDeveloped(m_model.getStatesDeveloped(otherInfromation));
+                        m_ui.showMessage("The maze " + otherInfromation + " is solved");
                         break;
                     case "saveMaze":
                         m_ui.saveMessage(otherInfromation);
@@ -106,6 +107,10 @@ namespace MazeRunner2016
                     case "getFunctions":
                         m_ui.saveFunctions(m_functions);
                         break;
+                    case "mazeExist":
+                        m_ui.showMessage(otherInfromation);
+                        break;
+
                     default:
                         break;
                 }

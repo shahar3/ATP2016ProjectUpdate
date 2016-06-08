@@ -23,47 +23,11 @@ namespace MazeRunner2016
         /// <param name="parameters"></param>
         public override void DoCommand(params string[] parameters)
         {
-            try
-            {
-                //convert the strings parameters to a int
-                int x, y, z;
-                convertParmToInt(parameters, out x, out y, out z);
-                //create a new thread that run the generate separately
-                Thread t = new Thread(() =>
-                {
-                    m_model.generateMaze(x, y, z, parameters[0]);
-                    Thread.Sleep(40);
-                    //m_view.Output("Maze " + parameters[0] + " is ready");
-                });
-                t.Name = "GenerateThread";
-                t.Start();
-                m_model.activateEvent("generate3dMaze", parameters[0]);
 
-                //add the thread to list of threads for kill them in the end of the program
-                m_threads.Add(t);
-            }
-            catch (Exception e)
-            {
-                //m_view.Output(e.Message);
-            }
+            //create a new thread that run the generate separately
+
+            m_model.generateMaze(Int32.Parse(parameters[1]), Int32.Parse(parameters[2]), Int32.Parse(parameters[3]), parameters[0]);
         }
-
-
-
-        /// <summary>
-        /// convert the parameters to Int
-        /// </summary>
-        /// <param name="parameters">parameters</param>
-        /// <param name="x">int x</param>
-        /// <param name="y">int y</param>
-        /// <param name="z">int z</param>
-        private static void convertParmToInt(string[] parameters, out int x, out int y, out int z)
-        {
-            x = Int32.Parse(parameters[1]);
-            y = Int32.Parse(parameters[2]);
-            z = Int32.Parse(parameters[3]);
-        }
-
 
         /// <summary>
         /// this function return the description of this command
@@ -383,21 +347,11 @@ namespace MazeRunner2016
 
         public override void DoCommand(params string[] parameters)
         {
+            m_model.saveMazesToZip();
             //exit threads
             Environment.Exit(0);
         }
 
-        //            /// <summary>
-        //            /// an helping method, iterates on all the threads and waiting them to finish 
-        //            /// before exiting the program
-        //            /// </summary>
-        //            private static void closeThreads()
-        //            {
-        //                foreach (Thread t in m_threads)
-        //                {
-        //                    t.Join();
-        //                }
-        //            }
         /// <summary>
         /// this function return the description of this command
         /// </summary>

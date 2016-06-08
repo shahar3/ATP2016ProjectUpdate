@@ -16,7 +16,7 @@ namespace MazeLib
     /// </summary>
     public class Solution
     {
-        List<AState> m_pathOfSolution; //keep the states of the solution
+        List<AState> m_pathOfSolution = new List<AState>(); //keep the states of the solution
 
         /// <summary>
         /// the default constructor 
@@ -24,8 +24,36 @@ namespace MazeLib
         /// </summary>
         public Solution()
         {
-            m_pathOfSolution = new List<AState>();
+            //empty
         }
+
+        /// <summary>
+        /// Constructor that get a string and build from it a solution
+        /// </summary>
+        /// <param name="states">represent the states in a string</param>
+        public Solution(string states)
+        {
+            string[] statesArr = states.Split(' '); //(x,y,z)
+            bool firstElement = true;
+            AState prevState = null;
+            AState stateToAdd;
+            foreach (string stateString in statesArr)
+            {
+                if (firstElement) //if it's the first element
+                {
+                    stateToAdd = new MazeState(new Position(stateString), null);
+                    firstElement = false;
+                }
+                else //all the rest
+                {
+                    stateToAdd = new MazeState(new Position(stateString), prevState);
+                }
+                prevState = stateToAdd;
+                m_pathOfSolution.Add(stateToAdd);
+            }
+        }
+
+
 
         /// <summary>
         /// add the state to the solution's path
@@ -85,6 +113,16 @@ namespace MazeLib
             {
                 Console.WriteLine(state.State);
             }
+        }
+
+        public override string ToString() //(x,y,z) (x,y,z)...
+        {
+            string states = string.Empty;
+            foreach (AState state in m_pathOfSolution)
+            {
+                states += (state as MazeState).Position.ToString() + " ";
+            }
+            return states;
         }
     }
 }

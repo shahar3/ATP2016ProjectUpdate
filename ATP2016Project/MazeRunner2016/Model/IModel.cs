@@ -13,7 +13,7 @@ namespace MazeRunner2016
     {
         event finishedComputing ModelChanged;
 
-        void generateMaze(int x, int y, int z, string v);
+        void generateMaze(int x, int y, int z, string mazeName);
         void activateEvent(string commandName, string otherInformation);
         void prepareMazesNames();
         string[] getMazesNames();
@@ -23,5 +23,6 @@ namespace MazeRunner2016
         void saveMaze(string mazeName, string mazePath);
         int getStatesDeveloped(string mazeName);
         void loadMaze(string mazePath, string mazeNameToSave);
+        void saveMazesToZip();
     }
 }

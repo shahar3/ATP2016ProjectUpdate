@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 using MazeLib;
 using System.IO;
 using System.Threading;
+using MazeRunner2016.Controls;
+using System.Runtime.CompilerServices;
 
 namespace MazeRunner2016
 {
     public class Model : IModel
     {
         public event finishedComputing ModelChanged;
+        //private delegate void calcInMaze(string mazeName, string parameters, object o);
         private List<string> m_mazesNames;
-        private Dictionary<string, IMaze> m_mazes = new Dictionary<string, IMaze>();
+        private Dictionary<string, Maze3d> m_mazes = new Dictionary<string, Maze3d>();
         private Dictionary<Maze3d, Solution> m_mazesSolution = new Dictionary<Maze3d, Solution>();
         private Dictionary<string, string> m_mazesSolveTime = new Dictionary<string, string>();
         private Dictionary<string, int> m_mazesStatesDeveloped = new Dictionary<string, int>();
@@ -21,6 +24,11 @@ namespace MazeRunner2016
         public Model()
         {
             initThreadPool();
+            loadMazes();
+        }
+
+        private void loadMazes()
+        {
         }
 
         private void initThreadPool()
@@ -32,8 +40,8 @@ namespace MazeRunner2016
 
         public void generateMaze(int x, int y, int z, string mazeName)
         {
-            MazeLib.IMazeGenerator generateMaze = new MyMaze3dGenerator();
-            m_mazes[mazeName] = generateMaze.generate(x, y, z);
+            string parameters = string.Format("{0},{1},{2}", x, y, z);
+            Run("generate3dMaze", mazeName, parameters);
         }
 
         public void activateEvent(string commandName, string otherInformation)
@@ -60,26 +68,7 @@ namespace MazeRunner2016
 
         public void solveMaze(string mazeName, string algoName)
         {
-            ISearchable mySearchableMaze = new SearchableMaze3d(m_mazes[mazeName]);
-            string timeToSolve = string.Empty;
-            if (algoName == "BFS")
-            {
-                //
-                ISearchingAlgorithm BFS = new BreadthFirstSearch();
-                m_mazesSolution[m_mazes[mazeName] as Maze3d] = BFS.search(mySearchableMaze, out timeToSolve);
-                m_mazesSolveTime[mazeName] = timeToSolve;
-                m_mazesStatesDeveloped[mazeName] = BFS.statesDeveloped();
-                ModelChanged("solveMaze", mazeName);
-            }
-            else
-            {
-                //
-                ISearchingAlgorithm DFS = new DepthFirstSearch();
-                m_mazesSolution[m_mazes[mazeName] as Maze3d] = DFS.search(mySearchableMaze, out timeToSolve);
-                m_mazesSolveTime[mazeName] = timeToSolve;
-                m_mazesStatesDeveloped[mazeName] = DFS.statesDeveloped();
-                ModelChanged("solveMaze", mazeName);
-            }
+            Run("solveMaze", mazeName, algoName);
         }
 
         public Solution getSolution(string mazeName)
@@ -135,7 +124,7 @@ namespace MazeRunner2016
                 {
                     List<byte> mazeBytes = decompressFromFile(fileStream);
                     IMaze maze = new Maze3d(mazeBytes.ToArray());
-                    m_mazes[mazeNameToSave] = maze;
+                    m_mazes[mazeNameToSave] = maze as Maze3d;
                 }
             }
             ModelChanged("loadMaze", "mazeNameToSave");
@@ -161,6 +150,131 @@ namespace MazeRunner2016
             }
 
             return mazeBytes;
+        }
+
+
+
+        private void Run(string commandName, string mazeName, string parameters)
+        {
+            switch (commandName)
+            {
+                case "generate3dMaze":
+                    //this maze exist
+                    if (m_mazes.ContainsKey(mazeName))
+                    {
+                        ModelChanged("isExist", "The name " + mazeName + " already exist");
+                    }
+                    else//do not exist
+                    {
+                        RunInThreadPool(commandName, mazeName, parameters);
+                    }
+                    break;
+                case "solveMaze":
+                    if (m_mazesSolution.ContainsKey(m_mazes[mazeName] as Maze3d))
+                    {
+                        ModelChanged("isExist", "The solution for the maze " + mazeName + " already exist");
+                    }
+                    else
+                    {
+                        RunInThreadPool(commandName, mazeName, parameters);
+                    }
+                    break;
+            }
+        }
+
+        private void RunInThreadPool(string CommandName, string mazeName, string parameters)
+        { //10,10,3 
+            switch (CommandName)
+            {
+                case "generate3dMaze":
+                    ThreadPool.QueueUserWorkItem
+                   (
+                        new WaitCallback((generate3dMaze) =>
+                        {
+                            MazeLib.IMazeGenerator generateMaze = new MyMaze3dGenerator();
+                            string[] dimensions = parameters.Split(',');
+                            m_mazes[mazeName] = generateMaze.generate(Int32.Parse(dimensions[0]), Int32.Parse(dimensions[1]), Int32.Parse(dimensions[2])) as Maze3d;
+                            ModelChanged(CommandName, mazeName);
+                        })
+                   );
+                    break;
+                case "solveMaze":
+                    ThreadPool.QueueUserWorkItem(
+                        new WaitCallback((solveMaze) =>
+                        {
+                            string algoName = parameters;
+                            ISearchable mySearchableMaze = new SearchableMaze3d(m_mazes[mazeName]);
+                            string timeToSolve = string.Empty;
+                            if (algoName == "BFS")
+                            {
+                                //
+                                ISearchingAlgorithm BFS = new BreadthFirstSearch();
+                                m_mazesSolution[m_mazes[mazeName] as Maze3d] = BFS.search(mySearchableMaze, out timeToSolve);
+                                getSolutionInfo(mazeName, timeToSolve, BFS);
+                            }
+                            else
+                            {
+                                //
+                                ISearchingAlgorithm DFS = new DepthFirstSearch();
+                                m_mazesSolution[m_mazes[mazeName] as Maze3d] = DFS.search(mySearchableMaze, out timeToSolve);
+                                getSolutionInfo(mazeName, timeToSolve, DFS);
+                            }
+                            ModelChanged(CommandName, mazeName);
+                        })
+                    );
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void getSolutionInfo(string mazeName, string timeToSolve, ISearchingAlgorithm algo)
+        {
+            m_mazesSolveTime[mazeName] = timeToSolve;
+            m_mazesStatesDeveloped[mazeName] = algo.statesDeveloped();
+            ModelChanged("solveMaze", mazeName);
+        }
+
+        public void saveMazesToZip()
+        {
+            foreach (Maze3d maze in m_mazesSolution.Keys)
+            {
+                ICompressor compressor = new MyMaze3Dcompressor();
+                byte[] mazeToSave = compressor.compress(maze.toByteArray());
+                //now we want to write the compressed maze to a zip file
+                string solutionToSave = m_mazesSolution[maze].ToString();
+                string mazeName = m_mazes.FirstOrDefault(x => x.Value == maze).Key;
+                writeToFolder(mazeToSave, mazeName + ".maze");
+                writeToFolder(solutionToSave, mazeName + ".sol");
+            }
+        }
+
+        private void writeToFolder(object objectToSave, string nameToSave)
+        {
+            byte[] inputSource;
+            if (objectToSave is byte[])
+            {
+                inputSource = objectToSave as byte[];
+            }
+            else //string
+            {
+                string stringToConvert = objectToSave as string;
+                inputSource = Encoding.ASCII.GetBytes(stringToConvert);
+            }
+            using (MemoryStream input = new MemoryStream(inputSource))
+            {
+                using (FileStream outputStream = new FileStream(nameToSave, FileMode.Create))
+                {
+                    byte[] byteArray = new byte[100];
+                    int r = 0;
+                    while ((r = input.Read(byteArray, 0, byteArray.Length)) != 0)
+                    {
+                        outputStream.Write(byteArray, 0, r);
+                        outputStream.Flush();
+                        byteArray = new byte[100];
+                    }
+                }
+            }
         }
     }
 }

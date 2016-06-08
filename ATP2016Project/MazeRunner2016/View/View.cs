@@ -1,9 +1,11 @@
 ﻿using MazeLib;
+using MazeRunner2016.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace MazeRunner2016
@@ -21,6 +23,7 @@ namespace MazeRunner2016
         }
 
         public event somethingHappened ViewChanged;
+        public event solutionDelegate SolutionRetrieved;
 
         public void activateEvent(object sender, EventArgs e)
         {
@@ -75,6 +78,7 @@ namespace MazeRunner2016
         public void saveStatesDeveloped(int states)
         {
             statesDeveloped = states.ToString();
+            SolutionRetrieved();
         }
 
         public void saveMessage(string otherInfromation)
@@ -105,6 +109,11 @@ namespace MazeRunner2016
         public List<string> getFunctions()
         {
             return m_functions;
+        }
+
+        public void showMessage(string otherInfromation)
+        {
+            MessageBox.Show(otherInfromation);
         }
     }
 }
