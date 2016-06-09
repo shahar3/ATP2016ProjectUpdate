@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeRunner2016"
         mc:Ignorable="d"
-        Title="ExitDialog" Height="300" Width="300">
+        Title="ExitDialog" Height="140" Width="300">
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

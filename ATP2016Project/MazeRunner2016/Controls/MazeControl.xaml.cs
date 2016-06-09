@@ -174,7 +174,7 @@ namespace MazeRunner2016.Controls
             view.activateEvent(sender, new MazeEventArgs(parameters));
             view.SolutionRetrieved += delegate ()
             {
-                markSolution();
+                Dispatcher.Invoke(new Action(markSolution));
             };
         }
 

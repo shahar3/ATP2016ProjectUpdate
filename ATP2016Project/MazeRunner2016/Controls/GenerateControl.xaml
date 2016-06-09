@@ -21,9 +21,9 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Slider Grid.Column="0" Grid.Row="2" x:Name="WidthMaze" IsSnapToTickEnabled="True" Minimum="0" Maximum="40" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="138" AutomationProperties.HelpText="loading"/>
-        <Slider Grid.Column="0" Grid.Row="4" x:Name="HeightMaze" IsSnapToTickEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Height="22" Width="138" Maximum="40" Minimum="0" />
-        <Slider Grid.Column="0" Grid.Row="6" x:Name="LevelsMaze" IsSnapToTickEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Height="22" Width="138" Maximum="10" Minimum="1"  Value="1"/>
+        <Slider Grid.Column="0" Grid.Row="2" x:Name="WidthMaze" IsSnapToTickEnabled="True" Value="10" Minimum="0" Maximum="40" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="138" AutomationProperties.HelpText="loading"/>
+        <Slider Grid.Column="0" Grid.Row="4" x:Name="HeightMaze" IsSnapToTickEnabled="True" Value="10" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Height="22" Width="138" Maximum="40" Minimum="0" />
+        <Slider Grid.Column="0" Grid.Row="6" x:Name="LevelsMaze" IsSnapToTickEnabled="True" Value="3" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Height="22" Width="138" Maximum="10" Minimum="1"/>
         <Label Grid.Column="0" Grid.Row="1"  x:Name="widthLabel"  Content="_WidthMaze" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label Grid.Column="0" Grid.Row="3" x:Name="heightLabel"  Content="_HeightMaze" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label Grid.Column="0" Grid.Row="5" x:Name="levelLabel"  Content="_LevelMaze" HorizontalAlignment="Center" VerticalAlignment="Top"/>

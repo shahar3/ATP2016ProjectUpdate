@@ -110,7 +110,6 @@ namespace MazeRunner2016
                     case "mazeExist":
                         m_ui.showMessage(otherInfromation);
                         break;
-
                     default:
                         break;
                 }

@@ -219,7 +219,6 @@ namespace MazeRunner2016
                                 m_mazesSolution[m_mazes[mazeName] as Maze3d] = DFS.search(mySearchableMaze, out timeToSolve);
                                 getSolutionInfo(mazeName, timeToSolve, DFS);
                             }
-                            ModelChanged(CommandName, mazeName);
                         })
                     );
                     break;
