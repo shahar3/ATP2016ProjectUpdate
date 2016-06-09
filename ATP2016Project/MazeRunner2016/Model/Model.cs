@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MazeLib;
 using System.IO;
+using System.IO.Compression;
 using System.Threading;
 using MazeRunner2016.Controls;
 using System.Runtime.CompilerServices;
@@ -245,9 +246,24 @@ namespace MazeRunner2016
                 //now we want to write the compressed maze to a zip file
                 string solutionToSave = m_mazesSolution[maze].ToString();
                 string mazeName = m_mazes.FirstOrDefault(x => x.Value == maze).Key;
-                writeToFolder(mazeToSave, mazeName + ".maze");
-                writeToFolder(solutionToSave, mazeName + ".sol");
+                createFolder(mazeName);
+                writeToFolder(mazeToSave, mazeName + "\\" + mazeName + ".maze");
+                writeToFolder(solutionToSave, mazeName + "\\" + mazeName + ".sol");
+                addFileToZip(mazeName);
             }
+        }
+
+        private void addFileToZip(string mazeName)
+        {
+            foreach (string file in Directory.GetFiles(mazeName))
+            {
+
+            }
+        }
+
+        private void createFolder(string mazeName)
+        {
+            Directory.CreateDirectory(mazeName);
         }
 
         private void writeToFolder(object objectToSave, string nameToSave)
