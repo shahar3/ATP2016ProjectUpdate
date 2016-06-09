@@ -239,6 +239,8 @@ namespace MazeRunner2016
             foreach (Maze3d maze in m_mazesSolution.Keys)
             {
                 ICompressor compressor = new MyMaze3Dcompressor();
+                SearchableMaze3d myMaze = new SearchableMaze3d(maze);
+                myMaze.initializeGrid();
                 byte[] mazeToSave = compressor.compress(maze.toByteArray());
                 //now we want to write the compressed maze to a zip file
                 string solutionToSave = m_mazesSolution[maze].ToString();
