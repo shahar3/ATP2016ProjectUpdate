@@ -257,7 +257,16 @@ namespace MazeRunner2016
         {
             foreach (string file in Directory.GetFiles(mazeName))
             {
-
+                using (FileStream inputStream = new FileStream(file, FileMode.Open))
+                {
+                    using (FileStream outputStream = new FileStream("Mazes.zip", FileMode.Append,FileAccess.ReadWrite))
+                    {
+                        using (GZipStream zipStream = new GZipStream(inputStream, CompressionLevel.Optimal))
+                        {
+                            inputStream.CopyTo(zipStream);
+                        }
+                    }
+                }
             }
         }
 
