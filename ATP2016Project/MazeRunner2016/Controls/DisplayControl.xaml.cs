@@ -42,6 +42,7 @@ namespace MazeRunner2016.Controls
             view.activateEvent(sender, new MazeEventArgs(mazeToShow));
             Maze3d myMaze = view.getMaze();
             MazeControl mazeDisplay = new MazeControl(myMaze, view, model, mazeToShow);
+            mazePanel.Children.Clear();
             mazePanel.Children.Add(mazeDisplay);
         }
 

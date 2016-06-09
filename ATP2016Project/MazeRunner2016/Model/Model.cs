@@ -9,6 +9,7 @@ using System.IO.Compression;
 using System.Threading;
 using MazeRunner2016.Controls;
 using System.Runtime.CompilerServices;
+using Ionic.Zip;
 
 namespace MazeRunner2016
 {
@@ -21,6 +22,8 @@ namespace MazeRunner2016
         private Dictionary<Maze3d, Solution> m_mazesSolution = new Dictionary<Maze3d, Solution>();
         private Dictionary<string, string> m_mazesSolveTime = new Dictionary<string, string>();
         private Dictionary<string, int> m_mazesStatesDeveloped = new Dictionary<string, int>();
+        private ZipFile zip;
+        private List<string> m_folderNames = new List<string>();
 
         public Model()
         {
@@ -246,28 +249,29 @@ namespace MazeRunner2016
                 //now we want to write the compressed maze to a zip file
                 string solutionToSave = m_mazesSolution[maze].ToString();
                 string mazeName = m_mazes.FirstOrDefault(x => x.Value == maze).Key;
-                createFolder(mazeName);
-                writeToFolder(mazeToSave, mazeName + "\\" + mazeName + ".maze");
-                writeToFolder(solutionToSave, mazeName + "\\" + mazeName + ".sol");
-                addFileToZip(mazeName);
+                m_folderNames.Add(mazeName);
+                setFolderAndSaveMaze(mazeToSave, solutionToSave, mazeName);
+            }
+            createZipFile();
+        }
+
+        private void createZipFile()
+        {
+            using (ZipFile zip = new ZipFile())
+            {
+                foreach (string folder in m_folderNames)
+                {
+                    zip.AddDirectory(folder);
+                    zip.Save("Mazes.zip");
+                }
             }
         }
 
-        private void addFileToZip(string mazeName)
+        private void setFolderAndSaveMaze(byte[] mazeToSave, string solutionToSave, string mazeName)
         {
-            foreach (string file in Directory.GetFiles(mazeName))
-            {
-                using (FileStream inputStream = new FileStream(file, FileMode.Open))
-                {
-                    using (FileStream outputStream = new FileStream("Mazes.zip", FileMode.Append,FileAccess.ReadWrite))
-                    {
-                        using (GZipStream zipStream = new GZipStream(inputStream, CompressionLevel.Optimal))
-                        {
-                            inputStream.CopyTo(zipStream);
-                        }
-                    }
-                }
-            }
+            createFolder(mazeName);
+            writeToFolder(mazeToSave, mazeName + @"\" + mazeName + ".maze");
+            writeToFolder(solutionToSave, mazeName + @"\" + mazeName + ".sol");
         }
 
         private void createFolder(string mazeName)
