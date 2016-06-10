@@ -53,8 +53,8 @@ namespace MazeLib
         {
             string positionTrimmed = positionString.Trim('(', ')');
             string[] dimensions = positionTrimmed.Split(',');
-            m_x = Int32.Parse(dimensions[0]);
-            m_y = Int32.Parse(dimensions[1]);
+            m_x = Int32.Parse(dimensions[0])*2+1;
+            m_y = Int32.Parse(dimensions[1])*2+1;
             m_z = Int32.Parse(dimensions[2]);
         }
         /// <summary>

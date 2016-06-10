@@ -135,6 +135,7 @@ namespace MazeLib
                 this.Solution.addState(currentState);
                 currentState = currentState.Previous;
             }
+            this.Solution.addState(currentState);
         }
 
         /// <summary>

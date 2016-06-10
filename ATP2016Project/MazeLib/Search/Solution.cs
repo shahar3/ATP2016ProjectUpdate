@@ -46,6 +46,10 @@ namespace MazeLib
                 }
                 else //all the rest
                 {
+                    if (stateString == "")
+                    {
+                        break;
+                    }
                     stateToAdd = new MazeState(new Position(stateString), prevState);
                 }
                 prevState = stateToAdd;

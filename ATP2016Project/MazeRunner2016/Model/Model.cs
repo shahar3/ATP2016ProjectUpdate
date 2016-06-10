@@ -16,12 +16,12 @@ namespace MazeRunner2016
     public class Model : IModel
     {
         public event finishedComputing ModelChanged;
-        //private delegate void calcInMaze(string mazeName, string parameters, object o);
         private List<string> m_mazesNames;
         private Dictionary<string, Maze3d> m_mazes = new Dictionary<string, Maze3d>();
         private Dictionary<Maze3d, Solution> m_mazesSolution = new Dictionary<Maze3d, Solution>();
         private Dictionary<string, string> m_mazesSolveTime = new Dictionary<string, string>();
         private Dictionary<string, int> m_mazesStatesDeveloped = new Dictionary<string, int>();
+        private Dictionary<string, Solution> m_mazeNamesSolution = new Dictionary<string, Solution>();
         private ZipFile zip;
         private List<string> m_folderNames = new List<string>();
 
@@ -33,6 +33,80 @@ namespace MazeRunner2016
 
         private void loadMazes()
         {
+            using (ZipFile zip = ZipFile.Read("Mazes.zip"))
+            {
+                foreach (ZipEntry e in zip)
+                {
+                    string mazeName = e.FileName.Substring(0, e.FileName.IndexOf('.'));
+                    string type = e.FileName.Substring(e.FileName.IndexOf('.') + 1);
+                    e.Extract(ExtractExistingFileAction.OverwriteSilently);
+                    if (type == "maze")
+                    {
+                        buildMaze(e.FileName, mazeName);
+                    }
+                    else //it's a solution
+                    {
+                        buildSolution(e.FileName, mazeName);
+                    }
+                }
+                buildDictionary();
+                clearFolder();
+                applySolution();
+            }
+        }
+
+        private void applySolution()
+        {
+            foreach (string mazeName in m_mazes.Keys)
+            {
+                Maze3d maze = m_mazes[mazeName];
+                Solution sol = m_mazeNamesSolution[mazeName];
+                SearchableMaze3d searchable = new SearchableMaze3d(maze);
+                searchable.markSolutionInGrid(sol);
+            }
+        }
+
+        private void clearFolder()
+        {
+            foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory()))
+            {
+                string fileExtension = file.Substring(file.IndexOf('.')+1);
+                if (fileExtension == "maze" || fileExtension == "sol")
+                {
+                    File.Delete(file);
+                }
+            }
+        }
+
+        private void buildDictionary()
+        {
+            foreach (string mazeName in m_mazes.Keys)
+            {
+                m_mazesSolution[m_mazes[mazeName]] = m_mazeNamesSolution[mazeName];
+            }
+        }
+
+        private void buildMaze(string fileName, string mazeName)
+        {
+            using (FileStream input = new FileStream(fileName, FileMode.Open))
+            {
+                using (MyCompressorStream output = new MyCompressorStream(input, MyCompressorStream.compressionMode.decompress))
+                {
+                    List<byte> mazeBytes = decompressFromFile(output);
+                    Maze3d maze = new Maze3d(mazeBytes.ToArray());
+                    m_mazes[mazeName] = maze;
+                }
+            }
+        }
+
+        private void buildSolution(string fileName, string mazeName)
+        {
+            using (StreamReader sr = new StreamReader(fileName))
+            {
+                string sol = sr.ReadToEnd();
+                Solution solution = new Solution(sol);
+                m_mazeNamesSolution[mazeName] = solution;
+            }
         }
 
         private void initThreadPool()
@@ -253,6 +327,20 @@ namespace MazeRunner2016
                 setFolderAndSaveMaze(mazeToSave, solutionToSave, mazeName);
             }
             createZipFile();
+            removeFolders();
+        }
+
+        private void removeFolders()
+        {
+            foreach (string folder in m_folderNames)
+            {
+                foreach (string file in Directory.GetFiles(folder))
+                {
+                    string filePath = folder + @"\" + file;
+                    File.Delete(file);
+                }
+                Directory.Delete(folder);
+            }
         }
 
         private void createZipFile()
