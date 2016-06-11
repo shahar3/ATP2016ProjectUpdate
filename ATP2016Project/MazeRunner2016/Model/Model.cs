@@ -33,6 +33,10 @@ namespace MazeRunner2016
 
         private void loadMazes()
         {
+            if (!File.Exists("Mazes.zip"))
+            {
+                return;
+            }
             using (ZipFile zip = ZipFile.Read("Mazes.zip"))
             {
                 foreach (ZipEntry e in zip)

@@ -53,6 +53,9 @@ namespace MazeRunner2016.Controls
             mazeBox.ItemsSource = view.getMazesNames();
         }
 
-
+        private void mazeBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            displayMazeBtn.IsEnabled = true;
+        }
     }
 }

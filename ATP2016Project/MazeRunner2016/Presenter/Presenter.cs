@@ -107,7 +107,7 @@ namespace MazeRunner2016
                     case "getFunctions":
                         m_ui.saveFunctions(m_functions);
                         break;
-                    case "mazeExist":
+                    case "isExist":
                         m_ui.showMessage(otherInfromation);
                         break;
                     default:

@@ -15,8 +15,8 @@
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <ComboBox Name="mazeBox"></ComboBox>
-        <Button Grid.Column="1" Name="displayMazeBtn" Click="displayBtn_Click">
+        <ComboBox Name="mazeBox" SelectionChanged="mazeBox_SelectionChanged"></ComboBox>
+        <Button Grid.Column="1" Name="displayMazeBtn" Click="displayBtn_Click" IsEnabled="False">
             <Bold>Display</Bold>
         </Button>
         <DockPanel Name="mazePanel" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"></DockPanel>
