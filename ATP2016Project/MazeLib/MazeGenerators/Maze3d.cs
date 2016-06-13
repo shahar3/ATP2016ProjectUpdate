@@ -6,7 +6,6 @@ namespace MazeLib
 {
     public class Maze3d : Maze
     {
-
         /// <summary>
         /// Uses the base constructor for 3d maze in the maze class
         /// </summary>

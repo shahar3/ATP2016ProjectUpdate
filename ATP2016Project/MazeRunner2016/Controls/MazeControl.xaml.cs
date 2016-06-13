@@ -26,7 +26,6 @@ namespace MazeRunner2016.Controls
         private int maxLevel;
         private Maze3d myMaze;
         private IView view;
-        private IModel model;
         private Dictionary<int, Grid> levelsGrid;
         private Grid prevGrid;
         private List<int> levelsVisited;
@@ -37,14 +36,13 @@ namespace MazeRunner2016.Controls
             InitializeComponent();
         }
 
-        public MazeControl(Object mazeObject, IView view, IModel model, string mazeName)
+        public MazeControl(Object mazeObject, IView view, string mazeName)
         {
             InitializeComponent();
             levelsGrid = new Dictionary<int, Grid>();
             levelsVisited = new List<int>();
             this.mazeName = mazeName;
             this.view = view;
-            this.model = model;
             //get the maze dimensions
             myMaze = mazeObject as Maze3d;
             int x = (myMaze.Maze2DLayers[0] as Maze2d).Grid.GetLength(0);
@@ -76,7 +74,7 @@ namespace MazeRunner2016.Controls
             }
             //create columns
             for (int i = 0; i < y; i++)
-            {
+            { 
                 ColumnDefinition col = new ColumnDefinition();
                 col.Width = new GridLength(1, GridUnitType.Star);
                 mazeGrid.ColumnDefinitions.Add(col);
