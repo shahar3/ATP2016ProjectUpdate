@@ -49,6 +49,7 @@ namespace MazeRunner2016.Controls
             DockPanel actionPanel = (mainWindow as MainWindow).actionPanel;
             switch (msg)
             {
+                case "Play":
                 case "Display maze":
                     DisplayControl displayControl = new DisplayControl(m_view, m_model);
                     actionPanel.Children.Clear();

@@ -13,6 +13,7 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Name="levelsDisplayPanel" Background="White">
                 <Grid.ColumnDefinitions>
@@ -22,10 +23,11 @@
                 <Label Background="White" HorizontalAlignment="Center">
                     Level:
                 </Label>
-                <TextBox Text="1" Name="levelNumber" Grid.Column="1"></TextBox>
+                <TextBox Text="1" Name="levelNumber" Grid.Column="1" Focusable="False"></TextBox>
             </Grid>
             <Button Grid.Row="1" Name="nextLevelBtn" Content="+" Click="nextLevelBtn_Click"></Button>
             <Button Grid.Row="2" Name="prevLevelBtn" Click="prevLevelBtn_Click">-</Button>
+            <Button Grid.Row="4" Name="playBtn" Click="playBtn_Click"  Content="play" Foreground="Red" FontWeight="ExtraBlack"></Button>
             <Grid Grid.Row="3">
                 <Grid.RowDefinitions>
                     <RowDefinition  Height="*"></RowDefinition>

@@ -16,16 +16,11 @@ using System.Windows.Shapes;
 namespace MazeRunner2016.Controls
 {
     /// <summary>
-    /// Interaction logic for PlayerControl.xaml
+    /// Interaction logic for PassC.xaml
     /// </summary>
-    public partial class PlayerControl : UserControl
+    public partial class PassC : UserControl
     {
-        public PlayerControl()
-        {
-            InitializeComponent();
-        }
-
-        public PlayerControl(int width, int height)
+        public PassC()
         {
             InitializeComponent();
         }

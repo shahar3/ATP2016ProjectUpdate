@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -73,17 +74,20 @@
     <Compile Include="Controls\GenerateControl.xaml.cs">
       <DependentUpon>GenerateControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GoalC.xaml.cs">
+      <DependentUpon>GoalC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Instructions.xaml.cs">
       <DependentUpon>Instructions.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\MazeBoard.xaml.cs">
-      <DependentUpon>MazeBoard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MazeControl.xaml.cs">
       <DependentUpon>MazeControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Mazepreview.xaml.cs">
       <DependentUpon>Mazepreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PassC.xaml.cs">
+      <DependentUpon>PassC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PlayerControl.xaml.cs">
       <DependentUpon>PlayerControl.xaml</DependentUpon>
@@ -94,8 +98,14 @@
     <Compile Include="Controls\SideMenuControl.xaml.cs">
       <DependentUpon>SideMenuControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\solutionC.xaml.cs">
+      <DependentUpon>solutionC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SolutionInfoControl.xaml.cs">
       <DependentUpon>SolutionInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StartC.xaml.cs">
+      <DependentUpon>StartC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\StatisticsControl.xaml.cs">
       <DependentUpon>StatisticsControl.xaml</DependentUpon>
@@ -139,15 +149,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\GoalC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Instructions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\MazeBoard.xaml">
+    <Page Include="Controls\Mazepreview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Mazepreview.xaml">
+    <Page Include="Controls\PassC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -163,7 +177,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\solutionC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\SolutionInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\StartC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -242,6 +264,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\questionMark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\wall.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\grass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\goal.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\player.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\solution.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

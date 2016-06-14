@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              >
     <Grid>
-        <Label Name="player" Background="BlanchedAlmond" Height="100" Width="100"></Label>
+        <Image Stretch="Fill" Source="C:\Users\YAKIR HERSHKOVIZ\Source\Repos\ATP2016ProjectUpdate2\ATP2016Project\MazeRunner2016\Resources\player.png"></Image>
     </Grid>
 </UserControl>

@@ -46,6 +46,7 @@ namespace MazeRunner2016
             m_functions.Add("Save maze");
             m_functions.Add("Load maze");
             m_functions.Add("Display maze");
+            m_functions.Add("Play");
             m_functions.Add("Exit");
         }
 

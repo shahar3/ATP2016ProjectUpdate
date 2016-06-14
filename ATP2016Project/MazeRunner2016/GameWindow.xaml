@@ -7,8 +7,12 @@
         mc:Ignorable="d"
         Title="GameWindow" Height="300" Width="300">
     <Grid>
-        <DockPanel Name="mainPanel">
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel Name="mazePanel" Grid.Row="1">
         </DockPanel>
+        
     </Grid>
 </Window>

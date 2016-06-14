@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MazeLib;
+using MazeRunner2016.Controls;
 
 namespace MazeRunner2016
 {
@@ -19,9 +21,19 @@ namespace MazeRunner2016
     /// </summary>
     public partial class GameWindow : Window
     {
+        private Maze3d myMaze;
+
         public GameWindow()
         {
             InitializeComponent();
+        }
+
+        public GameWindow(Maze3d myMaze)
+        {
+            InitializeComponent();
+            this.myMaze = myMaze;
+            GameControl myGame = new GameControl(myMaze);
+            mazePanel.Children.Add(myGame);
         }
     }
 }

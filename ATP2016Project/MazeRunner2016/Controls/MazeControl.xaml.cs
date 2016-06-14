@@ -23,13 +23,14 @@ namespace MazeRunner2016.Controls
     /// </summary>
     public partial class MazeControl : UserControl
     {
-        private int maxLevel;
+        private int maxLevel, curLevel;
         private Maze3d myMaze;
         private IView view;
         private Dictionary<int, Grid> levelsGrid;
         private Grid prevGrid;
         private List<int> levelsVisited;
         private string mazeName;
+        private PlayerControl player;
 
         public MazeControl()
         {
@@ -49,6 +50,7 @@ namespace MazeRunner2016.Controls
             int y = (myMaze.Maze2DLayers[0] as Maze2d).Grid.GetLength(1);
             int z = myMaze.ZLength;
             maxLevel = z;
+            curLevel = 0;
             //string msg = string.Format("The maze dimenstions are x:{0} y:{1} z:{2}", x, y, z);
             //MessageBox.Show(msg);
             createGrid(x, y, 0);
@@ -74,7 +76,7 @@ namespace MazeRunner2016.Controls
             }
             //create columns
             for (int i = 0; i < y; i++)
-            { 
+            {
                 ColumnDefinition col = new ColumnDefinition();
                 col.Width = new GridLength(1, GridUnitType.Star);
                 mazeGrid.ColumnDefinitions.Add(col);
@@ -93,33 +95,31 @@ namespace MazeRunner2016.Controls
                 {
                     for (int j = 0; j < myMazeGrid.Grid.GetLength(1); j++)
                     {
-                        Label cell = new Label();
                         if (myMaze.StartPoint.X * 2 + 1 == i && myMaze.StartPoint.Y * 2 + 1 == j && curLevel == 0)
                         {
-                            cell.Content = "S";
-                            cell.Foreground = Brushes.LawnGreen;
-                            cell.Background = Brushes.LimeGreen;
+                            StartC start = new StartC();
+                            placeInGrid(mazeGrid, i, j, start);
                         }
                         else if (myMaze.GoalPoint.X * 2 + 1 == i && myMaze.GoalPoint.Y * 2 + 1 == j && curLevel == maxLevel - 1)
                         {
-                            cell.Content = "E";
-                            cell.Background = Brushes.Red;
+                            GoalC goal = new GoalC();
+                            placeInGrid(mazeGrid, i, j, goal);
                         }
                         else if (myMazeGrid.Grid[i, j] == 0)
                         {
-                            cell.Background = Brushes.White;
+                            PassC pass = new PassC();
+                            placeInGrid(mazeGrid, i, j, pass);
                         }
                         else if (myMazeGrid.Grid[i, j] == 2)
                         {
-                            cell.Background = Brushes.Red;
+                            solutionC sol = new solutionC();
+                            placeInGrid(mazeGrid, i, j, sol);
                         }
                         else
                         {
-                            cell.Background = Brushes.Black;
+                            WallC wall = new WallC();
+                            placeInGrid(mazeGrid, i, j, wall);
                         }
-                        Grid.SetColumn(cell, j);
-                        Grid.SetRow(cell, i);
-                        mazeGrid.Children.Add(cell);
                     }
                 }
                 levelsGrid[curLevel] = mazeGrid;
@@ -132,9 +132,16 @@ namespace MazeRunner2016.Controls
             levelsVisited.Add(curLevel);
         }
 
+        private static void placeInGrid(Grid mazeGrid, int i, int j, UIElement ui)
+        {
+            Grid.SetColumn(ui, j);
+            Grid.SetRow(ui, i);
+            mazeGrid.Children.Add(ui);
+        }
+
         private void nextLevelBtn_Click(object sender, RoutedEventArgs e)
         {
-            int curLevel = Int32.Parse(levelNumber.Text);
+            curLevel = Int32.Parse(levelNumber.Text);
             //check max/min val
             if (++curLevel > maxLevel)
             {
@@ -150,7 +157,7 @@ namespace MazeRunner2016.Controls
 
         private void prevLevelBtn_Click(object sender, RoutedEventArgs e)
         {
-            int curLevel = Int32.Parse(levelNumber.Text);
+            curLevel = Int32.Parse(levelNumber.Text);
             //check max/min val
             if (--curLevel < 1)
             {
@@ -186,6 +193,12 @@ namespace MazeRunner2016.Controls
             initializeGrid(myMaze, levelsGrid[0], 0, true);
             prevGrid = levelsGrid[0];
             levelsVisited.Add(0);
+        }
+
+        private void playBtn_Click(object sender, RoutedEventArgs e)
+        {
+            GameWindow gameWindow = new GameWindow(myMaze);
+            gameWindow.Show();
         }
 
         public void markSolution()
