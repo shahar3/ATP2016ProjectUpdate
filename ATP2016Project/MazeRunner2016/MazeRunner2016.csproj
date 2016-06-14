@@ -86,8 +86,8 @@
     <Compile Include="Controls\Mazepreview.xaml.cs">
       <DependentUpon>Mazepreview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PassC.xaml.cs">
-      <DependentUpon>PassC.xaml</DependentUpon>
+    <Compile Include="Controls\NewPass.xaml.cs">
+      <DependentUpon>NewPass.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PlayerControl.xaml.cs">
       <DependentUpon>PlayerControl.xaml</DependentUpon>
@@ -161,7 +161,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\PassC.xaml">
+    <Page Include="Controls\NewPass.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
