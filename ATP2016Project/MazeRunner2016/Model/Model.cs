@@ -29,6 +29,7 @@ namespace MazeRunner2016
         {
             initThreadPool();
             loadMazes();
+
         }
 
         private void loadMazes()
