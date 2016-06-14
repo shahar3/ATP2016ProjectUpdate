@@ -22,6 +22,7 @@ namespace MazeRunner2016.Controls
     {
         public AppMenu()
         {
+            //init
             InitializeComponent();
         }
     }

@@ -19,6 +19,8 @@ namespace MazeRunner2016.Controls
     /// <summary>
     /// Interaction logic for SideMenuControl.xaml
     /// </summary>
+    /// fdg
+    /// 
     public partial class SideMenuControl : UserControl
     {
         private IView m_view;
