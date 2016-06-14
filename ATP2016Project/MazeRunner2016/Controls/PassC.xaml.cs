@@ -18,6 +18,7 @@ namespace MazeRunner2016.Controls
     /// <summary>
     /// Interaction logic for PassC.xaml
     /// </summary>
+    /// 
     public partial class PassC : UserControl
     {
         public PassC()
