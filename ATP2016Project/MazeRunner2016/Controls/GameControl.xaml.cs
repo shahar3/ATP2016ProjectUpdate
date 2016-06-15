@@ -58,7 +58,6 @@ namespace MazeRunner2016.Controls
             curRow = myMaze.StartPoint.X * 2 + 1;
             createGrid(x, y, 0);
             initializeGrid(myMaze, levelsGrid[0], 0, true);
-            UpdateLayout();
             levelsGrid[0].UpdateLayout();
             prevGrid = levelsGrid[0];
             debug();
@@ -160,6 +159,7 @@ namespace MazeRunner2016.Controls
                 }
                 levelsGrid[curLevel] = mazeGrid;
             }
+            this.curLevel = curLevel;
             if (!firstTime)
                 mainPanel.Children.Remove(prevGrid);
             mainPanel.Children.Add(levelsGrid[curLevel]);
@@ -258,6 +258,30 @@ namespace MazeRunner2016.Controls
                     }
                     left += speed;
                     break;
+                case Key.PageUp:
+                    curCol = (int)curCol;
+                    curRow = (int)curRow;
+                    if (curCol % 2 == 1 && curRow % 2 == 1)
+                    {
+                        if (curLevel < maxLevel)
+                        {
+                            createGrid(myMaze.XLength * 2 + 1, myMaze.YLength * 2 + 1, curLevel + 1);
+                            initializeGrid(myMaze, levelsGrid[curLevel + 1], curLevel + 1, false);
+                        }
+                    }
+                    break;
+                case Key.PageDown:
+                    curCol = (int)curCol;
+                    curRow = (int)curRow;
+                    if (curCol % 2 == 1 && curRow % 2 == 1)
+                    {
+                        if (curLevel > 0)
+                        {
+                            createGrid(myMaze.XLength * 2 + 1, myMaze.YLength * 2 + 1, curLevel - 1);
+                            initializeGrid(myMaze, levelsGrid[curLevel - 1], curLevel - 1, false);
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
@@ -268,6 +292,8 @@ namespace MazeRunner2016.Controls
             dimBox.Text = "top: " + up + " Bottom: " + bottomPlayer + " Left: " + leftPlayer + " right: " + rightPlayer;
             Canvas.SetTop(myPlayer, up);
             Canvas.SetLeft(myPlayer, left);
+            //finish
+
         }
 
         private bool isValidMove(Key key, double position)

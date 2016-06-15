@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Image Source="C:\Users\YAKIR HERSHKOVIZ\Source\Repos\ATP2016ProjectUpdate2\ATP2016Project\MazeRunner2016\Resources\grass.jpg" Stretch="Fill"></Image>
+        <Image Source="C:\Users\YAKIR HERSHKOVIZ\Source\Repos\ATP2016ProjectUpdate2\ATP2016Project\MazeRunner2016\Resources\grass compressed.jpg" Stretch="Fill"></Image>
     </Grid>
 </UserControl>

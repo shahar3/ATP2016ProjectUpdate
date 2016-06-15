@@ -5,14 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeRunner2016"
         mc:Ignorable="d"
-        Title="GameWindow" Height="300" Width="300">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <DockPanel Name="mazePanel" Grid.Row="1">
+        Title="GameWindow" Height="300" Width="300" KeyDown="Window_KeyDown">
+        <DockPanel Name="mazePanel">
         </DockPanel>
-        
-    </Grid>
 </Window>

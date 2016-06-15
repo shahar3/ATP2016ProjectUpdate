@@ -16,6 +16,7 @@ using MazeLib;
 using MazeRunner2016.Controls;
 using Microsoft.Win32;
 using System.IO;
+using System.Windows.Media.Animation;
 
 namespace MazeRunner2016
 {

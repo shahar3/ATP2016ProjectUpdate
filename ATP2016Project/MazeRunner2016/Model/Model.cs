@@ -29,7 +29,6 @@ namespace MazeRunner2016
         {
             initThreadPool();
             loadMazes();
-
         }
 
         private void loadMazes()
@@ -75,7 +74,7 @@ namespace MazeRunner2016
         {
             foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory()))
             {
-                string fileExtension = file.Substring(file.IndexOf('.')+1);
+                string fileExtension = file.Substring(file.IndexOf('.') + 1);
                 if (fileExtension == "maze" || fileExtension == "sol")
                 {
                     File.Delete(file);
