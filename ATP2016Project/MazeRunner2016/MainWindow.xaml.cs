@@ -39,5 +39,14 @@ namespace MazeRunner2016
             SideMenuControl sideMenuControl = new SideMenuControl(view, model);
             sideMenuPanel.Children.Add(sideMenuControl);
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ExitDialog exit = new ExitDialog("Are you sure you want to exit?");
+            if (exit.ShowDialog() == true)
+            {
+                view.activateEvent(sender, new MazeEventArgs("Exit"));
+            }
+        }
     }
 }

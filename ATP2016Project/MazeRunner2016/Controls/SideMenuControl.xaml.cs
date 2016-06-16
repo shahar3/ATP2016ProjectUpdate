@@ -40,7 +40,7 @@ namespace MazeRunner2016.Controls
             sideMenu.ItemsSource = m_view.getFunctions();
         }
 
-        private void sideMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void sideMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sideMenu.SelectedItem == null)
             {
@@ -99,6 +99,8 @@ namespace MazeRunner2016.Controls
             sideMenu.SelectedItem = null;
 
         }
+
+
 
 
     }
