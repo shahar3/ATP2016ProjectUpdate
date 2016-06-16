@@ -153,12 +153,8 @@ namespace MazeRunner2016.Controls
             Canvas.SetLeft(l, 0);
             topPanel.Children.Add(l);
             bulb = new BulbC(true);
-            // bulb.Width = cellWidth;
-            //bulb.Height = cellHeight;
+            bulbPanel.Children.Clear();
             bulbPanel.Children.Add(bulb);
-            //Canvas.SetLeft(bulb, 0);
-            //Canvas.SetTop(bulb, 0);
-            //topPanel.Children.Add(bulb);
         }
 
         private void updatePlayer()

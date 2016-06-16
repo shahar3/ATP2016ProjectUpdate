@@ -30,14 +30,14 @@ namespace MazeRunner2016.Controls
             if (mode)
             {
                 Image on = new Image();
-                BitmapImage bitImg = new BitmapImage(new Uri(@"C:\Users\YAKIR HERSHKOVIZ\Source\Repos\ATP2016ProjectUpdate2\ATP2016Project\MazeRunner2016\Resources\light on.png"));
+                BitmapImage bitImg = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + @"Resources\light on.png", UriKind.Absolute));
                 on.Source = bitImg;
                 main.Children.Add(on);
             }
             else
             {
                 Image off = new Image();
-                BitmapImage bitImg = new BitmapImage(new Uri(@"C:\Users\YAKIR HERSHKOVIZ\Source\Repos\ATP2016ProjectUpdate2\ATP2016Project\MazeRunner2016\Resources\light off.png"));
+                BitmapImage bitImg = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + @"Resources\light off.png", UriKind.Absolute));
                 off.Source = bitImg;
                 main.Children.Add(off);
             }
@@ -49,14 +49,14 @@ namespace MazeRunner2016.Controls
             if (mode)
             {
                 Image on = new Image();
-                BitmapImage bitImg = new BitmapImage(new Uri(@"C:\Users\YAKIR HERSHKOVIZ\Source\Repos\ATP2016ProjectUpdate2\ATP2016Project\MazeRunner2016\Resources\light on.png"));
+                BitmapImage bitImg = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + @"Resources\light on.png", UriKind.Absolute));
                 on.Source = bitImg;
                 main.Children.Add(on);
             }
             else
             {
                 Image off = new Image();
-                BitmapImage bitImg = new BitmapImage(new Uri(@"C:\Users\YAKIR HERSHKOVIZ\Source\Repos\ATP2016ProjectUpdate2\ATP2016Project\MazeRunner2016\Resources\light off.png"));
+                BitmapImage bitImg = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + @"Resources\light off.png", UriKind.Absolute));
                 off.Source = bitImg;
                 main.Children.Add(off);
             }
