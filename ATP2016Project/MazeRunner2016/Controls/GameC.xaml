@@ -24,6 +24,7 @@
             <TextBox Name="stepsBox" Grid.Column="2"></TextBox>
             <DockPanel Name="timerPanel" Grid.Column="4"></DockPanel>
             <DockPanel Name="bulbPanel"></DockPanel>
+            
         </Grid>
         <Canvas Name="board" Panel.ZIndex="1" SizeChanged="board_SizeChanged" Grid.Row="1">
         </Canvas>
