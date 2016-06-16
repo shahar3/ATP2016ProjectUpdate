@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="MazeRunner2016.Controls.GameC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MazeRunner2016.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Name="conrolGame">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+            <Label Content="Steps:" Grid.Column="1" HorizontalAlignment="Right"></Label>
+            <Label Content="Time:" Grid.Column="3" HorizontalAlignment="Right"></Label>
+            <TextBox Name="stepsBox" Grid.Column="2"></TextBox>
+            <DockPanel Name="timerPanel" Grid.Column="4"></DockPanel>
+            <DockPanel Name="bulbPanel"></DockPanel>
+        </Grid>
+        <Canvas Name="board" Panel.ZIndex="1" SizeChanged="board_SizeChanged" Grid.Row="1">
+        </Canvas>
+        <Canvas IsEnabled="True" Focusable="True" Name="topPanel" Panel.ZIndex="2" KeyDown="UserControl_KeyDown" Grid.Row="1">
+        </Canvas>
+    </Grid>
+</UserControl>

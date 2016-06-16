@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MazeLib;
 using MazeRunner2016.Controls;
+using System.Windows.Media.Animation;
 
 namespace MazeRunner2016
 {
@@ -21,6 +22,7 @@ namespace MazeRunner2016
     /// </summary>
     public partial class GameWindow : Window
     {
+        private GameC myGame;
         private Maze3d myMaze;
 
         public GameWindow()
@@ -32,8 +34,14 @@ namespace MazeRunner2016
         {
             InitializeComponent();
             this.myMaze = myMaze;
-            GameControl myGame = new GameControl(myMaze);
+            myGame = new GameC(myMaze);
+            myGame.Focus();
             mazePanel.Children.Add(myGame);
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            myGame.UserControl_KeyDown(sender, e);
         }
     }
 }

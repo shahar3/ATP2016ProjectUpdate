@@ -65,11 +65,14 @@
     <Compile Include="Controls\AppMenu.xaml.cs">
       <DependentUpon>AppMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\BulbC.xaml.cs">
+      <DependentUpon>BulbC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\DisplayControl.xaml.cs">
       <DependentUpon>DisplayControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\GameControl.xaml.cs">
-      <DependentUpon>GameControl.xaml</DependentUpon>
+    <Compile Include="Controls\GameC.xaml.cs">
+      <DependentUpon>GameC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\GenerateControl.xaml.cs">
       <DependentUpon>GenerateControl.xaml</DependentUpon>
@@ -110,6 +113,9 @@
     <Compile Include="Controls\StatisticsControl.xaml.cs">
       <DependentUpon>StatisticsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\timerC.xaml.cs">
+      <DependentUpon>timerC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\WallC.xaml.cs">
       <DependentUpon>WallC.xaml</DependentUpon>
     </Compile>
@@ -137,11 +143,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\BulbC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\DisplayControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\GameControl.xaml">
+    <Page Include="Controls\GameC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -190,6 +200,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\StatisticsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\timerC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -282,6 +296,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\solution.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\wall compressed.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\grass compressed.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\light on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\light off.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
