@@ -24,17 +24,15 @@ namespace MazeRunner2016.Controls
     public partial class SaveControl : UserControl
     {
         private IView m_view;
-        private IModel m_model;
 
         public SaveControl()
         {
             InitializeComponent();
         }
 
-        public SaveControl(IModel model, IView view)
+        public SaveControl(IView view)
         {
             InitializeComponent();
-            m_model = model;
             m_view = view;
         }
 
@@ -82,7 +80,7 @@ namespace MazeRunner2016.Controls
                 (sender as Button).Name = "displayMazeBtn";
                 m_view.activateEvent(sender, new MazeEventArgs(mazeToShow));
                 Maze3d myMaze = m_view.getMaze();
-                Mazepreview mazePreview = new Mazepreview(myMaze, m_view, m_model, mazeToShow);
+                Mazepreview mazePreview = new Mazepreview(myMaze, m_view, mazeToShow);
                 mazeDisplayPanel.Children.Add(mazePreview);
             }
             else

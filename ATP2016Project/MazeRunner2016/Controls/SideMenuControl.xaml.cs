@@ -77,12 +77,12 @@ namespace MazeRunner2016.Controls
                     }
                     break;
                 case "Save maze":
-                    SaveControl saveControl = new SaveControl(m_model, m_view);
+                    SaveControl saveControl = new SaveControl(m_view);
                     actionPanel.Children.Clear();
                     actionPanel.Children.Add(saveControl);
                     break;
                 case "Generate maze":
-                    GenerateControl generateControl = new GenerateControl(m_view, m_model);
+                    GenerateControl generateControl = new GenerateControl(m_view);
                     actionPanel.Children.Clear();
                     actionPanel.Children.Add(generateControl);
                     break;

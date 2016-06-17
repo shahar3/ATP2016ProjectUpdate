@@ -12,7 +12,6 @@
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Name="levelsDisplayPanel" Background="White">
@@ -33,11 +32,6 @@
                     <RowDefinition  Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <ComboBox Name="comboBoxAlgo">
-                    <ComboBoxItem IsSelected="True" >BFS</ComboBoxItem>
-                    <ComboBoxItem>DFS</ComboBoxItem>
-                </ComboBox>
-            <Button Grid.Row="1" Name="solveMazeBtn" Foreground="Red" FontWeight="ExtraBlack" Click="solveMazeBtn_Click">Solve</Button>
             </Grid>
         </Grid>
     </DockPanel>

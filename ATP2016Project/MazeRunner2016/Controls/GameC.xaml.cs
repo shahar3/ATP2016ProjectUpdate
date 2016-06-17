@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Threading;
+using MazeRunner2016;
+using System.Windows.Controls.Primitives;
 
 namespace MazeRunner2016.Controls
 {
@@ -23,6 +25,7 @@ namespace MazeRunner2016.Controls
     /// </summary>
     public partial class GameC : UserControl
     {
+        private bool isDragged;
         private Maze3d myMaze;
         private int curLevel;
         private double cellHeight;
@@ -42,19 +45,40 @@ namespace MazeRunner2016.Controls
         private Stopwatch watch;
         private DateTime startingTime;
         private timerC timer;
+        private View m_view;
+        private string m_mazeName;
+        private bool withSolution;
+        private bool thereIsSolution;
+        private object movingObject;
+        private double up;
+        private double left;
+        private double downBoundry;
+        private double rightBoundry;
+        private double leftBoundry;
+        private double upBoundry;
+
+        public double FirstXPos { get; private set; }
+        public double FirstYPos { get; private set; }
+        public double FirstArrowXPos { get; private set; }
+        public double FirstArrowYPos { get; private set; }
 
         public GameC()
         {
             InitializeComponent();
         }
 
-        public GameC(Maze3d maze)
+        public GameC(Maze3d maze, string mazeName, View view)
         {
             InitializeComponent();
+            thereIsSolution = false;
+            isDragged = false;
             myMaze = maze;
             xLength = maze.XLength * 2 + 1;
             yLength = maze.YLength * 2 + 1;
             int z = maze.ZLength;
+            m_view = view;
+            m_mazeName = mazeName;
+            withSolution = false;
             numOfSteps = 0;
             curLevel = 0;
             cellHeight = 10;
@@ -77,9 +101,88 @@ namespace MazeRunner2016.Controls
             topPanel.Children.Add(l);
         }
 
+        private void mouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                isDragged = true;
+                left = e.GetPosition((movingObject as FrameworkElement).Parent as FrameworkElement).X - FirstXPos;
+                up = e.GetPosition((movingObject as FrameworkElement).Parent as FrameworkElement).Y - FirstYPos;
+                downBoundry = up + cellHeight - cellHeight / 3;
+                rightBoundry = left + cellWidth - cellWidth / 3;
+                upBoundry = up + cellHeight / 3;
+                leftBoundry = left + cellWidth / 3;
+                curCol = leftBoundry / cellWidth;
+                curRow = upBoundry / cellHeight;
+                //collision detection
+                if (!isValidMove(Key.Left, leftBoundry) || !isValidMove(Key.Up, upBoundry) || !isValidMove(Key.Down, downBoundry) || !isValidMove(Key.Right, rightBoundry))
+                {
+                    //player.ReleaseMouseCapture();
+                    isDragged = false;
+                    return;
+                }
+                (movingObject as FrameworkElement).SetValue(Canvas.LeftProperty, left);
+                (movingObject as FrameworkElement).SetValue(Canvas.TopProperty, up);
+            }
+        }
+
+        private bool isValidMove(Key key, double position)
+        {
+            int row = 0, col = 0;
+            bool ans = false;
+            switch (key)
+            {
+                case Key.Up:
+                    row = (int)(position / cellHeight);
+                    col = (int)curCol;
+                    break;
+                case Key.Down:
+                    row = (int)(position / cellHeight);
+                    col = (int)curCol;
+                    break;
+                case Key.Left:
+                    col = (int)(position / cellWidth);
+                    row = (int)curRow;
+                    break;
+                case Key.Right:
+                    col = (int)(position / cellWidth);
+                    row = (int)curRow;
+                    break;
+            }
+            ans = isWall(row, col);
+            return !ans;
+        }
+
+        private void mouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            movingObject = null;
+            isDragged = false;
+            //player.ReleaseMouseCapture();
+        }
+
+        private void mouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (firstTime)
+            {
+                startingTime = DateTime.Now;
+                timer.stratingTime = startingTime;
+                timer.isMove();
+                firstTime = false;
+            }
+            FirstXPos = e.GetPosition(sender as Control).X;
+            FirstYPos = e.GetPosition(sender as Control).Y;
+            FirstArrowXPos = e.GetPosition((sender as Control).Parent as Control).X - FirstXPos;
+            FirstArrowYPos = e.GetPosition((sender as Control).Parent as Control).Y - FirstYPos;
+            movingObject = sender;
+            //player.CaptureMouse();
+        }
+
         private void createPlayer()
         {
             player = new PlayerControl();
+            player.MouseLeftButtonDown += mouseLeftButtonDown;
+            player.MouseLeftButtonUp += mouseLeftButtonUp;
+            player.MouseMove += mouseMove;
             player.Width = cellWidth - cellWidth / 10;
             player.Height = cellHeight - cellHeight / 10;
             curCol = myMaze.StartPoint.Y * 2 + 1;
@@ -124,6 +227,16 @@ namespace MazeRunner2016.Controls
                         Canvas.SetLeft(wall, posX);
                         board.Children.Add(wall);
                     }
+                    else if (maze.Grid[i, j] == 2 && withSolution)
+                    {
+                        solutionC solution = new solutionC();
+                        solution.Width = cellWidth;
+                        solution.Height = cellHeight;
+                        Canvas.SetTop(solution, posY);
+                        Canvas.SetLeft(solution, posX);
+                        board.Children.Add(solution);
+
+                    }
                     else
                     {
                         PassC pass = new PassC();
@@ -143,8 +256,8 @@ namespace MazeRunner2016.Controls
         private void board_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             board.Children.Clear();
-            cellWidth = this.ActualWidth / yLength;
-            cellHeight = this.ActualHeight / xLength;
+            cellWidth = board.ActualWidth / yLength;
+            cellHeight = board.ActualHeight / xLength;
             speedX = cellHeight / 10;
             speedY = cellWidth / 10;
             createGrid(xLength, yLength, curLevel);
@@ -155,6 +268,11 @@ namespace MazeRunner2016.Controls
             bulb = new BulbC(true);
             bulbPanel.Children.Clear();
             bulbPanel.Children.Add(bulb);
+            if (thereIsSolution)
+            {
+                solBoard.Children.Clear();
+                markSolution();
+            }
         }
 
         private void updatePlayer()
@@ -174,25 +292,15 @@ namespace MazeRunner2016.Controls
 
         public void UserControl_KeyDown(object sender, KeyEventArgs e)
         {
-
+            if (isDragged)
+            {
+                return;
+            }
             if (firstTime)
             {
                 startingTime = DateTime.Now;
                 timer.stratingTime = startingTime;
                 firstTime = false;
-                //Thread thread = new Thread(() =>
-                //{
-                //    while (!getToGoalPoint())
-                //    {
-                //        Thread.Sleep(100);
-                //        DateTime endTime = DateTime.Now;
-                //        TimeSpan difference = endTime - startingTime;
-                //        timeBox.Text = difference.TotalSeconds.ToString();
-                //    }
-                //});
-                //thread.Start();
-                //firstTime = false;
-                //}
             }
             timer.isMove();
             double up = Canvas.GetTop(player);
@@ -253,6 +361,15 @@ namespace MazeRunner2016.Controls
                         {
                             board.Children.Clear();
                             createGrid(myMaze.XLength * 2 + 1, myMaze.YLength * 2 + 1, curLevel + 1);
+                            if (thereIsSolution)
+                            {
+                                solBoard.Children.Clear();
+                                markSolution();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("You are in the maximum level");
                         }
                     }
                     break;
@@ -263,6 +380,15 @@ namespace MazeRunner2016.Controls
                         {
                             board.Children.Clear();
                             createGrid(myMaze.XLength * 2 + 1, myMaze.YLength * 2 + 1, curLevel - 1);
+                            if (thereIsSolution)
+                            {
+                                solBoard.Children.Clear();
+                                markSolution();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("You are in the minimum level");
                         }
                     }
                     break;
@@ -324,32 +450,6 @@ namespace MazeRunner2016.Controls
             return col;
         }
 
-        private bool isValidMove(Key key, double position)
-        {
-            int row = 0, col = 0;
-            bool ans = false;
-            switch (key)
-            {
-                case Key.Up:
-                    row = (int)(position / cellHeight);
-                    col = (int)curCol;
-                    break;
-                case Key.Down:
-                    row = (int)(position / cellHeight);
-                    col = (int)curCol;
-                    break;
-                case Key.Left:
-                    col = (int)(position / cellWidth);
-                    row = (int)curRow;
-                    break;
-                case Key.Right:
-                    col = (int)(position / cellWidth);
-                    row = (int)curRow;
-                    break;
-            }
-            ans = isWall(row, col);
-            return !ans;
-        }
 
         private bool isWall(int row, int col)
         {
@@ -365,6 +465,7 @@ namespace MazeRunner2016.Controls
             return false;
         }
 
+
         private bool isInside(int row, int col)
         {
             if (row < 0 || col < 0 || row > myMaze.XLength * 2 + 1 || col > myMaze.YLength * 2 + 1)
@@ -372,6 +473,118 @@ namespace MazeRunner2016.Controls
                 return false;
             }
             return true;
+        }
+
+        private void displaySolutionCB_Checked(object sender, RoutedEventArgs e)
+        {
+            solBoard.Visibility = Visibility.Hidden;
+        }
+
+        private void restartBtn_Click(object sender, RoutedEventArgs e)
+        {
+            board.Children.Clear();
+            withSolution = false;
+            firstTime = true;
+            thereIsSolution = false;
+            isDragged = false;
+            createGrid(myMaze.XLength * 2 + 1, myMaze.YLength * 2 + 1, 0);
+            topPanel.Children.Remove(player);
+            createPlayer();
+            curLevel = 0;
+            movePlayer();
+            stepsBox.Text = "0";
+            numOfSteps = 0;
+            timer.stop();
+            timer.start();
+        }
+
+        private void solveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string nameAlgo = comboBoxAlgo.SelectionBoxItem as string;
+            string[] parameters = new string[2];
+            parameters[0] = m_mazeName;
+            parameters[1] = nameAlgo;
+            m_view.SolutionRetrieved += delegate ()
+            {
+                Dispatcher.Invoke(new Action(markSolution));
+            };
+            m_view.activateEvent(sender, new MazeEventArgs(parameters));
+            if (!m_view.anotherThread())
+            {
+                markSolution();
+            }
+            thereIsSolution = true;
+        }
+
+        public void markSolution()
+        {
+            ISearchable searchableMaze = new SearchableMaze3d(myMaze);
+            //we need to wait for solution from the thread
+            Solution mazeSol = m_view.getSolution();
+            (searchableMaze as SearchableMaze3d).markSolutionInGrid(mazeSol);
+            markSolInGrid(mazeSol);
+        }
+
+        private void displaySolutionCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            solBoard.Visibility = Visibility.Visible;
+        }
+
+        private void markSolInGrid(Solution sol)
+        {
+            foreach (MazeState state in sol.getSolutionPath())
+            {
+                solutionC solCBetween = new solutionC();
+                solCBetween.Width = cellWidth;
+                solCBetween.Height = cellHeight;
+                Position posToMark = (state as MazeState).Position;
+                if (state.Previous != null)
+                {
+                    bool upOneLevel = !((state.Previous as MazeState).Position.Z == state.Position.Z);//check if we went to the upper level
+                    if (!upOneLevel)
+                        placeBetweenGrid(state.Position, (state.Previous as MazeState).Position, solCBetween);
+                }
+                solutionC solC = new solutionC();
+                solC.Width = cellWidth;
+                solC.Height = cellHeight;
+                placeInGrid(posToMark.X, posToMark.Y, posToMark.Z, solC);
+            }
+        }
+
+        private void placeBetweenGrid(Position prev, Position cur, UIElement elem)
+        {
+            if (prev.X == cur.X)
+            {
+                if (prev.Y > cur.Y)
+                {
+                    placeInGrid(prev.X, prev.Y - 1, cur.Z, elem);
+                }
+                else
+                {
+                    placeInGrid(prev.X, prev.Y + 1, cur.Z, elem);
+                }
+            }
+            else
+            {
+                if (prev.X > cur.X)
+                {
+                    placeInGrid(prev.X - 1, prev.Y, cur.Z, elem);
+                }
+                else
+                {
+                    placeInGrid(prev.X + 1, prev.Y, cur.Z, elem);
+                }
+            }
+        }
+
+        private void placeInGrid(int row, int col, int level, UIElement element)
+        {
+            if (level == curLevel)
+            {
+                solBoard.Children.Add(element);
+                Canvas.SetLeft(element, col * cellWidth);
+                Canvas.SetTop(element, row * cellHeight);
+            }
         }
     }
 }

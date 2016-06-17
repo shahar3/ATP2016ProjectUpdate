@@ -254,7 +254,7 @@ namespace MazeRunner2016
                 case "solveMaze":
                     if (m_mazesSolution.ContainsKey(m_mazes[mazeName] as Maze3d))
                     {
-                        ModelChanged("isExist", "The solution for the maze " + mazeName + " already exist");
+                        ModelChanged("isExist", mazeName+",false");
                     }
                     else
                     {
@@ -313,7 +313,7 @@ namespace MazeRunner2016
         {
             m_mazesSolveTime[mazeName] = timeToSolve;
             m_mazesStatesDeveloped[mazeName] = algo.statesDeveloped();
-            ModelChanged("solveMaze", mazeName);
+            ModelChanged("solveMaze", mazeName+",true");
         }
 
         public void saveMazesToZip()

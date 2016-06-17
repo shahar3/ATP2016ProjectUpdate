@@ -17,6 +17,7 @@ namespace MazeRunner2016
         private Maze3d myMaze;
         private Solution mazeSolution;
         private List<string> m_functions;
+        private bool isMainThread;
 
         public View()
         {
@@ -53,6 +54,7 @@ namespace MazeRunner2016
         public void saveSolution(Solution sol)
         {
             mazeSolution = sol;
+
         }
 
         public Solution getSolution()
@@ -78,7 +80,7 @@ namespace MazeRunner2016
         public void saveStatesDeveloped(int states)
         {
             statesDeveloped = states.ToString();
-            SolutionRetrieved();
+
         }
 
         public void saveMessage(string otherInfromation)
@@ -114,6 +116,23 @@ namespace MazeRunner2016
         public void showMessage(string otherInfromation)
         {
             MessageBox.Show(otherInfromation);
+        }
+
+        public void activateEventSolution()
+        {
+            SolutionRetrieved();
+        }
+
+
+
+        internal void isAnotherThread(string otherInfromation)
+        {
+            isMainThread = false;
+        }
+
+        public bool anotherThread()
+        {
+            return isMainThread;
         }
     }
 }

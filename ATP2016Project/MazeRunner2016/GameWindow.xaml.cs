@@ -30,11 +30,11 @@ namespace MazeRunner2016
             InitializeComponent();
         }
 
-        public GameWindow(Maze3d myMaze)
+        public GameWindow(Maze3d myMaze, string mazeName, IView view)
         {
             InitializeComponent();
             this.myMaze = myMaze;
-            myGame = new GameC(myMaze);
+            myGame = new GameC(myMaze, mazeName, view as View);
             myGame.Focus();
             mazePanel.Children.Add(myGame);
         }

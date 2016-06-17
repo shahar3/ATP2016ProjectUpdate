@@ -21,18 +21,16 @@ namespace MazeRunner2016.Controls
     public partial class GenerateControl : UserControl
     {
         private IView m_ui;
-        private IModel m_model;
 
         public GenerateControl()
         {
             InitializeComponent();
         }
 
-        public GenerateControl(IView ui, IModel model) : base()
+        public GenerateControl(IView ui) : base()
         {
             InitializeComponent();
             m_ui = ui;
-            m_model = model;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

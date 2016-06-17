@@ -35,6 +35,8 @@ namespace MazeRunner2016
             model = new Model();
             view = new View();
             Presenter p = new Presenter(view, model);
+            menu.setView(view);
+            menu.setPanel(actionPanel);
             myDock = solutionInfoPanel;
             SideMenuControl sideMenuControl = new SideMenuControl(view, model);
             sideMenuPanel.Children.Add(sideMenuControl);

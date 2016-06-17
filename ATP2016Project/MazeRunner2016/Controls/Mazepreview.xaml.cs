@@ -23,36 +23,19 @@ namespace MazeRunner2016.Controls
     {
         private string mazeToShow;
         private Maze3d myMaze;
-        private IModel m_model;
         private IView m_view;
         private Dictionary<int, Grid> levelsGrid;
 
-        public Mazepreview()
-        {
-            InitializeComponent();
-        }
-
-        public Mazepreview(IModel model, IView view)
-        {
-            InitializeComponent();
-            m_model = model;
-            m_view = view;
-        }
-
-        public Mazepreview(Maze3d myMaze, IView view, IModel model, string mazeToShow)
+        public Mazepreview(Maze3d myMaze, IView view, string mazeToShow)
         {
             InitializeComponent();
             this.m_view = view;
-            this.m_model = model;
             levelsGrid = new Dictionary<int, Grid>();
             //get the maze dimensions
             myMaze = myMaze as Maze3d;
             int x = (myMaze.Maze2DLayers[0] as Maze2d).Grid.GetLength(0);
             int y = (myMaze.Maze2DLayers[0] as Maze2d).Grid.GetLength(1);
             int z = myMaze.ZLength;
-            //maxLevel = z;
-            //string msg = string.Format("The maze dimenstions are x:{0} y:{1} z:{2}", x, y, z);
-            //MessageBox.Show(msg);
             createGrid(x, y, 0);
             initializeGrid(myMaze, levelsGrid[0], 0);
             mazePanel.Children.Add(levelsGrid[0]);

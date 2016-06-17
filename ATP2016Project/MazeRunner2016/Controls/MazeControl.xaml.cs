@@ -51,8 +51,6 @@ namespace MazeRunner2016.Controls
             int z = myMaze.ZLength;
             maxLevel = z;
             curLevel = 0;
-            //string msg = string.Format("The maze dimenstions are x:{0} y:{1} z:{2}", x, y, z);
-            //MessageBox.Show(msg);
             createGrid(x, y, 0);
             initializeGrid(myMaze, levelsGrid[0], 0, true);
             prevGrid = levelsGrid[0];
@@ -105,20 +103,15 @@ namespace MazeRunner2016.Controls
                             GoalC goal = new GoalC();
                             placeInGrid(mazeGrid, i, j, goal);
                         }
-                        else if (myMazeGrid.Grid[i, j] == 0)
-                        {
-                            PassC pass = new PassC();
-                            placeInGrid(mazeGrid, i, j, pass);
-                        }
-                        else if (myMazeGrid.Grid[i, j] == 2)
-                        {
-                            solutionC sol = new solutionC();
-                            placeInGrid(mazeGrid, i, j, sol);
-                        }
-                        else
+                        else if (myMazeGrid.Grid[i, j] == 1)
                         {
                             WallC wall = new WallC();
                             placeInGrid(mazeGrid, i, j, wall);
+                        }
+                        else
+                        {
+                            PassC pass = new PassC();
+                            placeInGrid(mazeGrid, i, j, pass);
                         }
                     }
                 }
@@ -170,19 +163,6 @@ namespace MazeRunner2016.Controls
             initializeGrid(myMaze, levelsGrid[curLevel - 1], curLevel - 1, false);
         }
 
-        private void solveMazeBtn_Click(object sender, RoutedEventArgs e)
-        {
-            string nameAlgo = comboBoxAlgo.SelectionBoxItem as string;
-            string[] parameters = new string[2];
-            parameters[0] = mazeName;
-            parameters[1] = nameAlgo;
-            view.activateEvent(sender, new MazeEventArgs(parameters));
-            view.SolutionRetrieved += delegate ()
-            {
-                Dispatcher.Invoke(new Action(markSolution));
-            };
-        }
-
         private void redrawSolution(int x, int y)
         {
             levelsGrid.Clear();
@@ -197,24 +177,8 @@ namespace MazeRunner2016.Controls
 
         private void playBtn_Click(object sender, RoutedEventArgs e)
         {
-            GameWindow gameWindow = new GameWindow(myMaze);
+            GameWindow gameWindow = new GameWindow(myMaze, mazeName, view);
             gameWindow.Show();
-        }
-
-        public void markSolution()
-        {
-            ISearchable searchableMaze = new SearchableMaze3d(myMaze);
-            //we need to wait for solution from the thread
-            Solution mazeSol = view.getSolution();
-            (searchableMaze as SearchableMaze3d).markSolutionInGrid(mazeSol);
-            //get the time  to solve
-            redrawSolution(myMaze.XLength * 2 + 1, myMaze.YLength * 2 + 1);
-            string timeToSolve = view.getTimeToSolve();
-            string statesDeveloped = view.getStatesDeveloped();
-            SolutionInfoControl solInfo = new SolutionInfoControl(mazeSol, timeToSolve, statesDeveloped);
-            Window parentWindow = Application.Current.MainWindow;
-            (parentWindow as MainWindow).myDock.Children.Clear();
-            (parentWindow as MainWindow).myDock.Children.Add(solInfo);
         }
     }
 }

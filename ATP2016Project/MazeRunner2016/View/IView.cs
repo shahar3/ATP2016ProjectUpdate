@@ -30,5 +30,6 @@ namespace MazeRunner2016
         void saveFunctions(List<string> functions);
         List<string> getFunctions();
         void showMessage(string otherInfromation);
+        bool anotherThread();
     }
 }

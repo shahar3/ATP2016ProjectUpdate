@@ -64,7 +64,14 @@ namespace MazeRunner2016.Controls
         }
         public void stop()
         {
+            prevTime = "0";
+            lblTime.Content = 0;
             isStop = true;
+            move = false;
+        }
+        public void start()
+        {
+            isStop = false;
         }
     }
 }

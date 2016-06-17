@@ -9,19 +9,19 @@
     <Grid>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="New"></MenuItem>
-                <MenuItem Header="Save"></MenuItem>
-                <MenuItem Header="Load"></MenuItem>
+                <MenuItem Header="New" Click="clickNew"></MenuItem>
+                <MenuItem Header="Save" Click="clickSave"></MenuItem>
+                <MenuItem Header="Load" Click="clickLoad"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Options">
-                <MenuItem Header="Properties"></MenuItem>
-                <MenuItem Header="Report a bug"></MenuItem>
+                <MenuItem Header="Properties" Click="MenuItem_Click_3"></MenuItem>
+                <MenuItem Header="Report a bug" Click="MenuItem_Click_4"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Help">
-                <MenuItem Header="Instructions"></MenuItem>
-                <MenuItem Header="About us"></MenuItem>
+                <MenuItem Header="Instructions" Click="MenuItem_Click_5"></MenuItem>
+                <MenuItem Header="About us" Click="MenuItem_Click_6"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_Exit"></MenuItem>
+            <MenuItem Header="_Exit" Click="MenuItem_Click_7"></MenuItem>
         </Menu>
     </Grid>
 </UserControl>

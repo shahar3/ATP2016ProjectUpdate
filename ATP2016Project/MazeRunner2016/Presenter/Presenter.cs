@@ -79,6 +79,7 @@ namespace MazeRunner2016
 
             m_model.ModelChanged += delegate (string notification, string otherInfromation)
             {
+                string[] information;
                 switch (notification)
                 {
                     case "getMazesNames":
@@ -92,10 +93,11 @@ namespace MazeRunner2016
                         //code
                         break;
                     case "solveMaze":
-                        m_ui.saveSolution(m_model.getSolution(otherInfromation));
-                        m_ui.saveTimeToSolve(m_model.getSolvedTime(otherInfromation));
-                        m_ui.saveStatesDeveloped(m_model.getStatesDeveloped(otherInfromation));
-                        m_ui.showMessage("The maze " + otherInfromation + " is solved");
+                        information = otherInfromation.Split(',');
+                        m_ui.saveSolution(m_model.getSolution(information[0]));
+                        m_ui.saveTimeToSolve(m_model.getSolvedTime(information[0]));
+                        m_ui.saveStatesDeveloped(m_model.getStatesDeveloped(information[0]));
+                        m_ui.activateEventSolution();
                         break;
                     case "saveMaze":
                         m_ui.saveMessage(otherInfromation);
@@ -109,7 +111,9 @@ namespace MazeRunner2016
                         m_ui.saveFunctions(m_functions);
                         break;
                     case "isExist":
-                        m_ui.showMessage(otherInfromation);
+                        information = otherInfromation.Split(',');
+                        m_ui.saveSolution(m_model.getSolution(information[0]));
+                        m_ui.isAnotherThread(otherInfromation);
                         break;
                     default:
                         break;
