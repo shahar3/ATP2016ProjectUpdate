@@ -254,7 +254,7 @@ namespace MazeRunner2016
                 case "solveMaze":
                     if (m_mazesSolution.ContainsKey(m_mazes[mazeName] as Maze3d))
                     {
-                        ModelChanged("isExist", mazeName+",false");
+                        ModelChanged("isExist", mazeName + ",false");
                     }
                     else
                     {
@@ -313,7 +313,7 @@ namespace MazeRunner2016
         {
             m_mazesSolveTime[mazeName] = timeToSolve;
             m_mazesStatesDeveloped[mazeName] = algo.statesDeveloped();
-            ModelChanged("solveMaze", mazeName+",true");
+            ModelChanged("solveMaze", mazeName + ",true");
         }
 
         public void saveMazesToZip()
@@ -397,6 +397,16 @@ namespace MazeRunner2016
                     }
                 }
             }
+        }
+
+        public void removeMaze(string mazeName)
+        {
+            m_mazes.Remove(mazeName);
+        }
+
+        public void removeAllMazes()
+        {
+
         }
     }
 }

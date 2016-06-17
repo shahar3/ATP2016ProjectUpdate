@@ -393,6 +393,50 @@ namespace MazeRunner2016
             return "prepareMazesNames";
         }
     }
+
+    public class CommandRemove : ACommand
+    {
+        public CommandRemove(IModel model, IView view) : base(model, view)
+        {
+        }
+
+        public override void DoCommand(params string[] parameters)
+        {
+            m_model.removeMaze(parameters[0]);
+        }
+
+        public override string GetDescription()
+        {
+            return "remove a certain maze";
+        }
+
+        public override string GetName()
+        {
+            return "remove";
+        }
+    }
+
+    public class CommandRemoveAll : ACommand
+    {
+        public CommandRemoveAll(IModel model, IView view) : base(model, view)
+        {
+        }
+
+        public override void DoCommand(params string[] parameters)
+        {
+            m_model.prepareMazesNames();
+        }
+
+        public override string GetDescription()
+        {
+            return "removes all mazes in the system";
+        }
+
+        public override string GetName()
+        {
+            return "remove mazes";
+        }
+    }
     #endregion
 
 }

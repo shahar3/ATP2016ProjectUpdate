@@ -26,9 +26,9 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <Button Focusable="False" Name="restartBtn" Grid.Column="6" Grid.Row="1" Content="Restart" Click="restartBtn_Click"></Button>
-            <Label Grid.Row="1" Content="Steps:" Grid.Column="1" HorizontalAlignment="Right"></Label>
-            <Label Grid.Row="1" Content="Time:" Grid.Column="3" HorizontalAlignment="Right"></Label>
-            <TextBlock Focusable="False" Grid.Row="1"  Name="stepsBox" Grid.Column="2"></TextBlock>
+            <Label Grid.Row="1" Content="Steps:" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right"></Label>
+            <Label Grid.Row="1" Content="Time:" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Right"></Label>
+            <Label Focusable="False" Grid.Row="1" VerticalAlignment="Bottom" Name="stepsBox" Grid.Column="2"></Label>
             <DockPanel Focusable="False" Grid.Row="1"  Name="timerPanel" Grid.Column="4"></DockPanel>
             <DockPanel Focusable="False" Grid.Row="1"  Name="bulbPanel"></DockPanel>
             <Button Focusable="false" Grid.Row="1" Name="solveMazeBtn" Content="Solve" Grid.Column="5" Background="Red" Click="solveBtn_Click"/>
@@ -38,11 +38,15 @@
             </ComboBox>
             <CheckBox Focusable="False" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center" Name="displaySolutionCB" Content="Hide solution" Checked="displaySolutionCB_Checked" Unchecked="displaySolutionCB_Unchecked"></CheckBox>
         </Grid>
-        <Canvas Name="board" Panel.ZIndex="1" SizeChanged="board_SizeChanged" Grid.Row="1">
-        </Canvas>
-        <Canvas Name="solBoard" Panel.ZIndex="2" Grid.Row="1">
-        </Canvas>
-        <Canvas IsEnabled="True" Focusable="True" Name="topPanel" Panel.ZIndex="3" KeyDown="UserControl_KeyDown" Grid.Row="1">
-        </Canvas>
+        <ScrollViewer Name="scroller" Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Focusable="False" >
+            <Grid Name="gameZone" Grid.Row="1">
+            <Canvas Name="board" Panel.ZIndex="1" SizeChanged="board_SizeChanged">
+            </Canvas>
+            <Canvas Name="solBoard" Panel.ZIndex="2">
+            </Canvas>
+            <Canvas IsEnabled="True" Focusable="True" Name="topPanel" Panel.ZIndex="3" KeyDown="UserControl_KeyDown">
+            </Canvas>
+        </Grid>
+        </ScrollViewer>
     </Grid>
 </UserControl>

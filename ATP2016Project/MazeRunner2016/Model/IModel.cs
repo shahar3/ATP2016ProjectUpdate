@@ -24,5 +24,7 @@ namespace MazeRunner2016
         int getStatesDeveloped(string mazeName);
         void loadMaze(string mazePath, string mazeNameToSave);
         void saveMazesToZip();
+        void removeMaze(string mazeName);
+        void removeAllMazes();
     }
 }

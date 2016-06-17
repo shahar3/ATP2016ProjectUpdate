@@ -38,6 +38,8 @@ namespace MazeRunner2016
             m_commands["displaySolution"] = new CommandDisplaySolution(m_model, m_ui);
             m_commands["Exit"] = new CommandExit(m_model, m_ui);
             m_commands["getMazesNames"] = new CommandGetMazesNames(m_model, m_ui);
+            m_commands["removeAll"] = new CommandRemoveAll(m_model, m_ui);
+            m_commands["remove"] = new CommandRemove(m_model, m_ui);
         }
 
         private void initFunctions()
@@ -45,6 +47,7 @@ namespace MazeRunner2016
             m_functions.Add("Generate maze");
             m_functions.Add("Save maze");
             m_functions.Add("Load maze");
+            m_functions.Add("Remove maze");
             m_functions.Add("Display maze");
             m_functions.Add("Play");
             m_functions.Add("Exit");

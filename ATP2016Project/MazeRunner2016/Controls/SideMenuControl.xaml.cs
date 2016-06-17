@@ -81,6 +81,11 @@ namespace MazeRunner2016.Controls
                     actionPanel.Children.Clear();
                     actionPanel.Children.Add(saveControl);
                     break;
+                case "Remove maze":
+                    RemoveControl remove = new RemoveControl(m_view);
+                    actionPanel.Children.Clear();
+                    actionPanel.Children.Add(remove);
+                    break;
                 case "Generate maze":
                     GenerateControl generateControl = new GenerateControl(m_view);
                     actionPanel.Children.Clear();

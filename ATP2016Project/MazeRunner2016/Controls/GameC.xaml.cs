@@ -56,6 +56,12 @@ namespace MazeRunner2016.Controls
         private double rightBoundry;
         private double leftBoundry;
         private double upBoundry;
+        private double xZoom;
+        private double yZoom;
+        private bool firstTimeScaling;
+        private ScaleTransform scaleTransform;
+        private double gameHeight;
+        private double gameWidth;
 
         public double FirstXPos { get; private set; }
         public double FirstYPos { get; private set; }
@@ -70,6 +76,10 @@ namespace MazeRunner2016.Controls
         public GameC(Maze3d maze, string mazeName, View view)
         {
             InitializeComponent();
+            this.PreviewMouseWheel += mouseWheel;
+            xZoom = 1;
+            yZoom = 1;
+            firstTimeScaling = true;
             thereIsSolution = false;
             isDragged = false;
             myMaze = maze;
@@ -86,6 +96,7 @@ namespace MazeRunner2016.Controls
             maxLevel = z;
             timer = new timerC();
             timerPanel.Children.Add(timer);
+            timer.ToolTip = "Time in seconds";
             firstTime = true;
             prevCol = myMaze.StartPoint.Y * 2 + 1;
             prevRow = myMaze.StartPoint.X * 2 + 1;
@@ -99,6 +110,50 @@ namespace MazeRunner2016.Controls
             Canvas.SetBottom(l, 30);
             Canvas.SetLeft(l, 100);
             topPanel.Children.Add(l);
+        }
+
+        private void mouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            bool handle = (Keyboard.Modifiers & ModifierKeys.Control) > 0;
+            if (!handle)
+                return;
+            if (e.Delta > 0)
+            {
+
+                xZoom *= 1.1;
+                yZoom *= 1.1;
+                gameZone.Width *= 1.1;
+                gameZone.Height *= 1.1;
+            }
+            else
+            {
+                xZoom /= 1.1;
+                yZoom /= 1.1;
+                gameZone.Width /= 1.1;
+                gameZone.Height /= 1.1;
+            }
+            //scaleTransform = new ScaleTransform(xZoom, yZoom);
+            if (firstTimeScaling)
+            {
+                gameWidth = gameZone.ActualWidth;
+                gameHeight = gameZone.ActualHeight;
+                gameZone.Width = gameZone.ActualWidth;
+                gameZone.Height = gameZone.ActualHeight;
+                firstTimeScaling = false;
+            }
+            if (xZoom > 2.0)
+            {
+                xZoom = 2;
+                yZoom = 2;
+                return;
+            }
+            else if(xZoom<0.5)
+            {
+                xZoom = 0.5;
+                yZoom = 0.5;
+            }
+            //gameZone.RenderTransform = scaleTransform;
+            gameZone.UpdateLayout();
         }
 
         private void mouseMove(object sender, MouseEventArgs e)
@@ -117,10 +172,21 @@ namespace MazeRunner2016.Controls
                 //collision detection
                 if (!isValidMove(Key.Left, leftBoundry) || !isValidMove(Key.Up, upBoundry) || !isValidMove(Key.Down, downBoundry) || !isValidMove(Key.Right, rightBoundry))
                 {
-                    //player.ReleaseMouseCapture();
                     isDragged = false;
                     return;
                 }
+                if (getToGoalPoint())
+                {
+                    goalPointFinishMsg();
+                }
+                //number of steps
+                if (prevCol != (int)curCol || prevRow != (int)curRow)
+                {
+                    numOfSteps++;
+                    stepsBox.Content = numOfSteps.ToString();
+                }
+                prevRow = (int)curRow;
+                prevCol = (int)curCol;
                 (movingObject as FrameworkElement).SetValue(Canvas.LeftProperty, left);
                 (movingObject as FrameworkElement).SetValue(Canvas.TopProperty, up);
             }
@@ -392,6 +458,12 @@ namespace MazeRunner2016.Controls
                         }
                     }
                     break;
+                case Key.R:
+                    gameZone.Width = gameWidth;
+                    gameZone.Height = gameHeight;
+                    gameZone.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Hidden);
+                    gameZone.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Hidden);
+                    break;
             }
             if (getCol(leftPlayer) == getCol(right) && getCol(leftPlayer) % 2 == 1 && getRow(upPlayer) % 2 == 1 && getRow(upPlayer) == getRow(down))
             {
@@ -403,11 +475,7 @@ namespace MazeRunner2016.Controls
             }
             if (getToGoalPoint())
             {
-                DateTime endTime = DateTime.Now;
-                TimeSpan difference = endTime - startingTime;
-                //timeBox.Text = difference.TotalSeconds.ToString();
-                timer.stop();
-                MessageBox.Show("Finished" + "\nIt took : " + timer.lblTime.Content + " seconds" + "\nNumber of steps: " + numOfSteps);
+                goalPointFinishMsg();
             }
             if (!isPossible)
             {
@@ -419,7 +487,7 @@ namespace MazeRunner2016.Controls
             if (prevCol != (int)curCol || prevRow != (int)curRow)
             {
                 numOfSteps++;
-                stepsBox.Text = numOfSteps.ToString();
+                stepsBox.Content = numOfSteps.ToString();
             }
             prevRow = (int)curRow;
             prevCol = (int)curCol;
@@ -429,6 +497,16 @@ namespace MazeRunner2016.Controls
             Canvas.SetTop(player, up);
 
         }
+
+        private void goalPointFinishMsg()
+        {
+            DateTime endTime = DateTime.Now;
+            TimeSpan difference = endTime - startingTime;
+            //timeBox.Text = difference.TotalSeconds.ToString();
+            MessageBox.Show("Finished" + "\nIt took : " + timer.lblTime.Content + " seconds" + "\nNumber of steps: " + numOfSteps);
+            timer.stop();
+        }
+
         private bool getToGoalPoint()
         {
             if ((int)curCol == myMaze.GoalPoint.Y * 2 + 1 && (int)curRow == myMaze.GoalPoint.X * 2 + 1 && curLevel == maxLevel - 1)
@@ -487,12 +565,13 @@ namespace MazeRunner2016.Controls
             firstTime = true;
             thereIsSolution = false;
             isDragged = false;
+            firstTimeScaling = true;
             createGrid(myMaze.XLength * 2 + 1, myMaze.YLength * 2 + 1, 0);
             topPanel.Children.Remove(player);
             createPlayer();
             curLevel = 0;
             movePlayer();
-            stepsBox.Text = "0";
+            stepsBox.Content = "0";
             numOfSteps = 0;
             timer.stop();
             timer.start();
@@ -529,6 +608,8 @@ namespace MazeRunner2016.Controls
         {
             solBoard.Visibility = Visibility.Visible;
         }
+
+
 
         private void markSolInGrid(Solution sol)
         {
