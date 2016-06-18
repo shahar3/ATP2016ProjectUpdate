@@ -80,6 +80,9 @@
     <Compile Include="Controls\GoalC.xaml.cs">
       <DependentUpon>GoalC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Instructions.xaml.cs">
       <DependentUpon>Instructions.xaml</DependentUpon>
     </Compile>
@@ -158,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\GoalC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -310,6 +317,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\light off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\backgroundHome.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

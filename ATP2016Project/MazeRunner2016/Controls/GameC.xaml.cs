@@ -37,12 +37,10 @@ namespace MazeRunner2016.Controls
         private double speedX, speedY;
         private double curCol, curRow;
         private PlayerControl player;
-        private Label l;
         private BulbC bulb;
         private int numOfSteps;
         private System.Diagnostics.Stopwatch time;
         private bool firstTime;
-        private Stopwatch watch;
         private DateTime startingTime;
         private timerC timer;
         private View m_view;
@@ -59,7 +57,6 @@ namespace MazeRunner2016.Controls
         private double xZoom;
         private double yZoom;
         private bool firstTimeScaling;
-        private ScaleTransform scaleTransform;
         private double gameHeight;
         private double gameWidth;
 
@@ -102,14 +99,6 @@ namespace MazeRunner2016.Controls
             prevRow = myMaze.StartPoint.X * 2 + 1;
             createGrid(xLength, yLength, curLevel);
             createPlayer();
-            l = new Label();
-            l.Content = "";
-            l.Background = Brushes.Khaki;
-            l.Width = 200;
-            l.Height = 30;
-            Canvas.SetBottom(l, 30);
-            Canvas.SetLeft(l, 100);
-            topPanel.Children.Add(l);
         }
 
         private void mouseWheel(object sender, MouseWheelEventArgs e)
@@ -147,7 +136,7 @@ namespace MazeRunner2016.Controls
                 yZoom = 2;
                 return;
             }
-            else if(xZoom<0.5)
+            else if (xZoom < 0.5)
             {
                 xZoom = 0.5;
                 yZoom = 0.5;
@@ -328,9 +317,6 @@ namespace MazeRunner2016.Controls
             speedY = cellWidth / 10;
             createGrid(xLength, yLength, curLevel);
             updatePlayer();
-            Canvas.SetBottom(l, 0);
-            Canvas.SetLeft(l, 0);
-            topPanel.Children.Add(l);
             bulb = new BulbC(true);
             bulbPanel.Children.Clear();
             bulbPanel.Children.Add(bulb);
@@ -492,7 +478,6 @@ namespace MazeRunner2016.Controls
             prevRow = (int)curRow;
             prevCol = (int)curCol;
             string pos = "Row: " + curRow + " Col: " + curCol;
-            l.Content = pos;
             Canvas.SetLeft(player, left);
             Canvas.SetTop(player, up);
 
@@ -588,11 +573,17 @@ namespace MazeRunner2016.Controls
                 Dispatcher.Invoke(new Action(markSolution));
             };
             m_view.activateEvent(sender, new MazeEventArgs(parameters));
-            if (!m_view.anotherThread())
+            if (m_view.anotherThread())
             {
                 markSolution();
+                m_view.isMainThread = false;
             }
             thereIsSolution = true;
+        }
+
+        public void solutionRetrieved()
+        {
+            markSolution();
         }
 
         public void markSolution()

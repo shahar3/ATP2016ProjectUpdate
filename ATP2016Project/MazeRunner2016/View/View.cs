@@ -22,7 +22,7 @@ namespace MazeRunner2016
         private Maze3d myMaze;
         private Solution mazeSolution;
         private List<string> m_functions;
-        private bool isMainThread;
+        public bool isMainThread;
 
         public View()
         {
@@ -135,11 +135,9 @@ namespace MazeRunner2016
             SolutionRetrieved();
         }
 
-
-
         internal void isAnotherThread(string otherInfromation)
         {
-            isMainThread = false;
+            isMainThread = true;
         }
 
         public bool anotherThread()

@@ -256,7 +256,7 @@ namespace MazeRunner2016
                     //this maze exist
                     if (m_mazes.ContainsKey(mazeName))
                     {
-                        ModelChanged("isExist", "The name " + mazeName + " already exist");
+                        ModelChanged("mazeExist", "The name " + mazeName + " already exist");
                     }
                     else//do not exist
                     {
@@ -330,6 +330,7 @@ namespace MazeRunner2016
 
         public void saveMazesToZip()
         {
+            removeZipFile();
             foreach (Maze3d maze in m_mazesSolution.Keys)
             {
                 ICompressor compressor = new MyMaze3Dcompressor();
@@ -344,6 +345,14 @@ namespace MazeRunner2016
             }
             createZipFile();
             removeFolders();
+        }
+
+        private void removeZipFile()
+        {
+            if (File.Exists("Mazes.zip"))
+            {
+                File.Delete("Mazes.zip");
+            }
         }
 
         private void removeFolders()
@@ -413,12 +422,19 @@ namespace MazeRunner2016
 
         public void removeMaze(string mazeName)
         {
+            if (m_mazesSolution.ContainsKey(m_mazes[mazeName]))
+            {
+                m_mazesSolution.Remove(m_mazes[mazeName]);
+            }
             m_mazes.Remove(mazeName);
+            m_mazesNames.Remove(mazeName);
         }
 
         public void removeAllMazes()
         {
-
+            m_mazesNames.Clear();
+            m_mazesSolution.Clear();
+            m_mazes.Clear();
         }
     }
 }

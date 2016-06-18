@@ -140,6 +140,10 @@ namespace MazeRunner2016
                         information = otherInfromation.Split(',');
                         m_ui.saveSolution(m_model.getSolution(information[0]));
                         m_ui.isAnotherThread(otherInfromation);
+                        m_ui.isMainThread = true;
+                        break;
+                    case "mazeExist":
+                        m_ui.showMessage("There is a maze with this name already");
                         break;
                     default:
                         break;
