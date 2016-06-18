@@ -11,7 +11,17 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Name="title" FontSize="32" FontWeight="SemiBold" Foreground="DarkRed" VerticalAlignment="Center" HorizontalAlignment="Center">Welcome to Maze Runner</Label>
-        <TextBlock Grid.Row="1">game description</TextBlock>
+        <Label Name="title" Padding="20,20,20,20" FontSize="32" FontWeight="SemiBold" Foreground="DarkRed" VerticalAlignment="Center" HorizontalAlignment="Center">Welcome to Maze Runner</Label>
+        <Border Grid.Row="1" BorderBrush="AliceBlue" BorderThickness="1,1,1,1" Padding="10,10,10,10">
+            <TextBlock Grid.Row="1" TextWrapping="Wrap" FontWeight="Bold">This game was developed by Yakir Hershkoviz and Shahar Cohen as part of their project in Advanced Topics In Programing<LineBreak/>
+                <LineBreak/>this game features:<LineBreak/>
+                - A maze generator - you can create mazes in different sizes<LineBreak/>
+                - Playable mazes - in every maze that you generate you can play and solve it by yourself<LineBreak/>
+                - Load and save your costum mazes<LineBreak/>
+                - You can play with your keyboard or your mouse<LineBreak/>
+                - You can beat the clock - when you start to move a stopwatch start to tick<LineBreak/>
+                - You can zoom in and out of a maze board - that way you can play even in high levels mazes<LineBreak/>
+            </TextBlock>
+        </Border>
     </Grid>
 </UserControl>

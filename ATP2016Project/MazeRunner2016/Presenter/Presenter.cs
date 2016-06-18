@@ -67,6 +67,7 @@ namespace MazeRunner2016
 
         private void initFunctions()
         {
+            m_functions.Add("Home");
             m_functions.Add("Generate maze");
             m_functions.Add("Save maze");
             m_functions.Add("Load maze");

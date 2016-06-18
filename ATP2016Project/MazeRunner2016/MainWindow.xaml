@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MazeRunner2016"
         xmlns:Controls="clr-namespace:MazeRunner2016.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" Closing="Window_Closing">
+        Title="Maze Runner V1.0" Icon="C:\Users\YAKIR HERSHKOVIZ\Source\Repos\ATP2016ProjectUpdate2\ATP2016Project\MazeRunner2016\Resources\icon.gif" Height="600" Width="800" Closing="Window_Closing">
     <Window.Background>
         <ImageBrush ImageSource="C:\Users\YAKIR HERSHKOVIZ\Source\Repos\ATP2016ProjectUpdate2\ATP2016Project\MazeRunner2016\Resources\backgroundHome.jpg"></ImageBrush>
     </Window.Background>
