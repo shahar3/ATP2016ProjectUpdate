@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Name="main">
-        <Image Source="pack://siteoforigin:,,,/Resources/wall compressed.jpg" Stretch="Fill"></Image>
+        <Image Source="/Pics/wall compressed.jpg" Stretch="Fill"></Image>
     </Grid>
 </UserControl>

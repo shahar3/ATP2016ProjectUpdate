@@ -45,7 +45,7 @@
                         It will take a few moments to create your maze (depends on the maze dimensions).<LineBreak/>
                         When the generating process will finish a message will pop to the screen.
                     </TextBlock>
-                    <Image Grid.Row="1" Source="C:\Users\YAKIR HERSHKOVIZ\Source\Repos\ATP2016ProjectUpdate2\ATP2016Project\MazeRunner2016\Resources\genScreen.PNG"></Image>
+                    <Image Grid.Row="1" Source="/Pics\genScreen.PNG"></Image>
                 </Grid>
             </TabItem>
             <TabItem Header="The game">
@@ -83,8 +83,8 @@
                         <LineBreak/> if you want to go back to the normal size, just press <Bold>R</Bold>.<LineBreak/>
                         <LineBreak/>You can also restart the game by pressing the button in the game panel
                     </TextBlock>
-                        <Image Grid.Row="1" Source="pack://siteoforigin:,,,/Pics\playPanel.PNG"></Image>
-                        <Image Grid.Row="3" Source="pack://siteoforigin:,,,/Pics\startPoint.PNG" ToolTip="Start point"></Image>
+                        <Image Grid.Row="1" Source="/Pics\playPanel.PNG"></Image>
+                        <Image Grid.Row="3" Source="/Pics\startPoint.PNG" ToolTip="Start point"></Image>
                 </Grid>
                 </ScrollViewer>
             </TabItem>

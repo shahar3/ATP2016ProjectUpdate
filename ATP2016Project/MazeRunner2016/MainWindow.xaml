@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:MazeRunner2016"
         xmlns:Controls="clr-namespace:MazeRunner2016.Controls"
         mc:Ignorable="d"
-        Title="Maze Runner V1.0" Icon="pack://siteoforigin:,,,/Pics\icon.gif" Height="600" Width="800" Closing="Window_Closing">
+        Title="Maze Runner V1.0" Icon="/Pics\icon.gif" Height="600" Width="800" Closing="Window_Closing">
     <Window.Background>
-        <ImageBrush ImageSource="pack://siteoforigin:,,,/Pics\backgroundHome.jpg"></ImageBrush>
+        <ImageBrush ImageSource="/Pics\backgroundHome.jpg"></ImageBrush>
     </Window.Background>
     <DockPanel Name="dock">
         <Controls:AppMenu x:Name="menu" DockPanel.Dock="Top"></Controls:AppMenu>

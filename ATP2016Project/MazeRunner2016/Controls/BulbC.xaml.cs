@@ -30,14 +30,14 @@ namespace MazeRunner2016.Controls
             if (mode)
             {
                 Image on = new Image();
-                BitmapImage bitImg = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + @"Resources\light on.png", UriKind.Absolute));
+                BitmapImage bitImg = new BitmapImage(new Uri(@"/Pics\light on.png", UriKind.Relative));
                 on.Source = bitImg;
                 main.Children.Add(on);
             }
             else
             {
                 Image off = new Image();
-                BitmapImage bitImg = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + @"Resources\light off.png", UriKind.Absolute));
+                BitmapImage bitImg = new BitmapImage(new Uri(@"/Pics\light off.png", UriKind.Relative));
                 off.Source = bitImg;
                 main.Children.Add(off);
             }
@@ -49,14 +49,14 @@ namespace MazeRunner2016.Controls
             if (mode)
             {
                 Image on = new Image();
-                BitmapImage bitImg = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + @"Resources\light on.png", UriKind.Absolute));
+                BitmapImage bitImg = new BitmapImage(new Uri(@"/Pics\light on.png", UriKind.Relative));
                 on.Source = bitImg;
                 main.Children.Add(on);
             }
             else
             {
                 Image off = new Image();
-                BitmapImage bitImg = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + @"Resources\light off.png", UriKind.Absolute));
+                BitmapImage bitImg = new BitmapImage(new Uri(@"/Pics\light off.png", UriKind.Relative));
                 off.Source = bitImg;
                 main.Children.Add(off);
             }
