@@ -22,34 +22,29 @@ namespace MazeRunner2016.Controls
 {
     /// <summary>
     /// Interaction logic for GameC.xaml
+    ///this user control represent  our maze game
+    ///we are define what will happend when the user press on the game button,or if the size window change and more
     /// </summary>
     public partial class GameC : UserControl
     {
-        private bool isDragged;
+        private View m_view;
+
+        #region maze fields
         private Maze3d myMaze;
         private int curLevel;
-        private double cellHeight;
-        private double cellWidth;
-        private int prevCol, prevRow;
         private int xLength;
         private int yLength;
         private int maxLevel;
+        private string m_mazeName;
+        #endregion
+        #region player fields
+        private PlayerControl player;
+        private double cellHeight;
+        private double cellWidth;
+        private int prevCol, prevRow;
+        private bool isDragged;
         private double speedX, speedY;
         private double curCol, curRow;
-        private PlayerControl player;
-        private BulbC bulb;
-        private int numOfSteps;
-        private System.Diagnostics.Stopwatch time;
-        private bool firstTime;
-        private DateTime startingTime;
-        private timerC timer;
-        private View m_view;
-        private string m_mazeName;
-        private bool withSolution;
-        private bool thereIsSolution;
-        private object movingObject;
-        private double up;
-        private double left;
         private double downBoundry;
         private double rightBoundry;
         private double leftBoundry;
@@ -57,6 +52,20 @@ namespace MazeRunner2016.Controls
         private double xZoom;
         private double yZoom;
         private bool firstTimeScaling;
+        private object movingObject;
+        #endregion
+        #region details panel fields
+        private BulbC bulb;
+        private DateTime startingTime;
+        private int numOfSteps;
+        private System.Diagnostics.Stopwatch time;
+        private bool firstTime;
+        private timerC timer;
+        #endregion
+        private bool withSolution;
+        private bool thereIsSolution;
+        private double up;
+        private double left;
         private double gameHeight;
         private double gameWidth;
 
@@ -69,57 +78,63 @@ namespace MazeRunner2016.Controls
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// constructor 
+        /// </summary>
+        /// <param name="maze">maze</param>
+        /// <param name="mazeName">maze name</param>
+        /// <param name="view">view</param>
         public GameC(Maze3d maze, string mazeName, View view)
         {
             InitializeComponent();
-            this.PreviewMouseWheel += mouseWheel;
-            xZoom = 1;
-            yZoom = 1;
-            firstTimeScaling = true;
-            thereIsSolution = false;
-            isDragged = false;
+            m_view = view;
             myMaze = maze;
+            m_mazeName = mazeName;
             xLength = maze.XLength * 2 + 1;
             yLength = maze.YLength * 2 + 1;
             int z = maze.ZLength;
-            m_view = view;
-            m_mazeName = mazeName;
             withSolution = false;
             numOfSteps = 0;
             curLevel = 0;
             cellHeight = 10;
             cellWidth = 10;
             maxLevel = z;
+            this.PreviewMouseWheel += mouseWheel;//this event use for zoom in and out in the game place
+            xZoom = 1;
+            yZoom = 1;
+            firstTimeScaling = true;
+            thereIsSolution = false;
+            isDragged = false;
             timer = new timerC();
             timerPanel.Children.Add(timer);
             timer.ToolTip = "Time in seconds";
             firstTime = true;
             prevCol = myMaze.StartPoint.Y * 2 + 1;
             prevRow = myMaze.StartPoint.X * 2 + 1;
-            createGrid(xLength, yLength, curLevel);
-            createPlayer();
+            createGrid(xLength, yLength, curLevel);//create the grid that use for our game
+            createPlayer();//create the player that use for our game
         }
 
+        #region drag player and zoom in/out
+        /// <summary>
+        /// this function activated and check if is zoom in or out ,and deal with it
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">mouse wheel</param>
         private void mouseWheel(object sender, MouseWheelEventArgs e)
         {
+            //check if the Ctrl button and whell mouse are pressed and scroll
             bool handle = (Keyboard.Modifiers & ModifierKeys.Control) > 0;
             if (!handle)
                 return;
+            //if its scroll up we increase the zoom
             if (e.Delta > 0)
             {
-
-                xZoom *= 1.1;
-                yZoom *= 1.1;
-                gameZone.Width *= 1.1;
-                gameZone.Height *= 1.1;
+                itsZoomIn();
             }
-            else
+            else//if its scroll up we increase the zoom
             {
-                xZoom /= 1.1;
-                yZoom /= 1.1;
-                gameZone.Width /= 1.1;
-                gameZone.Height /= 1.1;
+                istZoomOut();
             }
             //scaleTransform = new ScaleTransform(xZoom, yZoom);
             if (firstTimeScaling)
@@ -129,13 +144,14 @@ namespace MazeRunner2016.Controls
                 gameZone.Width = gameZone.ActualWidth;
                 gameZone.Height = gameZone.ActualHeight;
                 firstTimeScaling = false;
-            }
+            }//this is our limitation for max zoom in
             if (xZoom > 2.0)
             {
                 xZoom = 2;
                 yZoom = 2;
                 return;
             }
+            //this is our limitation for max zoom out
             else if (xZoom < 0.5)
             {
                 xZoom = 0.5;
@@ -144,20 +160,42 @@ namespace MazeRunner2016.Controls
             //gameZone.RenderTransform = scaleTransform;
             gameZone.UpdateLayout();
         }
+        /// <summary>
+        /// this function is Auxiliary function for zoom in
+        /// </summary>
+        private void istZoomOut()
+        {
+            xZoom /= 1.1;
+            yZoom /= 1.1;
+            gameZone.Width /= 1.1;
+            gameZone.Height /= 1.1;
+        }
+        /// <summary>
+        /// this function is Auxiliary function for zoom out
+        /// </summary>
+        private void itsZoomIn()
+        {
+            xZoom *= 1.1;
+            yZoom *= 1.1;
+            gameZone.Width *= 1.1;
+            gameZone.Height *= 1.1;
+        }
 
+        /// <summary>
+        /// this function deal with drag player with the mouse in the game zone
+        /// and avoid collision with the walls
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">mouse event</param>
         private void mouseMove(object sender, MouseEventArgs e)
         {
+            //check if the left mouse button is click
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 isDragged = true;
                 left = e.GetPosition((movingObject as FrameworkElement).Parent as FrameworkElement).X - FirstXPos;
                 up = e.GetPosition((movingObject as FrameworkElement).Parent as FrameworkElement).Y - FirstYPos;
-                downBoundry = up + cellHeight - cellHeight / 3;
-                rightBoundry = left + cellWidth - cellWidth / 3;
-                upBoundry = up + cellHeight / 3;
-                leftBoundry = left + cellWidth / 3;
-                curCol = leftBoundry / cellWidth;
-                curRow = upBoundry / cellHeight;
+                boundaryPlayerAndCurPosition();
                 //collision detection
                 if (!isValidMove(Key.Left, leftBoundry) || !isValidMove(Key.Up, upBoundry) || !isValidMove(Key.Down, downBoundry) || !isValidMove(Key.Right, rightBoundry))
                 {
@@ -181,6 +219,72 @@ namespace MazeRunner2016.Controls
             }
         }
 
+        /// <summary>
+        /// this function is Auxiliary function that defined the boundary of the player and 
+        /// current position that help us to detection collision
+        /// </summary>
+        private void boundaryPlayerAndCurPosition()
+        {
+            downBoundry = up + cellHeight - cellHeight / 3;
+            rightBoundry = left + cellWidth - cellWidth / 3;
+            upBoundry = up + cellHeight / 3;
+            leftBoundry = left + cellWidth / 3;
+            curCol = leftBoundry / cellWidth;
+            curRow = upBoundry / cellHeight;
+        }
+
+        /// <summary>
+        /// this function defined what are we do if the mouse left button is up
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">mouse event</param>
+        private void mouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            movingObject = null;
+            isDragged = false;
+            //player.ReleaseMouseCapture();
+        }
+
+        /// <summary>
+        /// this function defined what are we do if the mouse left button is down
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">mouse event</param>
+        private void mouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (firstTime)
+            {
+                activatedTheStopper();
+            }
+            FirstXPos = e.GetPosition(sender as Control).X;
+            FirstYPos = e.GetPosition(sender as Control).Y;
+            FirstArrowXPos = e.GetPosition((sender as Control).Parent as Control).X - FirstXPos;
+            FirstArrowYPos = e.GetPosition((sender as Control).Parent as Control).Y - FirstYPos;
+            movingObject = sender;
+            //player.CaptureMouse();
+        }
+
+        /// <summary>
+        /// this function is auxiliary function that activate the stopper
+        /// that help the user to know how much time he's playing 
+        /// </summary>
+        private void activatedTheStopper()
+        {
+            startingTime = DateTime.Now;
+            timer.stratingTime = startingTime;
+            timer.isMove();
+            firstTime = false;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// this function check if the user move with the arrows button or with the
+        /// mouse are valid
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <param name="position">position</param>
+        /// <returns>valid or not</returns>
         private bool isValidMove(Key key, double position)
         {
             int row = 0, col = 0;
@@ -208,33 +312,14 @@ namespace MazeRunner2016.Controls
             return !ans;
         }
 
-        private void mouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            movingObject = null;
-            isDragged = false;
-            //player.ReleaseMouseCapture();
-        }
 
-        private void mouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (firstTime)
-            {
-                startingTime = DateTime.Now;
-                timer.stratingTime = startingTime;
-                timer.isMove();
-                firstTime = false;
-            }
-            FirstXPos = e.GetPosition(sender as Control).X;
-            FirstYPos = e.GetPosition(sender as Control).Y;
-            FirstArrowXPos = e.GetPosition((sender as Control).Parent as Control).X - FirstXPos;
-            FirstArrowYPos = e.GetPosition((sender as Control).Parent as Control).Y - FirstYPos;
-            movingObject = sender;
-            //player.CaptureMouse();
-        }
-
+        /// <summary>
+        /// this function create our player thet represent in the maze
+        /// </summary>
         private void createPlayer()
         {
-            player = new PlayerControl();
+            player = new PlayerControl();//new player control
+            //events for move eith the mouse 
             player.MouseLeftButtonDown += mouseLeftButtonDown;
             player.MouseLeftButtonUp += mouseLeftButtonUp;
             player.MouseMove += mouseMove;
@@ -245,6 +330,13 @@ namespace MazeRunner2016.Controls
             topPanel.Children.Add(player);
         }
 
+        /// <summary>
+        /// This function created the board game(the maze board)
+        /// it activated from the constructor with level 1 and if the user up level or down
+        /// </summary>
+        /// <param name="x">x length</param>
+        /// <param name="y">y length</param>
+        /// <param name="curLevel">which layer</param>
         private void createGrid(int x, int y, int curLevel)
         {
             double posX = 0;
@@ -255,24 +347,17 @@ namespace MazeRunner2016.Controls
                 posX = 0;
                 for (int j = 0; j < y; j++)
                 {
+                    //check if we in the goal point, if it is we set there sign(user control with picture)
                     if (myMaze.GoalPoint.X * 2 + 1 == i && myMaze.GoalPoint.Y * 2 + 1 == j && curLevel + 1 == maxLevel)
                     {
-                        GoalC goal = new GoalC();
-                        goal.Width = cellWidth;
-                        goal.Height = cellHeight;
-                        Canvas.SetLeft(goal, posX);
-                        Canvas.SetTop(goal, posY);
-                        board.Children.Add(goal);
+                        setGoalPointInGrid(posX, posY);
                     }
+                    //check if we in the start point, if it is we set there sign(user control with picture)
                     else if (myMaze.StartPoint.X * 2 + 1 == i && myMaze.StartPoint.Y * 2 + 1 == j && curLevel == 0)
                     {
-                        StartC start = new StartC();
-                        start.Width = cellWidth;
-                        start.Height = cellHeight;
-                        Canvas.SetLeft(start, posX);
-                        Canvas.SetTop(start, posY);
-                        board.Children.Add(start);
+                        setStartPoint(posX, posY);
                     }
+                    //check if we in the wall position, if it is we set there sign(user control with picture)
                     else if (maze.Grid[i, j] == 1)
                     {
                         WallC wall = new WallC();
@@ -306,6 +391,26 @@ namespace MazeRunner2016.Controls
                 posY += cellHeight;
             }
             this.curLevel = curLevel;
+        }
+
+        private void setStartPoint(double posX, double posY)
+        {
+            StartC start = new StartC();
+            start.Width = cellWidth;
+            start.Height = cellHeight;
+            Canvas.SetLeft(start, posX);
+            Canvas.SetTop(start, posY);
+            board.Children.Add(start);
+        }
+
+        private void setGoalPointInGrid(double posX, double posY)
+        {
+            GoalC goal = new GoalC();
+            goal.Width = cellWidth;
+            goal.Height = cellHeight;
+            Canvas.SetLeft(goal, posX);
+            Canvas.SetTop(goal, posY);
+            board.Children.Add(goal);
         }
 
         private void board_SizeChanged(object sender, SizeChangedEventArgs e)
