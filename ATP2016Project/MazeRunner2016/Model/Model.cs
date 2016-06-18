@@ -15,6 +15,11 @@ namespace MazeRunner2016
 {
     public class Model : IModel
     {
+        //settings fields
+        private int m_numberOfThreads;
+        private string[] m_createMazeAlgo;
+        private string[] m_solveMazeAlgo;
+
         public event finishedComputing ModelChanged;
         private List<string> m_mazesNames;
         private Dictionary<string, Maze3d> m_mazes = new Dictionary<string, Maze3d>();
@@ -22,6 +27,13 @@ namespace MazeRunner2016
         private Dictionary<string, string> m_mazesSolveTime = new Dictionary<string, string>();
         private Dictionary<string, int> m_mazesStatesDeveloped = new Dictionary<string, int>();
         private Dictionary<string, Solution> m_mazeNamesSolution = new Dictionary<string, Solution>();
+
+        public void injectionSettingsModel(int numberOfThreads, string[] createMazeAlgo, string[] solveMazeAlgo)
+        {
+            m_numberOfThreads = numberOfThreads;
+            m_createMazeAlgo = createMazeAlgo;
+            m_solveMazeAlgo = solveMazeAlgo;
+        }
         private ZipFile zip;
         private List<string> m_folderNames = new List<string>();
 
@@ -115,8 +127,8 @@ namespace MazeRunner2016
 
         private void initThreadPool()
         {
-            int workerThreads = 10;
-            int completedThreads = 10;
+            int workerThreads = m_numberOfThreads;
+            int completedThreads = m_numberOfThreads;
             ThreadPool.SetMaxThreads(workerThreads, completedThreads);
         }
 

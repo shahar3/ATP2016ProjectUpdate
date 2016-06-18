@@ -14,15 +14,38 @@ namespace MazeRunner2016
         private Model m_model;
         private Dictionary<string, ICommand> m_commands;
         private List<string> m_functions = new List<string>();
+        //settings fields
+        private int numberOfThreads;
+        private string[] createMazeAlgo;
+        private string[] solveMazeAlgo;
 
         public Presenter(IView ui, IModel model)
         {
             m_ui = ui as View;
             m_model = model as Model;
+            //settings
+            initSettings();
+            //injection settins to the model and view
+            injectionSettins();
             //initialize the events for the view and model layer
             initEvents();
             setCommands();
             initFunctions();
+        }
+
+        private void injectionSettins()
+        {
+            m_ui.injectionSettingsView(numberOfThreads, createMazeAlgo, solveMazeAlgo);
+            m_model.injectionSettingsModel(numberOfThreads, createMazeAlgo, solveMazeAlgo);
+        }
+
+        private void initSettings()
+        {
+            numberOfThreads = Properties.Settings.Default.numberOfThreads;
+            createMazeAlgo = new string[Properties.Settings.Default.numberOfAlgoToCreate];
+            createMazeAlgo = Properties.Settings.Default.createMazeAlgo.Split(',');
+            solveMazeAlgo = new string[Properties.Settings.Default.numberOfAlgoToSolve];
+            solveMazeAlgo = Properties.Settings.Default.solveMazeAlgo.Split(',');
         }
 
         private void setCommands()

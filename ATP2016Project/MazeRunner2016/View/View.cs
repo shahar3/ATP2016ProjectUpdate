@@ -12,6 +12,11 @@ namespace MazeRunner2016
 {
     public class View : IView
     {
+        //settings fields
+        private int m_numberOfThreads;
+        private string[] m_createMazeAlgo;
+        private string[] m_solveMazeAlgo;
+
         private string[] mazesNames;
         private string m_saveMessage, timeToSolve, statesDeveloped, m_loadMessage;
         private Maze3d myMaze;
@@ -34,6 +39,13 @@ namespace MazeRunner2016
         public void displayMaze(object maze)
         {
             myMaze = maze as Maze3d;
+        }
+
+        public void injectionSettingsView(int numberOfThreads, string[] createMazeAlgo, string[] solveMazeAlgo)
+        {
+            m_numberOfThreads = numberOfThreads;
+            m_createMazeAlgo = createMazeAlgo;
+            m_solveMazeAlgo = solveMazeAlgo;
         }
 
         public void enterMazesNames(string[] names)

@@ -22,5 +22,65 @@ namespace MazeRunner2016.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int numberOfThreads {
+            get {
+                return ((int)(this["numberOfThreads"]));
+            }
+            set {
+                this["numberOfThreads"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("PRIM")]
+        public string createMazeAlgo {
+            get {
+                return ((string)(this["createMazeAlgo"]));
+            }
+            set {
+                this["createMazeAlgo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("BFS,DFS")]
+        public string solveMazeAlgo {
+            get {
+                return ((string)(this["solveMazeAlgo"]));
+            }
+            set {
+                this["solveMazeAlgo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int numberOfAlgoToSolve {
+            get {
+                return ((int)(this["numberOfAlgoToSolve"]));
+            }
+            set {
+                this["numberOfAlgoToSolve"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int numberOfAlgoToCreate {
+            get {
+                return ((int)(this["numberOfAlgoToCreate"]));
+            }
+            set {
+                this["numberOfAlgoToCreate"] = value;
+            }
+        }
     }
 }

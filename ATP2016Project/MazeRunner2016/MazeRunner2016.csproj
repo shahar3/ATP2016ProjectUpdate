@@ -132,11 +132,6 @@
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MazeEventArgs.cs" />
-    <Compile Include="MazeRunner2016Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>MazeRunner2016Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="Presenter\ACommand.cs" />
     <Compile Include="Presenter\Commands.cs" />
     <Compile Include="Presenter\ICommand.cs" />
