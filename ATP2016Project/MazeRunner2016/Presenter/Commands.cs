@@ -424,7 +424,7 @@ namespace MazeRunner2016
 
         public override void DoCommand(params string[] parameters)
         {
-            m_model.prepareMazesNames();
+            m_model.removeAllMazes();
         }
 
         public override string GetDescription()
