@@ -14,14 +14,14 @@
                 <MenuItem Header="Load" Click="clickLoad"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Options">
-                <MenuItem Header="Properties" Click="MenuItem_Click_3"></MenuItem>
-                <MenuItem Header="Report a bug" Click="MenuItem_Click_4"></MenuItem>
+                <MenuItem Header="Properties" Click="clickProperties"></MenuItem>
+                <MenuItem Header="Report a bug" Click="clickBug"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Help">
-                <MenuItem Header="Instructions" Click="MenuItem_Click_5"></MenuItem>
-                <MenuItem Header="About us" Click="MenuItem_Click_6"></MenuItem>
+                <MenuItem Header="Instructions" Click="clickInstructions"></MenuItem>
+                <MenuItem Header="About us" Click="clickAboutUs"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_Exit" Click="MenuItem_Click_7"></MenuItem>
+            <MenuItem Header="_Exit" Click="clickExit"></MenuItem>
         </Menu>
     </Grid>
 </UserControl>

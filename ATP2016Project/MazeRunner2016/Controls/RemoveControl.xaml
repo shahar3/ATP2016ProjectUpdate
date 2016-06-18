@@ -20,10 +20,10 @@
         </Grid.ColumnDefinitions>
         <Label Name="title" HorizontalAlignment="Center" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="32" FontWeight="Light" Foreground="DarkRed">Remove maze</Label>
         <Label Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0">Choose a maze from the list</Label>
-        <ComboBox Name="mazesBox" Grid.Row="2"></ComboBox>
-        <Button Name="removeBtn" Grid.Row="2" Grid.Column="1" Click="removeBtn_Click">Remove</Button>
+        <ComboBox Name="mazesBox" Grid.Row="2" SelectionChanged="mazesBox_SelectionChanged"></ComboBox>
+        <Button Name="removeBtn" Grid.Row="2" Grid.Column="1" Click="removeBtn_Click" IsEnabled="False">Remove</Button>
         <Button Name="removeAllBtn" Grid.Row="3" Grid.Column="1" Click="removeAllBtn_Click">Remove all mazes</Button>
-        <Button Name="displayMazeBtn" Grid.Row="3" Click="displayBtn_Click">Display</Button>
+        <Button Name="displayMazeBtn" Grid.Row="3" Click="displayBtn_Click" IsEnabled="False">Display</Button>
         <DockPanel Name="mazePanel" Grid.Row="4" Grid.ColumnSpan="2"></DockPanel>
     </Grid>
 </UserControl>

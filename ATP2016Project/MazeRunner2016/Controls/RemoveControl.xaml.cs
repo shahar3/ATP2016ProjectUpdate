@@ -22,6 +22,9 @@ namespace MazeRunner2016.Controls
     public partial class RemoveControl : UserControl
     {
         private IView m_view;
+
+        public List<string> Items { get; private set; }
+
         public RemoveControl(IView view)
         {
             InitializeComponent();
@@ -30,7 +33,10 @@ namespace MazeRunner2016.Controls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            mazesBox.ItemsSource = m_view.getMazesNames();
+            string[] commandName = new string[] { "getMazesNames" };
+            m_view.activateEvent(sender, new MazeEventArgs(commandName));
+            Items = m_view.getMazesNames().ToList<string>(); 
+            mazesBox.ItemsSource = Items;
         }
 
         private void displayBtn_Click(object sender, RoutedEventArgs e)
@@ -57,6 +63,9 @@ namespace MazeRunner2016.Controls
             {
                 return;
             }
+            Items.Remove(parameters[0]);
+            mazesBox.ItemsSource = Items;
+            mazesBox.Items.Refresh();
         }
 
         private void removeAllBtn_Click(object sender, RoutedEventArgs e)
@@ -72,6 +81,15 @@ namespace MazeRunner2016.Controls
                 return;
             }
             m_view.activateEvent(sender, new MazeEventArgs(parameters));
+            Items.Clear();
+            mazesBox.ItemsSource = Items;
+            mazesBox.Items.Refresh();
+        }
+
+        private void mazesBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            removeBtn.IsEnabled = true;
+            displayMazeBtn.IsEnabled = true;
         }
     }
 }

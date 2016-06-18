@@ -7,14 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <ListBox Name="sideMenu" SelectionChanged="sideMenu_SelectionChanged" >
-            <ListBox.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="3,3" >
-                    <GradientStop Color="#FFD4EFFA" Offset="0" />
-                    <GradientStop Color="Aqua" Offset="1" />
-                    <GradientStop Color="Red" Offset="1.1" />
-                </LinearGradientBrush>
-            </ListBox.Background>
+        <ListBox Name="sideMenu" SelectionChanged="sideMenu_SelectionChanged" Background="Transparent" FontSize="20" FontWeight="Bold">
+            
         </ListBox>
     </Grid>
 </UserControl>

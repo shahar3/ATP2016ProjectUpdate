@@ -35,6 +35,11 @@ namespace MazeRunner2016.Controls
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            if (textBox.Text.Trim() == "")
+            {
+                MessageBox.Show("You didn't type a name");
+                return;
+            }
             string[] parameters = new string[4];
             parameters[0] = textBox.Text;
             parameters[1] = heightVal.Text;
