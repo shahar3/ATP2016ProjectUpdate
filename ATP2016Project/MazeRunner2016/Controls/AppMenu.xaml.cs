@@ -74,29 +74,35 @@ namespace MazeRunner2016.Controls
             panel.Children.Add(generateControl);
         }
 
-        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        private void clickProperties(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        private void clickBug(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void MenuItem_Click_5(object sender, RoutedEventArgs e)
+        private void clickInstructions(object sender, RoutedEventArgs e)
+        {
+            Instructions instruct = new Instructions();
+            panel.Children.Clear();
+            panel.Children.Add(instruct);
+        }
+
+        private void clickAboutUs(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void MenuItem_Click_6(object sender, RoutedEventArgs e)
+        private void clickExit(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void MenuItem_Click_7(object sender, RoutedEventArgs e)
-        {
-
+            ExitDialog exit = new ExitDialog("Are you sure you want to exit?");
+            if (exit.ShowDialog() == true)
+            {
+                m_view.activateEvent(sender, new MazeEventArgs("Exit"));
+            }
         }
     }
 }

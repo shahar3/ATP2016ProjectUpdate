@@ -7,6 +7,87 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <TabControl>
+            <TabItem Header="General">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label FontSize="32" Foreground="DarkRed" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Instructions" />
+                    <TextBlock Grid.Row="1" Padding="10 10 10 10" TextWrapping="Wrap">
+                        In this app you can create mazes, and play with them after. <LineBreak/>
+                        First look at the menu in the right top corner. You can save, remove or load your mazes
+                        that you can later see and play.<LineBreak/>
+                        Go to the other tabs to more information about the generating system and the game.
+                    </TextBlock>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Maze generate">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label FontSize="32" Foreground="DarkRed" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Generate maze" />
+                    <TextBlock TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" Padding="10 10 10 10">In this screen you generate the maze<LineBreak/>
+                    <Bold>Tip: </Bold>
+                    creata upto 40*40*10 mazes. above that the system will work slow and it will take time to generate the game board
+                    <LineBreak/><LineBreak/>
+                    First choose the name of your maze. (Be carefull not to choose a name that already exist.
+                        <LineBreak/>
+                        Choose the dimensions of your maze, either with the sliders or with the text boxes.
+                        <LineBreak/>After you finished to set the setting press on the button Generate.  <LineBreak/>
+                        It will take a few moments to create your maze (depends on the maze dimensions).<LineBreak/>
+                        When the generating process will finish a message will pop to the screen.
+                    </TextBlock>
+                    <Image Grid.Row="1" Source="C:\Users\YAKIR HERSHKOVIZ\Source\Repos\ATP2016ProjectUpdate2\ATP2016Project\MazeRunner2016\Resources\genScreen.PNG"></Image>
+                </Grid>
+            </TabItem>
+            <TabItem Header="The game">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label FontSize="32" Grid.ColumnSpan="2" Foreground="DarkRed" HorizontalAlignment="Center" VerticalAlignment="Center" Content="The game" />
+                    <TextBlock Grid.RowSpan="3" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Padding="10 10 10 10">
+                        After you've generated a maze you can play it. <LineBreak/>
+                        Press either on play or display maze from the menu<LineBreak/>
+                        Now choose a maze to play, press on display and then press on the play button in the bottom right corner.<LineBreak/>
+                        A new window will show up. this is the game window. <LineBreak/><LineBreak/>
+                        <Bold>About the game window: </Bold><LineBreak/>
+                        You have the game panel on top of the screen. there you can see the time elapsed in seconds and number of steps made since the beginning.
+                        <LineBreak/>If the maze is too difficult you can use the solve maze button. After pressing it the solution will show up on the screen and you can follow it.
+                        <LineBreak/>You can also hide it by checking the check box. If you want to show it again just uncheck again.
+                        <LineBreak/><Bold>Movement:</Bold><LineBreak/>
+                        You can either move with the arrow keys (<Bold>up,down,left,right</Bold>) or with the mouse. <LineBreak/>
+                        To move with the mouse just click on your character and drag it. <LineBreak/>
+                        This maze is build to levels. To go up one level press on the key <Bold>PageUp</Bold>. To go down one level press on the key <Bold>PageDown</Bold><LineBreak/>
+                        <Bold>How do i know if i can go up or down?</Bold><LineBreak/>
+                        For that we put the bulb to indicate if you can go up or down. If the bulb is on you can move through layers. Else you can't
+                        <LineBreak/>
+                        <Bold>Zoom in and out</Bold><LineBreak/>
+                        We add the feature of zooming in and out the board. To do that you simply have to press <Bold>Ctrl+Mouse Wheel up/down</Bold>
+                        <LineBreak/> if you want to go back to the normal size, just press <Bold>R</Bold>.<LineBreak/>
+                        <LineBreak/>You can also restart the game by pressing the button in the game panel
+                    </TextBlock>
+                        <Image Grid.Row="1" Source="pack://siteoforigin:,,,/Pics\playPanel.PNG"></Image>
+                        <Image Grid.Row="3" Source="pack://siteoforigin:,,,/Pics\startPoint.PNG" ToolTip="Start point"></Image>
+                </Grid>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

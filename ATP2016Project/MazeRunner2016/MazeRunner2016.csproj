@@ -286,46 +286,56 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\questionMark.png" />
+    <Resource Include="Pics\questionMark.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\wall.jpg" />
+    <Resource Include="Pics\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\grass.jpg" />
+    <Resource Include="Pics\grass.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\start.png" />
+    <Resource Include="Pics\start.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\goal.jpg" />
+    <Resource Include="Pics\goal.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\player.png" />
+    <Resource Include="Pics\player.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\solution.jpg" />
+    <Resource Include="Pics\solution.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\wall compressed.jpg" />
+    <Resource Include="Pics\wall compressed.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\grass compressed.jpg" />
+    <Resource Include="Pics\grass compressed.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\light on.png" />
+    <Resource Include="Pics\light on.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\light off.png" />
+    <Resource Include="Pics\light off.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\background.jpg" />
+    <Resource Include="Pics\background.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\backgroundHome.jpg" />
+    <Resource Include="Pics\backgroundHome.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\icon.gif" />
+    <Resource Include="Pics\icon.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\genScreen.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\playPanel.PNG" />
+    <Resource Include="Pics\startPoint.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
