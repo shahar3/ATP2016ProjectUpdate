@@ -9,6 +9,10 @@ namespace MazeRunner2016
 {
     public delegate void somethingHappened(Object sender, EventArgs e);
     public delegate void solutionDelegate();
+    /// <summary>
+    /// this the interfacr of the view
+    /// here we declare about all th functions that apper in the view
+    /// </summary>
     public interface IView
     {
         event somethingHappened ViewChanged;
