@@ -28,6 +28,7 @@ namespace MazeRunner2016
         public MazeEventArgs(params string[] args)
         {
             m_params = args;
+
         }
 
         private Object m_textBox;
