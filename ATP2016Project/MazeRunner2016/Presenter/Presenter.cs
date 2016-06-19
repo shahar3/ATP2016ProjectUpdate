@@ -8,6 +8,10 @@ using System.Windows.Controls;
 
 namespace MazeRunner2016
 {
+    /// <summary>
+    /// this class has the layer that connected with view and model 
+    /// it activate function in model and view 
+    /// </summary>
     public class Presenter
     {
         private View m_ui;
@@ -32,13 +36,17 @@ namespace MazeRunner2016
             setCommands();
             initFunctions();
         }
-
+        /// <summary>
+        /// injection settings to the view and the model
+        /// </summary>
         private void injectionSettins()
         {
             m_ui.injectionSettingsView(numberOfThreads, createMazeAlgo, solveMazeAlgo);
             m_model.injectionSettingsModel(numberOfThreads, createMazeAlgo, solveMazeAlgo);
         }
-
+        /// <summary>
+        /// this function init the settings from the settings file
+        /// </summary>
         private void initSettings()
         {
             numberOfThreads = Properties.Settings.Default.numberOfThreads;
@@ -47,7 +55,9 @@ namespace MazeRunner2016
             solveMazeAlgo = new string[Properties.Settings.Default.numberOfAlgoToSolve];
             solveMazeAlgo = Properties.Settings.Default.solveMazeAlgo.Split(',');
         }
-
+        /// <summary>
+        /// set the commands we are have
+        /// </summary>
         private void setCommands()
         {
             m_commands = new Dictionary<string, ICommand>();
@@ -64,7 +74,9 @@ namespace MazeRunner2016
             m_commands["removeAll"] = new CommandRemoveAll(m_model, m_ui);
             m_commands["remove"] = new CommandRemove(m_model, m_ui);
         }
-
+        /// <summary>
+        /// add the name of thefunction to the dictionary
+        /// </summary>
         private void initFunctions()
         {
             m_functions.Add("Home");
@@ -76,7 +88,9 @@ namespace MazeRunner2016
             m_functions.Add("Play");
             m_functions.Add("Exit");
         }
-
+        /// <summary>
+        /// init the events that call from the model and view 
+        /// </summary>
         private void initEvents()
         {
             m_ui.ViewChanged += delegate (Object sender, EventArgs e)

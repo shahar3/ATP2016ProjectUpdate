@@ -13,38 +13,61 @@ using Ionic.Zip;
 
 namespace MazeRunner2016
 {
+    /// <summary>
+    /// this class contain functions that activate from the presenter layer
+    /// this functions activate functions from the mazeLib and compute the promblems
+    /// </summary>
     public class Model : IModel
     {
         //settings fields
         private int m_numberOfThreads;
         private string[] m_createMazeAlgo;
         private string[] m_solveMazeAlgo;
-
+        //envent that activate when we finish computing
         public event finishedComputing ModelChanged;
         private List<string> m_mazesNames;
+        //dictionary that contain all the mazes that the user created
         private Dictionary<string, Maze3d> m_mazes = new Dictionary<string, Maze3d>();
+        //dictionary that contain all the mazes that the user call for solution
         private Dictionary<Maze3d, Solution> m_mazesSolution = new Dictionary<Maze3d, Solution>();
         private Dictionary<string, string> m_mazesSolveTime = new Dictionary<string, string>();
         private Dictionary<string, int> m_mazesStatesDeveloped = new Dictionary<string, int>();
         private Dictionary<string, Solution> m_mazeNamesSolution = new Dictionary<string, Solution>();
 
-        public void injectionSettingsModel(int numberOfThreads, string[] createMazeAlgo, string[] solveMazeAlgo)
-        {
-            m_numberOfThreads = numberOfThreads;
-            m_createMazeAlgo = createMazeAlgo;
-            m_solveMazeAlgo = solveMazeAlgo;
-        }
+        //zip fields
         private ZipFile zip;
         private List<string> m_folderNames = new List<string>();
 
+        /// <summary>
+        /// constructor
+        /// </summary>
         public Model()
         {
             initThreadPool();
             loadMazes();
         }
 
+        /// <summary>
+        ///this function activated from the presenter and init the settings fields
+        ///with details from settings file
+        /// </summary>
+        /// <param name="numberOfThreads">number of threads</param>
+        /// <param name="createMazeAlgo">name of create algorithm</param>
+        /// <param name="solveMazeAlgo">name of solve algorithms</param>
+        public void injectionSettingsModel(int numberOfThreads, string[] createMazeAlgo, string[] solveMazeAlgo)
+        {
+            m_numberOfThreads = numberOfThreads;
+            m_createMazeAlgo = createMazeAlgo;
+            m_solveMazeAlgo = solveMazeAlgo;
+        }
+
+        /// <summary>
+        /// this function activate from the constuctor and load the mazes 
+        /// that save in the exit application 
+        /// </summary>
         private void loadMazes()
         {
+            //check if exist zip that contain the mazes
             if (!File.Exists("Mazes.zip"))
             {
                 return;
@@ -71,6 +94,9 @@ namespace MazeRunner2016
             }
         }
 
+        /// <summary>
+        /// apply solution
+        /// </summary>
         private void applySolution()
         {
             foreach (string mazeName in m_mazes.Keys)
@@ -82,6 +108,9 @@ namespace MazeRunner2016
             }
         }
 
+        /// <summary>
+        /// this function help us to clear folder
+        /// </summary>
         private void clearFolder()
         {
             foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory()))
@@ -94,6 +123,10 @@ namespace MazeRunner2016
             }
         }
 
+
+        /// <summary>
+        /// this function build the dictionary that contain maze as keyand solution as value
+        /// </summary>
         private void buildDictionary()
         {
             foreach (string mazeName in m_mazes.Keys)
@@ -102,6 +135,12 @@ namespace MazeRunner2016
             }
         }
 
+
+        /// <summary>
+        /// this function build maze from compressed file
+        /// </summary>
+        /// <param name="fileName">file name</param>
+        /// <param name="mazeName">maze name</param>
         private void buildMaze(string fileName, string mazeName)
         {
             using (FileStream input = new FileStream(fileName, FileMode.Open))
@@ -115,6 +154,11 @@ namespace MazeRunner2016
             }
         }
 
+        /// <summary>
+        /// this function build solution from solution iin file
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="mazeName"></param>
         private void buildSolution(string fileName, string mazeName)
         {
             using (StreamReader sr = new StreamReader(fileName))
@@ -125,6 +169,10 @@ namespace MazeRunner2016
             }
         }
 
+        /// <summary>
+        /// this function call from the constructor and init the threads pool 
+        /// with values from the settings fields
+        /// </summary>
         private void initThreadPool()
         {
             int workerThreads = m_numberOfThreads;
@@ -132,17 +180,34 @@ namespace MazeRunner2016
             ThreadPool.SetMaxThreads(workerThreads, completedThreads);
         }
 
+        /// <summary>
+        /// this function activated from thegenerate command 
+        /// and call to the function Run that run this job in a new thread(in the thread pool)
+        /// </summary>
+        /// <param name="x">x length</param>
+        /// <param name="y">y length</param>
+        /// <param name="z">maze name</param>
+        /// <param name="mazeName"></param>
         public void generateMaze(int x, int y, int z, string mazeName)
         {
             string parameters = string.Format("{0},{1},{2}", x, y, z);
             Run("generate3dMaze", mazeName, parameters);
         }
 
+        /// <summary>
+        /// this function avtivate the event that say to the presenter that 
+        /// the model finish
+        /// </summary>
+        /// <param name="commandName">command name</param>
+        /// <param name="otherInformation">other information</param>
         public void activateEvent(string commandName, string otherInformation)
         {
             ModelChanged(commandName, otherInformation);
         }
 
+        /// <summary>
+        /// this function prepare the list that contain all mazes names that exist
+        /// </summary>
         public void prepareMazesNames()
         {
             m_mazesNames = new List<string>();
@@ -150,31 +215,61 @@ namespace MazeRunner2016
             ModelChanged("getMazesNames", "done");
         }
 
+        /// <summary>
+        /// this function return array of mazesnames
+        /// </summary>
+        /// <returns>names of the mazes</returns>
         public string[] getMazesNames()
         {
             return m_mazesNames.ToArray();
         }
 
+        /// <summary>
+        /// this function return specific maze by the name
+        /// </summary>
+        /// <param name="nameOfTheMaze"></param>
+        /// <returns></returns>
         public object getMaze(string nameOfTheMaze)
         {
             return m_mazes[nameOfTheMaze];
         }
 
+        /// <summary>
+        /// this function activate the run functionthat run the solve in a new thread
+        /// </summary>
+        /// <param name="mazeName"></param>
+        /// <param name="algoName"></param>
         public void solveMaze(string mazeName, string algoName)
         {
             Run("solveMaze", mazeName, algoName);
         }
 
+        /// <summary>
+        /// this function return specific solution by maze name
+        /// </summary>
+        /// <param name="mazeName">maze name</param>
+        /// <returns>solution</returns>
         public Solution getSolution(string mazeName)
         {
             return m_mazesSolution[m_mazes[mazeName] as Maze3d];
         }
 
+        /// <summary>
+        /// this function return the solve time of specific maze
+        /// </summary>
+        /// <param name="mazeName">mazename</param>
+        /// <returns>string of solve time</returns>
         internal string getSolvedTime(string mazeName)
         {
             return m_mazesSolveTime[mazeName];
         }
 
+        /// <summary>
+        /// this function help us to save a maze
+        /// we use the compress(write) that place in the mazeLib
+        /// </summary>
+        /// <param name="mazeName">maze name</param>
+        /// <param name="mazePath">maze path</param>
         public void saveMaze(string mazeName, string mazePath)
         {
             Maze3d myMaze = m_mazes[mazeName] as Maze3d;
@@ -205,11 +300,21 @@ namespace MazeRunner2016
             ModelChanged("saveMaze", "The maze saved");
         }
 
+        /// <summary>
+        /// this function return the number of states that the algorithm developed
+        /// </summary>
+        /// <param name="mazeName">maze name</param>
+        /// <returns>number ofstates</returns>
         public int getStatesDeveloped(string mazeName)
         {
             return m_mazesStatesDeveloped[mazeName];
         }
 
+        /// <summary>
+        /// this function help us to load a maze
+        /// </summary>
+        /// <param name="mazePath">maze path</param>
+        /// <param name="mazeNameToSave">name to save</param>
         public void loadMaze(string mazePath, string mazeNameToSave)
         {
             using (FileStream fs = new FileStream(mazePath, FileMode.Open))
@@ -247,7 +352,12 @@ namespace MazeRunner2016
         }
 
 
-
+        /// <summary>
+        /// this function which operation to do and activate the function that run this computing in thread pool 
+        /// </summary>
+        /// <param name="commandName">command name</param>
+        /// <param name="mazeName">maze name</param>
+        /// <param name="parameters">parameters</param>
         private void Run(string commandName, string mazeName, string parameters)
         {
             switch (commandName)
@@ -264,10 +374,12 @@ namespace MazeRunner2016
                     }
                     break;
                 case "solveMaze":
+                    //the solution exist
                     if (m_mazesSolution.ContainsKey(m_mazes[mazeName] as Maze3d))
                     {
                         ModelChanged("isExist", mazeName + ",false");
                     }
+                    //run in thread pool
                     else
                     {
                         RunInThreadPool(commandName, mazeName, parameters);
@@ -276,8 +388,15 @@ namespace MazeRunner2016
             }
         }
 
+        /// <summary>
+        /// this function check which operation to doand run it in the thread pool
+        /// </summary>
+        /// <param name="CommandName">command name</param>
+        /// <param name="mazeName">maze name</param>
+        /// <param name="parameters">parameters</param>
         private void RunInThreadPool(string CommandName, string mazeName, string parameters)
         { //10,10,3 
+
             switch (CommandName)
             {
                 case "generate3dMaze":
@@ -321,6 +440,13 @@ namespace MazeRunner2016
             }
         }
 
+        /// <summary>
+        /// this function prepared the info of the solution ofspecific maze name
+        ///and call to the event that alarm to the presenter that somthing change
+        /// </summary>
+        /// <param name="mazeName">maze name</param>
+        /// <param name="timeToSolve">time to solve</param>
+        /// <param name="algo">algorithm name</param>
         private void getSolutionInfo(string mazeName, string timeToSolve, ISearchingAlgorithm algo)
         {
             m_mazesSolveTime[mazeName] = timeToSolve;
@@ -328,6 +454,9 @@ namespace MazeRunner2016
             ModelChanged("solveMaze", mazeName + ",true");
         }
 
+        /// <summary>
+        /// this function help us to save maze that have a solution to zip 
+        /// </summary>
         public void saveMazesToZip()
         {
             removeZipFile();
@@ -347,6 +476,9 @@ namespace MazeRunner2016
             removeFolders();
         }
 
+        /// <summary>
+        /// this function remove the zip file
+        /// </summary>
         private void removeZipFile()
         {
             if (File.Exists("Mazes.zip"))
@@ -355,6 +487,9 @@ namespace MazeRunner2016
             }
         }
 
+        /// <summary>
+        /// this function remove folder
+        /// </summary>
         private void removeFolders()
         {
             foreach (string folder in m_folderNames)
@@ -368,6 +503,9 @@ namespace MazeRunner2016
             }
         }
 
+        /// <summary>
+        /// this function create a zip file
+        /// </summary>
         private void createZipFile()
         {
             using (ZipFile zip = new ZipFile())
@@ -380,6 +518,12 @@ namespace MazeRunner2016
             }
         }
 
+        /// <summary>
+        /// set folder and save maze
+        /// </summary>
+        /// <param name="mazeToSave">maze to save in bytes</param>
+        /// <param name="solutionToSave">solution to save</param>
+        /// <param name="mazeName">maze name</param>
         private void setFolderAndSaveMaze(byte[] mazeToSave, string solutionToSave, string mazeName)
         {
             createFolder(mazeName);
@@ -387,11 +531,20 @@ namespace MazeRunner2016
             writeToFolder(solutionToSave, mazeName + @"\" + mazeName + ".sol");
         }
 
+        /// <summary>
+        /// this function create a folder
+        /// </summary>
+        /// <param name="mazeName">maze name</param>
         private void createFolder(string mazeName)
         {
             Directory.CreateDirectory(mazeName);
         }
 
+        /// <summary>
+        /// this function write to folder
+        /// </summary>
+        /// <param name="objectToSave">object to save</param>
+        /// <param name="nameToSave">name to save</param>
         private void writeToFolder(object objectToSave, string nameToSave)
         {
             byte[] inputSource;
@@ -420,6 +573,10 @@ namespace MazeRunner2016
             }
         }
 
+        /// <summary>
+        /// this function delete specific maze 
+        /// </summary>
+        /// <param name="mazeName">maze name</param>
         public void removeMaze(string mazeName)
         {
             if (m_mazesSolution.ContainsKey(m_mazes[mazeName]))
@@ -430,6 +587,9 @@ namespace MazeRunner2016
             m_mazesNames.Remove(mazeName);
         }
 
+        /// <summary>
+        /// this function help us to clear the maze from the memory
+        /// </summary>
         public void removeAllMazes()
         {
             m_mazesNames.Clear();

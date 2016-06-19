@@ -372,66 +372,105 @@ namespace MazeRunner2016
     }
 
     #region helping commands
+    /// <summary>
+    /// get themazes name
+    /// </summary>
     public class CommandGetMazesNames : ACommand
     {
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="model">model</param>
+        /// <param name="view">view</param>
         public CommandGetMazesNames(IModel model, IView view) : base(model, view)
         {
         }
-
+        /// <summary>
+        /// getnthe mazes name
+        /// </summary>
+        /// <param name="parameters"></param>
         public override void DoCommand(params string[] parameters)
         {
             m_model.prepareMazesNames();
         }
-
+        /// <summary>
+        /// get the description
+        /// </summary>
+        /// <returns>string</returns>
         public override string GetDescription()
         {
             return "prepare all the mazes names exist in our system";
         }
-
+        /// <summary>
+        /// get the name
+        /// </summary>
+        /// <returns>the name</returns>
         public override string GetName()
         {
             return "prepareMazesNames";
         }
     }
-
+    /// <summary>
+    /// remove maze
+    /// </summary>
     public class CommandRemove : ACommand
     {
         public CommandRemove(IModel model, IView view) : base(model, view)
         {
         }
-
+        /// <summary>
+        /// remove mazes
+        /// </summary>
+        /// <param name="parameters"></param>
         public override void DoCommand(params string[] parameters)
         {
             m_model.removeMaze(parameters[0]);
         }
-
+        /// <summary>
+        /// get the description
+        /// </summary>
+        /// <returns></returns>
         public override string GetDescription()
         {
             return "remove a certain maze";
         }
-
+        /// <summary>
+        /// get the name
+        /// </summary>
+        /// <returns>string</returns>
         public override string GetName()
         {
             return "remove";
         }
     }
-
+    /// <summary>
+    /// remove all the mazes
+    /// </summary>
     public class CommandRemoveAll : ACommand
     {
         public CommandRemoveAll(IModel model, IView view) : base(model, view)
         {
         }
-
+        /// <summary>
+        /// remove all the mazes
+        /// </summary>
+        /// <param name="parameters"></param>
         public override void DoCommand(params string[] parameters)
         {
             m_model.removeAllMazes();
         }
-
+        /// <summary>
+        /// get the description
+        /// </summary>
+        /// <returns>string</returns>
         public override string GetDescription()
         {
             return "removes all mazes in the system";
         }
-
+        /// <summary>
+        /// get the name
+        /// </summary>
+        /// <returns>string</returns>
         public override string GetName()
         {
             return "remove mazes";
