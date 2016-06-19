@@ -25,17 +25,29 @@ namespace MazeRunner2016.Controls
     {
         private IView m_view;
 
+        /// <summary>
+        /// the default constructor
+        /// </summary>
         public SaveControl()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// constructor that update our view layer
+        /// </summary>
+        /// <param name="view">view layer</param>
         public SaveControl(IView view)
         {
             InitializeComponent();
             m_view = view;
         }
 
+        /// <summary>
+        /// update the combo box
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             string[] commandName = new string[] { "getMazesNames" };
@@ -43,6 +55,11 @@ namespace MazeRunner2016.Controls
             comboBoxSave.ItemsSource = m_view.getMazesNames();
         }
 
+        /// <summary>
+        /// perform the save, and call the command in the presenter layer
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
             if (comboBoxSave.SelectedItem != null)
@@ -51,6 +68,7 @@ namespace MazeRunner2016.Controls
                 string mazeToSave = comboBoxSave.SelectedItem.ToString();
                 //get tha path
                 SaveFileDialog sfd = new SaveFileDialog();
+                //our filter
                 sfd.Filter = "Text file (*.txt)|*.txt|C# file (*.cs)|*.cs";
                 sfd.InitialDirectory = @"c:\";
                 sfd.FileName = ".txt";
@@ -72,9 +90,14 @@ namespace MazeRunner2016.Controls
             }
         }
 
+        /// <summary>
+        /// show a sneak preview of the maze
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         private void previewBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (comboBoxSave.SelectedItem != null)
+            if (comboBoxSave.SelectedItem != null) //only if we check something
             {
                 string mazeToShow = comboBoxSave.SelectedItem.ToString();
                 (sender as Button).Name = "displayMazeBtn";

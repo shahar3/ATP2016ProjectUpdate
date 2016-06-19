@@ -26,11 +26,19 @@ namespace MazeRunner2016.Controls
         private IView m_view;
         private IModel m_model;
 
+        /// <summary>
+        /// the default constructor
+        /// </summary>
         public SideMenuControl()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// the menu constructor
+        /// </summary>
+        /// <param name="view">the view layer</param>
+        /// <param name="model">the model layer</param>
         public SideMenuControl(IView view, IModel model)
         {
             InitializeComponent();
@@ -40,9 +48,15 @@ namespace MazeRunner2016.Controls
             sideMenu.ItemsSource = m_view.getFunctions();
         }
 
+        /// <summary>
+        /// the menu action. 
+        /// when we press on a button it will show it in the main frame
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         public void sideMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sideMenu.SelectedItem == null)
+            if (sideMenu.SelectedItem == null) //if its null return
             {
                 return;
             }
@@ -58,7 +72,7 @@ namespace MazeRunner2016.Controls
                     break;
                 case "Play":
                 case "Display maze":
-                    DisplayControl displayControl = new DisplayControl(m_view, m_model);
+                    DisplayControl displayControl = new DisplayControl(m_view);
                     actionPanel.Children.Clear();
                     actionPanel.Children.Add(displayControl);
                     break;
@@ -91,12 +105,12 @@ namespace MazeRunner2016.Controls
                     actionPanel.Children.Clear();
                     actionPanel.Children.Add(remove);
                     break;
-                case "Generate maze":
+                case "Generate maze": //generate control
                     GenerateControl generateControl = new GenerateControl(m_view);
                     actionPanel.Children.Clear();
                     actionPanel.Children.Add(generateControl);
                     break;
-                case "Exit":
+                case "Exit": //exit command
                     ExitDialog exit = new ExitDialog("Are you sure you want to exit?");
                     if (exit.ShowDialog() == true)
                     {

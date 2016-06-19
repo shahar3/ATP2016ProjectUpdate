@@ -12,6 +12,8 @@
                 <MenuItem Header="New" Click="clickNew"></MenuItem>
                 <MenuItem Header="Save" Click="clickSave"></MenuItem>
                 <MenuItem Header="Load" Click="clickLoad"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Remove" Click="MenuItem_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Options">
                 <MenuItem Header="Properties" Click="clickProperties"></MenuItem>

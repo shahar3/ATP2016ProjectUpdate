@@ -17,7 +17,7 @@
                     <Label FontSize="32" Foreground="DarkRed" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Instructions" />
                     <TextBlock Grid.Row="1" Padding="10 10 10 10" TextWrapping="Wrap">
                         In this app you can create mazes, and play with them after. <LineBreak/>
-                        First look at the menu in the right top corner. You can save, remove or load your mazes
+                        First look at the menu in the left top corner. You can save, remove or load your mazes
                         that you can later see and play.<LineBreak/>
                         Go to the other tabs to more information about the generating system and the game.
                     </TextBlock>

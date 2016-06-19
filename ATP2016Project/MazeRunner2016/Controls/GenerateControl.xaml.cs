@@ -22,30 +22,52 @@ namespace MazeRunner2016.Controls
     {
         private IView m_ui;
 
+        /// <summary>
+        /// the default constructor
+        /// </summary>
         public GenerateControl()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// the constructor that we use
+        /// </summary>
+        /// <param name="ui">the view layer</param>
         public GenerateControl(IView ui) : base()
         {
             InitializeComponent();
             m_ui = ui;
         }
 
+        /// <summary>
+        /// when we press on generate it collects the data and performes the generate command
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            if (textBox.Text.Trim() == "")
+            if (textBox.Text.Trim() == "") //in case we didn't type anything
             {
                 MessageBox.Show("You didn't type a name");
                 return;
             }
+            string[] parameters = getMazeProperties(); //get properties
+            m_ui.activateEvent(sender, new MazeEventArgs(parameters)); //tell the presenter to generate
+        }
+
+        /// <summary>
+        /// collect the properties of the maze
+        /// </summary>
+        /// <returns>array of properties</returns>
+        private string[] getMazeProperties()
+        {
             string[] parameters = new string[4];
             parameters[0] = textBox.Text;
             parameters[1] = heightVal.Text;
             parameters[2] = widthVal.Text;
             parameters[3] = levelVal.Text;
-            m_ui.activateEvent(sender, new MazeEventArgs(parameters));
+            return parameters;
         }
     }
 }

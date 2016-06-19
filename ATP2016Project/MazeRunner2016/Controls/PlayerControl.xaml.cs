@@ -20,12 +20,10 @@ namespace MazeRunner2016.Controls
     /// </summary>
     public partial class PlayerControl : UserControl
     {
+        /// <summary>
+        /// the default constructor
+        /// </summary>
         public PlayerControl()
-        {
-            InitializeComponent();
-        }
-
-        public PlayerControl(int width, int height)
         {
             InitializeComponent();
         }

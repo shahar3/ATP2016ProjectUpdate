@@ -23,22 +23,37 @@ namespace MazeRunner2016.Controls
     {
         private IView m_view;
 
+        //the items that we show in the combobox
         public List<string> Items { get; private set; }
 
+        /// <summary>
+        /// our constructor
+        /// </summary>
+        /// <param name="view">view layer</param>
         public RemoveControl(IView view)
         {
             InitializeComponent();
             m_view = view;
         }
 
+        /// <summary>
+        /// loaded the mazes names to the combo box
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             string[] commandName = new string[] { "getMazesNames" };
             m_view.activateEvent(sender, new MazeEventArgs(commandName));
-            Items = m_view.getMazesNames().ToList<string>(); 
+            Items = m_view.getMazesNames().ToList<string>();
             mazesBox.ItemsSource = Items;
         }
 
+        /// <summary>
+        /// display the maze that we chose
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         private void displayBtn_Click(object sender, RoutedEventArgs e)
         {
             string[] parameters = new string[1];
@@ -50,6 +65,11 @@ namespace MazeRunner2016.Controls
             mazePanel.Children.Add(mazeDisplay);
         }
 
+        /// <summary>
+        /// remove the chosen maze
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         private void removeBtn_Click(object sender, RoutedEventArgs e)
         {
             string[] parameters = new string[1];
@@ -68,11 +88,16 @@ namespace MazeRunner2016.Controls
             mazesBox.Items.Refresh();
         }
 
+        /// <summary>
+        /// removes all the mazes in our system
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         private void removeAllBtn_Click(object sender, RoutedEventArgs e)
         {
             string[] parameters = new string[1];
             ExitDialog remove = new ExitDialog("Are you sure you want to remove all the mazes ");
-            if (remove.ShowDialog() == true)
+            if (remove.ShowDialog() == true) //if we press ok
             {
                 m_view.activateEvent(sender, new MazeEventArgs(parameters));
             }
@@ -81,11 +106,16 @@ namespace MazeRunner2016.Controls
                 return;
             }
             m_view.activateEvent(sender, new MazeEventArgs(parameters));
-            Items.Clear();
+            Items.Clear(); //clear all the mazes
             mazesBox.ItemsSource = Items;
-            mazesBox.Items.Refresh();
+            mazesBox.Items.Refresh(); //update
         }
 
+        /// <summary>
+        /// enable the buttons
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         private void mazesBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             removeBtn.IsEnabled = true;

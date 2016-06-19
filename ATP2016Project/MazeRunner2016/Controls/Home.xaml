@@ -14,6 +14,7 @@
         <Label Name="title" Padding="20,20,20,20" FontSize="32" FontWeight="SemiBold" Foreground="DarkRed" VerticalAlignment="Center" HorizontalAlignment="Center">Welcome to Maze Runner</Label>
         <Border Grid.Row="1" BorderBrush="AliceBlue" BorderThickness="1,1,1,1" Padding="10,10,10,10">
             <TextBlock Grid.Row="1" TextWrapping="Wrap" FontWeight="Bold">This game was developed by Yakir Hershkoviz and Shahar Cohen as part of their project in Advanced Topics In Programing<LineBreak/>
+                Please read the instructions first (Help -> Intructions)<LineBreak/>
                 <LineBreak/>this game features:<LineBreak/>
                 - A maze generator - you can create mazes in different sizes<LineBreak/>
                 - Playable mazes - in every maze that you generate you can play and solve it by yourself<LineBreak/>

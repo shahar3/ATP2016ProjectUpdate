@@ -23,6 +23,7 @@ namespace MazeRunner2016.Controls
     /// </summary>
     public partial class MazeControl : UserControl
     {
+        #region class fields
         private int maxLevel, curLevel;
         private Maze3d myMaze;
         private IView view;
@@ -30,17 +31,26 @@ namespace MazeRunner2016.Controls
         private Grid prevGrid;
         private List<int> levelsVisited;
         private string mazeName;
-        private PlayerControl player;
+        #endregion
 
+        /// <summary>
+        /// the defualt constructor
+        /// </summary>
         public MazeControl()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// the constructor we use
+        /// </summary>
+        /// <param name="mazeObject">the maze to draw</param>
+        /// <param name="view">the view layer</param>
+        /// <param name="mazeName">the name of the maze</param>
         public MazeControl(Object mazeObject, IView view, string mazeName)
         {
             InitializeComponent();
-            levelsGrid = new Dictionary<int, Grid>();
+            levelsGrid = new Dictionary<int, Grid>(); //keeps the grid of each level
             levelsVisited = new List<int>();
             this.mazeName = mazeName;
             this.view = view;
@@ -49,16 +59,23 @@ namespace MazeRunner2016.Controls
             int x = (myMaze.Maze2DLayers[0] as Maze2d).Grid.GetLength(0);
             int y = (myMaze.Maze2DLayers[0] as Maze2d).Grid.GetLength(1);
             int z = myMaze.ZLength;
-            maxLevel = z;
-            curLevel = 0;
-            createGrid(x, y, 0);
-            initializeGrid(myMaze, levelsGrid[0], 0, true);
-            prevGrid = levelsGrid[0];
+            maxLevel = z; //set the max level
+            curLevel = 0; //set the cur level
+            createGrid(x, y, 0); //create the grid for the level
+            initializeGrid(myMaze, levelsGrid[0], 0, true); //draws our maze on it
+            prevGrid = levelsGrid[0]; //keep track of the last grid
             levelsVisited.Add(0);
         }
 
+        /// <summary>
+        /// create a grid panel to fit in our maze.
+        /// </summary>
+        /// <param name="x">rows</param>
+        /// <param name="y">columns</param>
+        /// <param name="level">current level</param>
         private void createGrid(int x, int y, int level)
         {
+            //check if grid already created
             if (levelsGrid.ContainsKey(level))
             {
                 return;
@@ -83,31 +100,42 @@ namespace MazeRunner2016.Controls
             levelsGrid[level] = mazeGrid;
         }
 
+        /// <summary>
+        /// initialize the grid and locate our maze controls on it
+        /// </summary>
+        /// <param name="myMaze">the maze we draw</param>
+        /// <param name="mazeGrid">the grid we use</param>
+        /// <param name="curLevel">the current level</param>
+        /// <param name="firstTime">check if it's the first time</param>
         private void initializeGrid(Maze3d myMaze, Grid mazeGrid, int curLevel, bool firstTime)
         {
             if (!levelsVisited.Contains(curLevel))
             {
                 //initialize the grid
-                Maze2d myMazeGrid = myMaze.Maze2DLayers[curLevel] as Maze2d;
+                Maze2d myMazeGrid = myMaze.Maze2DLayers[curLevel] as Maze2d; //get the grid
                 for (int i = 0; i < myMazeGrid.Grid.GetLength(0); i++)
                 {
                     for (int j = 0; j < myMazeGrid.Grid.GetLength(1); j++)
                     {
+                        //check if its start point
                         if (myMaze.StartPoint.X * 2 + 1 == i && myMaze.StartPoint.Y * 2 + 1 == j && curLevel == 0)
                         {
                             StartC start = new StartC();
                             placeInGrid(mazeGrid, i, j, start);
                         }
+                        //check if its goal point
                         else if (myMaze.GoalPoint.X * 2 + 1 == i && myMaze.GoalPoint.Y * 2 + 1 == j && curLevel == maxLevel - 1)
                         {
                             GoalC goal = new GoalC();
                             placeInGrid(mazeGrid, i, j, goal);
                         }
+                        //check if its wall
                         else if (myMazeGrid.Grid[i, j] == 1)
                         {
                             WallC wall = new WallC();
                             placeInGrid(mazeGrid, i, j, wall);
                         }
+                        //check if its pass
                         else
                         {
                             PassC pass = new PassC();
@@ -125,6 +153,13 @@ namespace MazeRunner2016.Controls
             levelsVisited.Add(curLevel);
         }
 
+        /// <summary>
+        /// place the maze control (start,goal,pass,wall) in the appropriate place in our grid
+        /// </summary>
+        /// <param name="mazeGrid">the grid</param>
+        /// <param name="i">row</param>
+        /// <param name="j">column</param>
+        /// <param name="ui">the element</param>
         private static void placeInGrid(Grid mazeGrid, int i, int j, UIElement ui)
         {
             Grid.SetColumn(ui, j);
@@ -132,9 +167,14 @@ namespace MazeRunner2016.Controls
             mazeGrid.Children.Add(ui);
         }
 
+        /// <summary>
+        /// go to the next level and draw the grid
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         private void nextLevelBtn_Click(object sender, RoutedEventArgs e)
         {
-            curLevel = Int32.Parse(levelNumber.Text);
+            curLevel = Int32.Parse(levelNumber.Text); //gets cur level
             //check max/min val
             if (++curLevel > maxLevel)
             {
@@ -148,6 +188,11 @@ namespace MazeRunner2016.Controls
             initializeGrid(myMaze, levelsGrid[curLevel - 1], curLevel - 1, false);
         }
 
+        /// <summary>
+        /// go to the level below our current level and creates the grid
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         private void prevLevelBtn_Click(object sender, RoutedEventArgs e)
         {
             curLevel = Int32.Parse(levelNumber.Text);
@@ -163,18 +208,11 @@ namespace MazeRunner2016.Controls
             initializeGrid(myMaze, levelsGrid[curLevel - 1], curLevel - 1, false);
         }
 
-        private void redrawSolution(int x, int y)
-        {
-            levelsGrid.Clear();
-            levelsVisited.Clear();
-            levelNumber.Text = "1";
-            mainPanel.Children.Remove(prevGrid);
-            createGrid(x, y, 0);
-            initializeGrid(myMaze, levelsGrid[0], 0, true);
-            prevGrid = levelsGrid[0];
-            levelsVisited.Add(0);
-        }
-
+        /// <summary>
+        /// opens our game window
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         private void playBtn_Click(object sender, RoutedEventArgs e)
         {
             GameWindow gameWindow = new GameWindow(myMaze, mazeName, view);

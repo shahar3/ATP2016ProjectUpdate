@@ -110,14 +110,8 @@
     <Compile Include="Controls\solutionC.xaml.cs">
       <DependentUpon>solutionC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SolutionInfoControl.xaml.cs">
-      <DependentUpon>SolutionInfoControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\StartC.xaml.cs">
       <DependentUpon>StartC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\StatisticsControl.xaml.cs">
-      <DependentUpon>StatisticsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\timerC.xaml.cs">
       <DependentUpon>timerC.xaml</DependentUpon>
@@ -200,15 +194,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\SolutionInfoControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\StartC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\StatisticsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

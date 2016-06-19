@@ -21,20 +21,20 @@ namespace MazeRunner2016.Controls
     public partial class BulbC : UserControl
     {
         /// <summary>
-        /// 
+        /// The constructor get a boolean to determine the bulb mode (on or off)
         /// </summary>
-        /// <param name="mode"></param>
+        /// <param name="mode">true=on,false=off</param>
         public BulbC(bool mode)
         {
             InitializeComponent();
-            if (mode)
+            if (mode) //the bulb is on
             {
                 Image on = new Image();
                 BitmapImage bitImg = new BitmapImage(new Uri(@"/Pics\light on.png", UriKind.Relative));
                 on.Source = bitImg;
                 main.Children.Add(on);
             }
-            else
+            else //the bulb is off
             {
                 Image off = new Image();
                 BitmapImage bitImg = new BitmapImage(new Uri(@"/Pics\light off.png", UriKind.Relative));
@@ -43,17 +43,21 @@ namespace MazeRunner2016.Controls
             }
         }
 
+        /// <summary>
+        /// with this function we can toggle between the modes of the bulb
+        /// </summary>
+        /// <param name="mode"></param>
         public void changeMode(bool mode)
         {
             main.Children.Clear();
-            if (mode)
+            if (mode) //bulb is on
             {
                 Image on = new Image();
                 BitmapImage bitImg = new BitmapImage(new Uri(@"/Pics\light on.png", UriKind.Relative));
                 on.Source = bitImg;
                 main.Children.Add(on);
             }
-            else
+            else //bulb is off
             {
                 Image off = new Image();
                 BitmapImage bitImg = new BitmapImage(new Uri(@"/Pics\light off.png", UriKind.Relative));

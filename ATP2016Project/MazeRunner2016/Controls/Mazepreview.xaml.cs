@@ -21,11 +21,16 @@ namespace MazeRunner2016.Controls
     /// </summary>
     public partial class Mazepreview : UserControl
     {
-        private string mazeToShow;
-        private Maze3d myMaze;
         private IView m_view;
         private Dictionary<int, Grid> levelsGrid;
 
+        /// <summary>
+        /// our constructor. frow here we build the first level of our maze
+        /// to give a sneak view to the maze
+        /// </summary>
+        /// <param name="myMaze">our maze</param>
+        /// <param name="view">the view layer</param>
+        /// <param name="mazeToShow">the maze we want to show</param>
         public Mazepreview(Maze3d myMaze, IView view, string mazeToShow)
         {
             InitializeComponent();
@@ -36,11 +41,17 @@ namespace MazeRunner2016.Controls
             int x = (myMaze.Maze2DLayers[0] as Maze2d).Grid.GetLength(0);
             int y = (myMaze.Maze2DLayers[0] as Maze2d).Grid.GetLength(1);
             int z = myMaze.ZLength;
-            createGrid(x, y, 0);
-            initializeGrid(myMaze, levelsGrid[0], 0);
+            createGrid(x, y, 0); //create the grid
+            initializeGrid(myMaze, levelsGrid[0], 0); //initialize the maze
             mazePanel.Children.Add(levelsGrid[0]);
         }
 
+        /// <summary>
+        /// creates the grid of the maze
+        /// </summary>
+        /// <param name="x">rows</param>
+        /// <param name="y">cols</param>
+        /// <param name="level">cur level</param>
         private void createGrid(int x, int y, int level)
         {
             //create our maze grid
@@ -63,6 +74,12 @@ namespace MazeRunner2016.Controls
             levelsGrid[level] = mazeGrid;
         }
 
+        /// <summary>
+        /// draw the maze walls
+        /// </summary>
+        /// <param name="myMaze">the maze</param>
+        /// <param name="mazeGrid">the grid</param>
+        /// <param name="curLevel">current level</param>
         private void initializeGrid(Maze3d myMaze, Grid mazeGrid, int curLevel)
         {
             //initialize the grid
@@ -72,6 +89,7 @@ namespace MazeRunner2016.Controls
                 for (int j = 0; j < myMazeGrid.Grid.GetLength(1); j++)
                 {
                     Label cell = new Label();
+                    //check the start point
                     if (myMaze.StartPoint.X * 2 + 1 == i && myMaze.StartPoint.Y * 2 + 1 == j && curLevel == 0)
                     {
                         cell.Content = "S";
@@ -86,7 +104,7 @@ namespace MazeRunner2016.Controls
                     {
                         cell.Background = Brushes.Black;
                     }
-                    Grid.SetColumn(cell, j);
+                    Grid.SetColumn(cell, j); //locate the cell
                     Grid.SetRow(cell, i);
                     mazeGrid.Children.Add(cell);
                 }
