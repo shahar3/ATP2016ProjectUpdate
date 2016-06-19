@@ -396,6 +396,7 @@ namespace MazeRunner2016
         /// <param name="parameters">parameters</param>
         private void RunInThreadPool(string CommandName, string mazeName, string parameters)
         { //10,10,3 
+
             switch (CommandName)
             {
                 case "generate3dMaze":
